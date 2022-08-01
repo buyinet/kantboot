@@ -60,8 +60,8 @@ public class TpWechatAppletParam {
     /**
      * 微信支付id
      */
-    @Column(name="pay_wechat_pay_id")
-    private Long payWechatPayId;
+    @Column(name="wechat_pay_param_id")
+    private Long wechatPayParamId;
 
 
     /**
@@ -80,8 +80,8 @@ public class TpWechatAppletParam {
 
     @OneToOne(targetEntity = TpWechatPayParam.class,
             fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "pay_wechat_pay_id",referencedColumnName = "id",insertable = false,updatable = false)
-    private TpWechatPayParam payWechatPay;
+    @JoinColumn(name = "wechat_pay_param_id",referencedColumnName = "id",insertable = false,updatable = false)
+    private TpWechatPayParam wechatPayParam;
 
     /**
      * 获取WechatAppletConfig类
@@ -89,22 +89,22 @@ public class TpWechatAppletParam {
      * @return
      */
     public WechatAppletConfig getWechatAppletConfig(){
-        if(payWechatPayId==null){
+        if(getWechatPayParamId()==null){
             return null;
         }
         return new WechatAppletConfig().setSecret(appSecret).setAppid(appId);
     }
 
     public WechatPayConfig getWechatPayConfig(){
-        if(payWechatPayId==null){
+        if(getWechatPayParamId()==null){
             return null;
         }
         return new WechatPayConfig()
-                .setAppid(appId)
-                .setSecret(appSecret)
-                .setNotifyUri(payWechatPay.getNotifyUri())
-                .setMchKey(payWechatPay.getMchKey())
-                .setMchId(payWechatPay.getMchId());
+                .setAppid(getAppId())
+                .setSecret(getAppSecret())
+                .setNotifyUri(getWechatPayParam().getNotifyUri())
+                .setMchKey(getWechatPayParam().getMchKey())
+                .setMchId(getWechatPayParam().getMchId());
     }
 
     @JsonIgnore
@@ -116,7 +116,7 @@ public class TpWechatAppletParam {
     @JoinColumn(name = "setting_id",referencedColumnName = "id",insertable = false,updatable = false)
     private SysSetting setting;
 
-    private Boolean isDefault(){
+    private boolean isDefault(){
         if(getSetting()==null){
             return false;
         }

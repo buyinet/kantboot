@@ -79,7 +79,11 @@
                 <artifactId>kantboot-third-party-wechat-pay</artifactId>
                 <version>${kantboot.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.kantboot</groupId>
+                <artifactId>kantboot-third-party-module</artifactId>
+                <version>${kantboot.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.kantboot</groupId>
                 <artifactId>kantboot-application</artifactId>

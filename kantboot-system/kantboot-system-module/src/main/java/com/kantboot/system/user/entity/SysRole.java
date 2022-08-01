@@ -113,8 +113,7 @@ public class SysRole implements Serializable {
      * 判断是否为默认的角色
      * @return
      */
-    @Transient
-    public Boolean isDefault() {
+    public boolean isDefault() {
         if (getSetting() == null) {
             return false;
         }

@@ -22,6 +22,7 @@
     <modules>
         <module>kantboot-third-party-wechat</module>
         <module>kantboot-third-party-module</module>
+        <module>kantboot-third-party-web-starter</module>
     </modules>
     <dependencies>
         <dependency>
