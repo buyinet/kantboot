@@ -1,5 +1,7 @@
 # kantboot基础架构
-
+### 安装
+> 
+> git clone https://github.com/buyinet/kantboot.git
 ## 1、kantboot-application（配置文件模块）
 
 > 此模块为配置文件框架，所有子模块都会使用此处的配置文件。 
@@ -44,7 +46,7 @@
 > > ```java
 > > import com.kantboot.project.util.common.util.RestResult;
 > > ```   
-> 
+> > 
 > > #### 操作案例:
 > >
 > > ``` java
@@ -54,11 +56,11 @@
 > >     map.put("opt":"笑笑");
 > >     return RestResult.success(map,"操作成功");
 > > }
-> 详细阅读此模块，请前往
+> 详细阅读此模块，查看
 > <a src="kantboot-util/kantboot-util-common">
 >   kantboot-util/kantboot-util-common
 > </a>
->查看README.md
+> 下的README.md
 
 
 ## 3、kantboot-system （系统模块）
