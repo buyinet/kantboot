@@ -1,0 +1,25 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        prefix: ${spring.application.name}
+        server-addr: 127.0.0.1:8848
+        connectTimeoutInMills: 3000
+        namespace: prod
+        extension-configs[0]: #可以引入多个公共的配置文件，0代表第一个
+          data-id: database.yaml #公共的配置文件
+          group: DEFAULT_GROUP
+          refresh: true
+        extension-configs[1]:
+          data-id: swagger.yaml #公共的配置文件
+          group: DEFAULT_GROUP
+          refresh: true
+        extension-configs[2]: #可以引入多个公共的配置文件，0代表第一个
+          data-id: gateway.yaml #公共的配置文件
+          group: DEFAULT_GROUP
+          refresh: true
+        extension-configs[3]: #可以引入多个公共的配置文件，0代表第一个
+          data-id: logback.xml #公共的配置文件
+          group: DEFAULT_GROUP
+          refresh: true
