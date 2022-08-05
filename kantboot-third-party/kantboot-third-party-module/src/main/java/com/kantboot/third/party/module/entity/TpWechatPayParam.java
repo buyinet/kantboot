@@ -77,6 +77,8 @@ public class TpWechatPayParam {
     @Column(name="gmt_modified",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date gmtModified;
 
+
+
 }
 
 

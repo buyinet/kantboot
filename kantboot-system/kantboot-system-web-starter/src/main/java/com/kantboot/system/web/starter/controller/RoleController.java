@@ -23,9 +23,14 @@ public class RoleController extends BaseController<SysRole,Long> {
     @Resource
     ISysRoleService roleService;
 
-    @PostMapping("/set_default")
-    public RestResult<?> setDefault(@RequestParam("id") Long id){
-        return RestResult.success(roleService.setDefault(id),"设置成功");
+    @PostMapping("/set_default_use")
+    public RestResult<?> setDefaultUse(@RequestParam("id") Long id){
+        return RestResult.success(roleService.setDefaultUse(id),"设置成功");
+    }
+
+    @PostMapping("/get_default_use")
+    public RestResult<?> getDefaultUse(){
+        return RestResult.success(roleService.getDefaultUse(),"获取成功");
     }
 
     /**

@@ -36,8 +36,8 @@ public class SysSetting {
      * 用例：
      *  在用户注册时会对应此角色用来注册
      */
-    @Column(name="role_id_by_default")
-    private Long roleIdByDefault;
+    @Column(name="role_id_by_default_use")
+    private Long roleIdByDefaultUse;
 
     /**
      * 采用默认的微信小程序Id

@@ -1,5 +1,6 @@
 package com.kantboot.third.party.module.service.impl;
 
+import com.kantboot.system.user.entity.SysSetting;
 import com.kantboot.system.user.service.ISysSettingService;
 import com.kantboot.third.party.module.entity.TpWechatAppletParam;
 import com.kantboot.third.party.module.repository.TpWechatAppletParamRepository;
@@ -18,14 +19,17 @@ public class TpWechatAppletParamServiceImpl implements ITpWechatAppletParamServi
     TpWechatAppletParamRepository repository;
 
     @Override
-    public TpWechatAppletParam getDefault() {
+    public TpWechatAppletParam getDefaultUse() {
         Long appletWechatParamIdByDefault = sysSettingService.getSetting().getAppletWechatParamIdByDefault();
         TpWechatAppletParam tpWechatAppletParam = repository.findById(appletWechatParamIdByDefault).get();
         return tpWechatAppletParam;
     }
 
     @Override
-    public TpWechatAppletParam setDefault(Long id) {
-        return null;
+    public TpWechatAppletParam setDefaultUse(Long id) {
+        SysSetting sysSetting = sysSettingService.getSetting().setAppletWechatParamIdByDefault(id);
+        sysSettingService.setWechatAppletParamIdByDefault(id);
+        TpWechatAppletParam tpWechatAppletParam = repository.findById(id).get();
+        return tpWechatAppletParam;
     }
 }

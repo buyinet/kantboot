@@ -1,0 +1,20 @@
+
+.u-page__item__slot-icon{
+	height: 40rpx;
+	width: 40rpx;
+}
+.tabbar{
+}
+.tabbar-view{
+	position: fixed;
+	bottom: 40rpx;
+	width: 700rpx;
+	margin-left: 50%;
+	padding: 10rpx;
+	background-color: #FFF;
+	border-radius: 20rpx;
+	box-shadow: 0 0 10rpx rgba(118,118,118,.2);
+	-webkit-transform: translateX(-50%);
+	        transform: translateX(-50%);
+}
+

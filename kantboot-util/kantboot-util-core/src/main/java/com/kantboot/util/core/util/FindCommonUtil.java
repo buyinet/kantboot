@@ -1,5 +1,6 @@
 package com.kantboot.util.core.util;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -13,11 +14,13 @@ import org.springframework.util.StringUtils;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -38,21 +41,26 @@ public class FindCommonUtil<T> {
         String andEqJSONString = JSON.toJSONString(andEq);
         List<HashMap> andEqMaps = JSON.parseArray(andEqJSONString, HashMap.class);
 
+
         List<T> andLike = commonEntity.getAnd().getLike();
         String andLikeJSONString = JSON.toJSONString(andLike);
         List<HashMap> andLikeMaps = JSON.parseArray(andLikeJSONString, HashMap.class);
+
 
         List<T> andVague = commonEntity.getAnd().getVague();
         String andVagueJSONString = JSON.toJSONString(andVague);
         List<HashMap> andVagueMaps = JSON.parseArray(andVagueJSONString, HashMap.class);
 
+
         List<T> andGt = commonEntity.getAnd().getGt();
         String andGtJSONString = JSON.toJSONString(andGt);
         List<HashMap> andGtMaps = JSON.parseArray(andGtJSONString, HashMap.class);
 
+
         List<T> andLt = commonEntity.getAnd().getLt();
         String andLtJSONString = JSON.toJSONString(andLt);
         List<HashMap> andLtMaps = JSON.parseArray(andLtJSONString, HashMap.class);
+
 
         List<T> andGe = commonEntity.getAnd().getGe();
         String andGeJSONString = JSON.toJSONString(andGe);
@@ -67,13 +75,16 @@ public class FindCommonUtil<T> {
         String orEqJSONString = JSON.toJSONString(orEq);
         List<HashMap> orEqMaps = JSON.parseArray(orEqJSONString, HashMap.class);
 
+
         List<T> orLike = commonEntity.getOr().getLike();
         String orLikeJSONString = JSON.toJSONString(orLike);
         List<HashMap> orLikeMaps = JSON.parseArray(orLikeJSONString, HashMap.class);
 
+
         List<T> orVague = commonEntity.getOr().getVague();
         String orVagueJSONString = JSON.toJSONString(orVague);
         List<HashMap> orVagueMaps = JSON.parseArray(orVagueJSONString, HashMap.class);
+
 
         List<T> orGt = commonEntity.getOr().getGt();
         String orGtJSONString = JSON.toJSONString(orGt);
@@ -83,6 +94,7 @@ public class FindCommonUtil<T> {
         String orLtJSONString = JSON.toJSONString(orLt);
         List<HashMap> orLtMaps = JSON.parseArray(orLtJSONString, HashMap.class);
 
+
         List<T> orGe = commonEntity.getOr().getGe();
         String orGeJSONString = JSON.toJSONString(orGe);
         List<HashMap> orGeMaps = JSON.parseArray(orGeJSONString, HashMap.class);
@@ -90,7 +102,17 @@ public class FindCommonUtil<T> {
         List<T> orLe = commonEntity.getAnd().getLe();
         String orLeJSONString = JSON.toJSONString(orLe);
         List<HashMap> orLeMaps = JSON.parseArray(orLeJSONString, HashMap.class);
-
+//        for (HashMap mapItem : orLeMaps) {
+//            Set<String> set = mapItem.keySet();
+//
+//            Iterator<String> iterator1 = set.iterator();
+//            while (iterator1.hasNext()) {
+//                String o = iterator1.next();
+//                if(isHasTransient(commonEntity.getEntity(),o)) {
+//                    iterator1.remove();
+//                }
+//            }
+//        }
         Specification<T> specification = new Specification<T>() {
             @Override
             public Predicate toPredicate(Root<T> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
@@ -115,6 +137,8 @@ public class FindCommonUtil<T> {
                 for (HashMap map : andEqMaps) {
                     Set<String> set = map.keySet();
                     for (String s : set) {
+
+
                         if (!StringUtils.isEmpty(map.get(s))) {
                             if (!(map.get(s) instanceof JSONArray) && !(map.get(s) instanceof JSONObject) ) {
 
@@ -154,7 +178,11 @@ public class FindCommonUtil<T> {
                 //查询所有 and 下的 % 条件
                 for (HashMap map : andLikeMaps) {
                     Set<String> set = map.keySet();
+
                     for (String s : set) {
+
+
+
                         if (!StringUtils.isEmpty(map.get(s))) {
                             if (!(map.get(s) instanceof JSONArray) && !(map.get(s) instanceof JSONObject) ){
                                 predicatesByAnd.add(
@@ -191,6 +219,8 @@ public class FindCommonUtil<T> {
                 for (HashMap map : andVagueMaps) {
                     Set<String> set = map.keySet();
                     for (String s : set) {
+
+
                         if (!StringUtils.isEmpty(map.get(s))) {
                             if (!(map.get(s) instanceof JSONArray) && !(map.get(s) instanceof JSONObject) ) {
                                 predicatesByAnd.add(
@@ -206,9 +236,11 @@ public class FindCommonUtil<T> {
                                     HashMap<String, Object> hashMap = JSON.parseObject(s1, HashMap.class);
                                     Set<String> set1 = hashMap.keySet();
                                     for (String s2 : set1) {
-                                        predicatesByAnd.add(
-                                                criteriaBuilder
-                                                        .like(root.join(s).get(s2), "%" + hashMap.get(s2) + "%"));
+                                        if(hashMap.get(s2) instanceof String){
+                                            predicatesByAnd.add(
+                                                    criteriaBuilder
+                                                            .like(root.join(s).get(s2), "%" + hashMap.get(s2) + "%"));
+                                        }
                                     }
                                 }
                             }
@@ -230,6 +262,9 @@ public class FindCommonUtil<T> {
                 for (HashMap map : andGtMaps) {
                     Set<String> set = map.keySet();
                     for (String s : set) {
+
+
+
                         if (!(map.get(s) instanceof JSONArray) && !(map.get(s) instanceof JSONObject) ) {
 
                             if (!(map.get(s) instanceof JSONArray)) {
@@ -328,6 +363,8 @@ public class FindCommonUtil<T> {
                 for (HashMap map : andLtMaps) {
                     Set<String> set = map.keySet();
                     for (String s : set) {
+
+
                         if (!StringUtils.isEmpty(map.get(s))) {
 
                             if (!(map.get(s) instanceof JSONArray) && !(map.get(s) instanceof JSONObject) ) {
@@ -427,6 +464,8 @@ public class FindCommonUtil<T> {
                 for (HashMap map : andGeMaps) {
                     Set<String> set = map.keySet();
                     for (String s : set) {
+
+
                         if (!StringUtils.isEmpty(map.get(s))) {
 
                             if (!(map.get(s) instanceof JSONArray)) {
@@ -524,6 +563,16 @@ public class FindCommonUtil<T> {
                 for (HashMap map : andLeMaps) {
                     Set<String> set = map.keySet();
                     for (String s : set) {
+                        boolean bool=true;
+                        if(isHasTransient(commonEntity.getEntity(),s)) {
+                            bool=false;
+                        }
+                        if(bool){
+
+                        }
+                        else
+
+
                         if (!StringUtils.isEmpty(map.get(s))) {
 
                             if (!(map.get(s) instanceof JSONArray)) {
@@ -628,6 +677,9 @@ public class FindCommonUtil<T> {
                 for (HashMap map : orEqMaps) {
                     Set<String> set = map.keySet();
                     for (String s : set) {
+
+
+
                         if (!StringUtils.isEmpty(map.get(s))) {
                             if (!(map.get(s) instanceof JSONArray)) {
                                 predicatesByOr.add(
@@ -666,6 +718,9 @@ public class FindCommonUtil<T> {
                 for (HashMap map : orLikeMaps) {
                     Set<String> set = map.keySet();
                     for (String s : set) {
+
+
+
                         if (!StringUtils.isEmpty(map.get(s))) {
                             if (!(map.get(s) instanceof JSONArray)) {
                                 predicatesByOr.add(
@@ -706,6 +761,9 @@ public class FindCommonUtil<T> {
                 for (HashMap map : orVagueMaps) {
                     Set<String> set = map.keySet();
                     for (String s : set) {
+
+
+
                         if (!StringUtils.isEmpty(map.get(s))) {
                             if (!(map.get(s) instanceof JSONArray)) {
                                 predicatesByOr.add(
@@ -745,6 +803,7 @@ public class FindCommonUtil<T> {
                 for (HashMap map : orGtMaps) {
                     Set<String> set = map.keySet();
                     for (String s : set) {
+
                         if (!StringUtils.isEmpty(map.get(s))) {
 
                             if (!(map.get(s) instanceof JSONArray)) {
@@ -843,6 +902,7 @@ public class FindCommonUtil<T> {
                 for (HashMap map : orLtMaps) {
                     Set<String> set = map.keySet();
                     for (String s : set) {
+
                         if (!StringUtils.isEmpty(map.get(s))) {
 
                             if (!(map.get(s) instanceof JSONArray)) {
@@ -939,6 +999,9 @@ public class FindCommonUtil<T> {
                 for (HashMap map : orGeMaps) {
                     Set<String> set = map.keySet();
                     for (String s : set) {
+
+
+
                         if (!StringUtils.isEmpty(map.get(s))) {
 
                             if (!(map.get(s) instanceof JSONArray)) {
@@ -1035,6 +1098,9 @@ public class FindCommonUtil<T> {
                 for (HashMap map : orLeMaps) {
                     Set<String> set = map.keySet();
                     for (String s : set) {
+
+
+
                         if (!StringUtils.isEmpty(map.get(s))) {
 
                             if (!(map.get(s) instanceof JSONArray)) {
@@ -1169,6 +1235,78 @@ public class FindCommonUtil<T> {
         return null;
     }
 
+    public Boolean isHasTransient(Object object,String fieldName) {
+//        isHasTransientByFiled(object,fieldName) ||
+        if(isHasTransientByMethod(object,fieldName)){
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean isHasTransientByFiled(Object object,String fieldName){
+        // 从Class对象中获取Demo中声明方法对应的Method对象
+        Field field = null;
+        try {
+            field = object.getClass().getDeclaredField(fieldName);
+        } catch (NoSuchFieldException e) {
+            return true;
+//            throw new RuntimeException(e);
+        }
+
+//        System.out.println(field.getName()+":"+field.isAnnotationPresent(Transient.class));
+        // 判断方法是否被加上了@Transient这个注解
+        if (field.isAnnotationPresent(Transient.class) || field.isAnnotationPresent(org.springframework.data.annotation.Transient.class)) {
+            field.setAccessible(true);
+            return true;
+        }
+        return false;
+    }
+    public Boolean isHasTransientByMethod(Object object,String fieldName){
+        Method method=null;
+        Boolean ab=false;
+        try {
+            String methodName="get"+ StrUtil.upperFirst(fieldName);
+            method=object.getClass().getDeclaredMethod(methodName);
+        } catch (NoSuchMethodException e) {
+//            throw new RuntimeException(e);
+            ab=true;
+        }
+
+
+        Method method1=null;
+        Boolean bb=false;
+        try {
+            String methodName="is"+ StrUtil.upperFirst(fieldName);
+            method1=object.getClass().getDeclaredMethod(methodName);
+        } catch (NoSuchMethodException ex) {
+//                throw new RuntimeException(ex);
+            bb=true;
+        }
+
+        if(ab&&bb){
+            return true;
+        }
+
+        if(!ab){
+            System.out.println(method.getName()+":"+method.isAnnotationPresent(Transient.class));
+            // 判断方法是否被加上了@Transient这个注解
+            if (method.isAnnotationPresent(Transient.class) || method.isAnnotationPresent(org.springframework.data.annotation.Transient.class)) {
+                method.setAccessible(true);
+                return true;
+            }
+
+        }
+        if(!bb){
+            System.out.println(method1.getName()+":"+method1.isAnnotationPresent(Transient.class));
+            // 判断方法是否被加上了@Transient这个注解
+            if (method1.isAnnotationPresent(Transient.class) || method1.isAnnotationPresent(org.springframework.data.annotation.Transient.class)) {
+                method1.setAccessible(true);
+                return true;
+            }
+        }
+        return false;
+
+    }
     /**
      * 获得所有不为空的字段
      *

@@ -16,11 +16,11 @@ public interface ISysRoleService {
      * 设置默认角色
      * @return
      */
-    SysRole setDefault(Long id);
+    SysRole setDefaultUse(Long id);
 
     /**
      * 获取默认角色
      * @return
      */
-    SysRole getDefault();
+    SysRole getDefaultUse();
 }

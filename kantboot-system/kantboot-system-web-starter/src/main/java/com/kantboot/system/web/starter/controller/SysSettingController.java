@@ -1,7 +1,9 @@
 package com.kantboot.system.web.starter.controller;
 
 import com.kantboot.project.util.common.util.RestResult;
+import com.kantboot.system.user.entity.SysSetting;
 import com.kantboot.system.user.service.ISysSettingService;
+import com.kantboot.util.core.controller.BaseController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +16,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/setting")
-public class SysSettingController {
+public class SysSettingController extends BaseController<SysSetting,Long> {
 
     @Resource
     ISysSettingService service;

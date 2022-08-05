@@ -1,0 +1,1 @@
+<view><image class="back-image" mode="widthFix" src="../../static/4.png"></image><view style="height:100px;"></view><view class="btn_images"><image class="image_change" src="../../static/index_1.png"></image><image class="image_play" src="../../static/index_3.png"></image><image class="image_collection" src="../../static/index_2.png"></image></view></view>

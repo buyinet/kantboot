@@ -30,21 +30,21 @@ public class SysRoleServiceImpl implements ISysRoleService {
     SysSettingServiceImpl sysSettingService;
 
     @Override
-    public SysRole setDefault(Long id) {
+    public SysRole setDefaultUse(Long id) {
         SysRole sysRole = sysRoleRepository.findById(id).get();
         sysSettingService.setRoleIdByDefault(sysRole.getId());
         return sysRole;
     }
 
     @Override
-    public SysRole getDefault() {
-        SysRole sysRole = sysRoleRepository.findById(sysSettingService.getSetting().getRoleIdByDefault()).get();
+    public SysRole getDefaultUse() {
+        SysRole sysRole = sysRoleRepository.findById(sysSettingService.getSetting().getRoleIdByDefaultUse()).get();
         return sysRole;
     }
 
     @Override
     public List<SysRole> roleByUserJoin() {
-        Long roleIdByDefault = sysSettingService.getSetting().getRoleIdByDefault();
+        Long roleIdByDefault = sysSettingService.getSetting().getRoleIdByDefaultUse();
         SysRole sysRole = null;
         try{
             sysRole = sysRoleRepository.findById(roleIdByDefault).get();

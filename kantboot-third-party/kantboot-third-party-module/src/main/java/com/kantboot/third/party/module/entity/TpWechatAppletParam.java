@@ -96,7 +96,7 @@ public class TpWechatAppletParam {
     }
 
     public WechatPayConfig getWechatPayConfig(){
-        if(getWechatPayParamId()==null){
+        if(getWechatPayParamId()==null||getWechatPayParam()==null){
             return null;
         }
         return new WechatPayConfig()
@@ -116,11 +116,22 @@ public class TpWechatAppletParam {
     @JoinColumn(name = "setting_id",referencedColumnName = "id",insertable = false,updatable = false)
     private SysSetting setting;
 
-    private boolean isDefault(){
-        if(getSetting()==null){
+    @org.springframework.data.annotation.Transient
+    private Boolean defaultUse;
+
+    /**
+     * 判断是否为默认的角色
+     * @return
+     */
+    public Boolean getDefaultUse() {
+
+        if (getSetting() == null) {
             return false;
         }
-        if(getSetting().getAppletWechatParamIdByDefault().equals(id)){
+        if(getSetting().getAppletWechatParamIdByDefault()==null){
+            return false;
+        }
+        if (getSetting().getAppletWechatParamIdByDefault().equals(id)) {
             return true;
         }
         return false;

@@ -50,6 +50,7 @@ public abstract class BaseController<T, ID> {
             Specification<T> specification = findCommonUtil.findCommon(commonEntity, entityManager, transaction);
             List<T> all = jpaRepository.findAll(specification);
             transaction.commit();
+            entityManager.close();
             return RestResult.success(all, "查询成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,10 +81,12 @@ public abstract class BaseController<T, ID> {
             return RestResult.success(all, "查询成功");
         } catch (Exception e) {
             e.printStackTrace();
+            return RestResult.error("查询失败-catch");
         } finally {
-            entityManager.close();
+            if(entityManager!=null){
+                entityManager.close();
+            }
         }
-        return RestResult.error("查询失败");
     }
 
     /**

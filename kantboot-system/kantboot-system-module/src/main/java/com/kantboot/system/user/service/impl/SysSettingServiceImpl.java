@@ -22,7 +22,7 @@ public class SysSettingServiceImpl implements ISysSettingService {
     @Override
     public void setRoleIdByDefault(Long id) {
         SysSetting sysSetting = getSettingBySet();
-        sysSetting.setRoleIdByDefault(id);
+        sysSetting.setRoleIdByDefaultUse(id);
         repository.save(sysSetting);
     }
 

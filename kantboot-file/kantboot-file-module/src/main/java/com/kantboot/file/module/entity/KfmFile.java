@@ -104,17 +104,17 @@ public class KfmFile {
     private SysSetting setting;
 
     public String getVisitUrlById() {
-        if (setting == null) {
+        if (getSetting() == null) {
             return null;
         }
-        return setting.getHost() + "/kantboot-system/file/visit/" + id;
+        return getSetting().getHost() + "/kantboot-file/file/visit/" + id;
     }
 
     public String getVisitUrlByName() {
-        if (setting == null) {
+        if (getSetting() == null) {
             return null;
         }
-        return setting.getHost() + "/kantboot-system/file/visit/" + this.fileParent.getBodyName() + "/" + this.fileParent.getBodyField() + "/" + name;
+        return getSetting().getHost() + "/kantboot-file/file/visit/" + this.fileParent.getBodyName() + "/" + this.fileParent.getBodyField() + "/" + name;
     }
 
 }

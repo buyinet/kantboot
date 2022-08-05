@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicInsert;
@@ -25,7 +24,6 @@ import java.util.List;
 @Accessors(chain = true)
 @DynamicInsert(true)
 @DynamicUpdate(true)
-@NoArgsConstructor
 public class SysRole implements Serializable {
 
     @Id
@@ -109,18 +107,23 @@ public class SysRole implements Serializable {
     @JoinColumn(name = "setting_id", referencedColumnName = "id", insertable = false, updatable = false)
     private SysSetting setting;
 
+    @org.springframework.data.annotation.Transient
+    private Boolean defaultUse;
+
     /**
      * 判断是否为默认的角色
      * @return
      */
-    public boolean isDefault() {
+    public Boolean getDefaultUse() {
+
         if (getSetting() == null) {
             return false;
         }
-        if (getSetting().getRoleIdByDefault().equals(id)) {
+        if (getSetting().getRoleIdByDefaultUse().equals(id)) {
             return true;
         }
         return false;
     }
+
 
 }

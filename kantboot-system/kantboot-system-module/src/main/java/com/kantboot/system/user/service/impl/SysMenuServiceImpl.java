@@ -155,6 +155,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
                                 .isNull(root.get("pid"))
                 );
                 Predicate[] predicateArr2=new Predicate[predicates2.size()];
+                criteriaQuery.orderBy(criteriaBuilder.desc(root.get("priority")));
                 Predicate and = criteriaBuilder.and(predicates.toArray(predicateArr2));
 
                 return  criteriaQuery.where(or,and).getRestriction();

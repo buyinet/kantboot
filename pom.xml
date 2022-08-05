@@ -53,6 +53,12 @@
             <artifactId>lombok</artifactId>
             <version>1.18.24</version>
         </dependency>
+        <!--HuTool为我们提供的一些便捷工具。-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>4.1.14</version>
+        </dependency>
 
         <dependency>
             <groupId>com.google.guava</groupId>
