@@ -9,9 +9,11 @@
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 5);
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));
-var _login = _interopRequireDefault(__webpack_require__(/*! ./pages/login/login.vue */ 139));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;
-createPage(_login.default);
+
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 4));
+var _login = _interopRequireDefault(__webpack_require__(/*! ./pages/login/login.vue */ 139));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // @ts-ignore
+wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;createPage(_login.default);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ }),
@@ -128,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var Backgroud = function Backgroud() {__webpack_require__.e(/*! require.ensure | pages/login/commpents/Backgroud */ "pages/login/commpents/Backgroud").then((function () {return resolve(__webpack_require__(/*! ./commpents/Backgroud.vue */ 194));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var ButtonByWechatAppletGetPhoneNumber = function ButtonByWechatAppletGetPhoneNumber() {__webpack_require__.e(/*! require.ensure | pages/login/commpents/ButtonByWechatAppletGetPhoneNumber */ "pages/login/commpents/ButtonByWechatAppletGetPhoneNumber").then((function () {return resolve(__webpack_require__(/*! ./commpents/ButtonByWechatAppletGetPhoneNumber.vue */ 201));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var Backgroud = function Backgroud() {__webpack_require__.e(/*! require.ensure | pages/login/commpents/Backgroud */ "pages/login/commpents/Backgroud").then((function () {return resolve(__webpack_require__(/*! ./commpents/Backgroud.vue */ 202));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 
@@ -159,7 +161,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
+var Request = getApp().globalData.Request;
+var Api = getApp().globalData.Api;var ButtonByWechatAppletGetPhoneNumber = function ButtonByWechatAppletGetPhoneNumber() {__webpack_require__.e(/*! require.ensure | pages/login/commpents/ButtonByWechatAppletGetPhoneNumber */ "pages/login/commpents/ButtonByWechatAppletGetPhoneNumber").then((function () {return resolve(__webpack_require__(/*! ./commpents/ButtonByWechatAppletGetPhoneNumber.vue */ 209));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -177,6 +180,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
   },
   onShow: function onShow() {
+    Request.request({
+      url: Api.user.getUserInfo,
+      success: function success(res) {
+        if (res.data.state == 2000) {
+          uni.reLaunch({
+            url: "/pages/static/static" });
+
+        }
+      } });
 
   },
   created: function created() {},
@@ -187,6 +199,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     uNotifyShow: function uNotifyShow(res) {
       this.$refs.uNotify.show(res);
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

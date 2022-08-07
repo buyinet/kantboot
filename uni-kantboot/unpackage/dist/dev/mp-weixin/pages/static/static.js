@@ -9,9 +9,11 @@
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 5);
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));
-var _static = _interopRequireDefault(__webpack_require__(/*! ./pages/static/static.vue */ 167));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;
-createPage(_static.default);
+
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 4));
+var _static = _interopRequireDefault(__webpack_require__(/*! ./pages/static/static.vue */ 167));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // @ts-ignore
+wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;createPage(_static.default);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ }),
@@ -96,10 +98,10 @@ var components
 try {
   components = {
     uTabbar: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-tabbar/u-tabbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-tabbar/u-tabbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-tabbar/u-tabbar.vue */ 208))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-tabbar/u-tabbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-tabbar/u-tabbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-tabbar/u-tabbar.vue */ 216))
     },
     uTabbarItem: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item.vue */ 216))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item.vue */ 224))
     }
   }
 } catch (e) {
@@ -156,7 +158,10 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var pageIndex = function pageIndex() {__webpack_require__.e(/*! require.ensure | commpents/pageIndex/pageIndex */ "commpents/pageIndex/pageIndex").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pageIndex/pageIndex.vue */ 224));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pageHome = function pageHome() {__webpack_require__.e(/*! require.ensure | commpents/pageHome/pageHome */ "commpents/pageHome/pageHome").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pageHome/pageHome.vue */ 231));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var pageIndex = function pageIndex() {__webpack_require__.e(/*! require.ensure | commpents/pageIndex/pageIndex */ "commpents/pageIndex/pageIndex").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pageIndex/pageIndex.vue */ 232));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pageHome = function pageHome() {__webpack_require__.e(/*! require.ensure | commpents/pageHome/pageHome */ "commpents/pageHome/pageHome").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pageHome/pageHome.vue */ 239));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pagePlay = function pagePlay() {__webpack_require__.e(/*! require.ensure | commpents/pagePlay/pagePlay */ "commpents/pagePlay/pagePlay").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pagePlay/pagePlay.vue */ 246));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+
+
+
 
 
 
@@ -204,10 +209,26 @@ var Request = getApp().globalData.Request;
 var Api = getApp().globalData.Api;var _default =
 
 {
+
   components: {
     pageIndex: pageIndex,
-    pageHome: pageHome },
+    pageHome: pageHome,
+    pagePlay: pagePlay },
 
+  onLoad: function onLoad(option) {
+    var pageComponent = option.pageComponent;
+    if (pageComponent == null) {
+      this.pageComponent = "pageIndex";
+    } else {
+      this.pageComponent = pageComponent;
+    }
+    var tabBarList = this.tabBar.list;
+    for (var i = 0; i < tabBarList.length; i++) {
+      if (tabBarList[i].component == pageComponent) {
+        this.tabBar.selectedIndex = i;
+      }
+    }
+  },
   data: function data() {
     return {
       path: Api.path,
@@ -232,7 +253,7 @@ var Api = getApp().globalData.Api;var _default =
         {
           "pagePath": "pages/play/play",
           "text": "正在播放",
-          component: "pageIndex1",
+          component: "pagePlay",
           "iconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/video",
           "selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/video_selected" },
 
@@ -249,14 +270,17 @@ var Api = getApp().globalData.Api;var _default =
   },
   methods: {
     tabBarChange: function tabBarChange(index) {
+
       this.tabBar.selectedIndex = index;
       this.pageComponent = this.tabBar.list[index].component;
+
       if (this.interval != null) {
         clearInterval(this.interval);
       }
       if (this.pageComponent != "pageIndex") {
         this.tabBar.bottom = 0;
         this.tabBar.width = 750;
+
         // this.interval=setInterval(()=>{
         // 	if(this.tabBar.bottom>0){
         // 		this.tabBar.bottom-=3;

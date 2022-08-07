@@ -1,6 +1,6 @@
 package com.kantboot.util.core.exception;
 
-import com.kantboot.project.util.common.exception.BaseException;
+import com.kantboot.util.common.exception.BaseException;
 
 /**
  * 数据库操作失败异常

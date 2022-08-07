@@ -1,6 +1,6 @@
 package com.kantboot.file.module.exception;
 
-import com.kantboot.project.util.common.exception.BaseException;
+import com.kantboot.util.common.exception.BaseException;
 
 public class FileUploadException extends BaseException {
 

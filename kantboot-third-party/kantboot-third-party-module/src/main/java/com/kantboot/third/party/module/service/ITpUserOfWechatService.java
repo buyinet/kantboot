@@ -1,6 +1,6 @@
 package com.kantboot.third.party.module.service;
 
-import com.kantboot.system.user.vo.LoginVO;
+import com.kantboot.system.user.module.vo.LoginVO;
 import com.kantboot.third.party.module.entity.TpUserOfWechat;
 
 public interface ITpUserOfWechatService {

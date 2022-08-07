@@ -2,7 +2,7 @@ package com.kantboot.third.party.module.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kantboot.system.user.entity.SysSetting;
+import com.kantboot.system.user.module.entity.SysSetting;
 import com.kantboot.third.party.wechat.applet.config.WechatAppletConfig;
 import com.kantboot.third.party.wechat.pay.config.WechatPayConfig;
 import lombok.EqualsAndHashCode;

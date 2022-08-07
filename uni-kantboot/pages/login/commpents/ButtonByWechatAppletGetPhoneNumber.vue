@@ -37,7 +37,7 @@
 								if (Request.isSuccess(res2)) {
 									uni.setStorageSync("token", res2.data.data.token);
 									this.$refs.uNotify.primary('登录成功');
-									uni.navigateTo({
+									uni.reLaunch({
 										url:"/pages/static/static"
 									});
 								}

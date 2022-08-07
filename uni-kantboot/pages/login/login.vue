@@ -29,7 +29,8 @@
 
 <script>
 	import Backgroud from './commpents/Backgroud.vue';
-	
+	var Request = getApp().globalData.Request;
+	var Api = getApp().globalData.Api;
 	// #ifdef MP-WEIXIN
 	import ButtonByWechatAppletGetPhoneNumber from './commpents/ButtonByWechatAppletGetPhoneNumber.vue';
 	// #endif
@@ -47,7 +48,16 @@
 			}
 		},
 		onShow() {
-
+			Request.request({
+				url:Api.user.getUserInfo,
+				success:(res)=>{
+					if(res.data.state==2000){
+						uni.reLaunch({
+							url:"/pages/static/static"
+						})
+					}
+				}
+			});
 		},
 		created() {},
 		mounted() {

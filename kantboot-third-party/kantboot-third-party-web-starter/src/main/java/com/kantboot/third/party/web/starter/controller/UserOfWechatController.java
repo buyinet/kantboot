@@ -1,7 +1,7 @@
 package com.kantboot.third.party.web.starter.controller;
 
-import com.kantboot.project.util.common.util.RestResult;
-import com.kantboot.system.user.vo.LoginVO;
+import com.kantboot.util.common.util.RestResult;
+import com.kantboot.system.user.module.vo.LoginVO;
 import com.kantboot.third.party.module.service.ITpUserOfWechatService;
 import com.kantboot.util.core.controller.BaseController;
 import org.springframework.web.bind.annotation.RequestMapping;

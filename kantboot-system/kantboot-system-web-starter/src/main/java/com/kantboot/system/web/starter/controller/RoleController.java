@@ -1,9 +1,9 @@
 package com.kantboot.system.web.starter.controller;
 
 
-import com.kantboot.project.util.common.util.RestResult;
-import com.kantboot.system.user.entity.SysRole;
-import com.kantboot.system.user.service.ISysRoleService;
+import com.kantboot.util.common.util.RestResult;
+import com.kantboot.system.user.module.entity.SysRole;
+import com.kantboot.system.user.module.service.ISysRoleService;
 import com.kantboot.util.core.controller.BaseController;
 import com.kantboot.util.core.util.PageParam;
 import org.springframework.web.bind.annotation.*;

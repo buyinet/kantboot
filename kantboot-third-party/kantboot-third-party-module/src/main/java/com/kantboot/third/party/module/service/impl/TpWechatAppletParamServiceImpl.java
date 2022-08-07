@@ -1,7 +1,7 @@
 package com.kantboot.third.party.module.service.impl;
 
-import com.kantboot.system.user.entity.SysSetting;
-import com.kantboot.system.user.service.ISysSettingService;
+import com.kantboot.system.user.module.entity.SysSetting;
+import com.kantboot.system.user.module.service.ISysSettingService;
 import com.kantboot.third.party.module.entity.TpWechatAppletParam;
 import com.kantboot.third.party.module.repository.TpWechatAppletParamRepository;
 import com.kantboot.third.party.module.service.ITpWechatAppletParamService;

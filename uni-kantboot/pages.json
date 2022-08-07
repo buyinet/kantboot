@@ -87,7 +87,19 @@
 				"navigationStyle": "default"
 		    }
 		    
-		}
+		}    
+		,{
+            "path" : "pages/buy_success_work/buy_success_work",
+            "style" :                                                                                    
+            {
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "已购买的教学视频",
+				"navigationBarBackgroundColor": "#FFF",
+				"backgroundColor": "#F8F8F8",
+				"navigationStyle": "default"
+            }
+            
+        } 
     ],
 	"tabBar": {
 		"color": "#8a8a8a",

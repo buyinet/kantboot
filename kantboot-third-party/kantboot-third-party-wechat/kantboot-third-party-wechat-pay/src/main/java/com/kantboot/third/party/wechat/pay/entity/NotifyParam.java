@@ -1,6 +1,6 @@
 package com.kantboot.third.party.wechat.pay.entity;
 
-import com.kantboot.project.util.common.util.WebSentUtil;
+import com.kantboot.util.common.util.WebSentUtil;
 import com.kantboot.third.party.wechat.pay.config.XStreamBean;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;

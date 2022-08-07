@@ -1,9 +1,9 @@
 package com.kantboot.system.web.starter.controller;
 
 
-import com.kantboot.project.util.common.util.RestResult;
-import com.kantboot.system.user.entity.SysArea;
-import com.kantboot.system.user.service.ISysAreaService;
+import com.kantboot.util.common.util.RestResult;
+import com.kantboot.system.user.module.entity.SysArea;
+import com.kantboot.system.user.module.service.ISysAreaService;
 import com.kantboot.util.core.controller.BaseController;
 import com.kantboot.util.core.util.PageParam;
 import org.springframework.web.bind.annotation.PostMapping;

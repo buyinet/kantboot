@@ -35,7 +35,7 @@
 		<view style="height: 20rpx;"></view>
 		
 		<view class="click-to">
-			<view @click="toPage('/pages/my_buy/my_buy')">
+			<view @click="toPage('/pages/buy_success_work/buy_success_work')">
 				<image 
 				style="width: 45rpx;"
 				mode="widthFix"

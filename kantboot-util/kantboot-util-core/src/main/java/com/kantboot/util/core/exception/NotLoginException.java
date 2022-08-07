@@ -1,6 +1,6 @@
 package com.kantboot.util.core.exception;
 
-import com.kantboot.project.util.common.exception.BaseException;
+import com.kantboot.util.common.exception.BaseException;
 
 /**
  * 不在登录状态的异常

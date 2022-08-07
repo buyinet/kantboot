@@ -1,10 +1,10 @@
 package com.kantboot.system.web.starter.controller;
 
 
-import com.kantboot.project.util.common.util.RestResult;
-import com.kantboot.system.user.entity.SysUser;
-import com.kantboot.system.user.service.ISysUserService;
-import com.kantboot.system.user.vo.LoginVO;
+import com.kantboot.util.common.util.RestResult;
+import com.kantboot.system.user.module.entity.SysUser;
+import com.kantboot.system.user.module.service.ISysUserService;
+import com.kantboot.system.user.module.vo.LoginVO;
 import com.kantboot.util.core.controller.BaseController;
 import com.kantboot.util.core.util.PageParam;
 import io.swagger.annotations.Api;

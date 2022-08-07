@@ -12,7 +12,7 @@
         {
           "name": "首页",
           "pathName": "pages/static/static",
-          "query": "",
+          "query": "pageComponent=pagePlay",
           "launchMode": "default",
           "scene": null
         },
@@ -26,6 +26,13 @@
         {
           "name": "上传作品",
           "pathName": "pages/upload_work/upload_work",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/buy_success_work/buy_success_work",
           "query": "",
           "launchMode": "default",
           "scene": null

@@ -44,7 +44,7 @@
 > RestResult 此类是用来规范RestfulApi，让控制器返回
 > > #### 引入:
 > > ```java
-> > import com.kantboot.project.util.common.util.RestResult;
+> > import RestResult;
 > > ```   
 > > 
 > > #### 操作案例:

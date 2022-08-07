@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="染发一号" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" />
+    <module name="project-ranfa-web-starter" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.aaarfyh.ranfa.web.starter.ProjectRanfaWebStarterApplication" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.aaarfyh.ranfa.web.starter.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

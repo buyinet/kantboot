@@ -2,11 +2,12 @@ package com.kantboot.util.core.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.kantboot.project.util.common.exception.BaseException;
+import com.kantboot.util.common.exception.BaseException;
 import com.kantboot.util.core.entity.CommonEntity;
 import com.kantboot.util.core.entity.CommonEntityPageParam;
 import com.kantboot.util.core.exception.UpdateException;
 import com.kantboot.util.core.service.IBaseService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -30,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
+@Slf4j
 public class BaseServiceImpl<T,ID> implements IBaseService<T,ID> {
 
     @Resource
@@ -913,9 +915,8 @@ public class BaseServiceImpl<T,ID> implements IBaseService<T,ID> {
         if (!isInsert) {
             try {
                 Optional<T> byId = jpaRepository.findById((ID) getId(entity));
-                System.out.println("getId(entity) = " + getId(entity));
                 T entityByInsert = byId.get();
-                System.out.println("entityByInsert = " + JSON.toJSONString(entityByInsert));
+//                log.info("entityByInsert = " + JSON.toJSONString(entityByInsert));
                 BeanUtils.copyProperties(entity, entityByInsert, getNullPropertyNames(entity));
                 jpaRepository.save(entityByInsert);
             } catch (Exception e) {

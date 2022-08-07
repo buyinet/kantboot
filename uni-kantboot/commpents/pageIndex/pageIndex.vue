@@ -12,6 +12,10 @@
 							:src="bodyData.fileUrlByFrontCoverImage">
 						</image>
 						
+<!-- 						<image mode="aspectFill" class="cover_image cover_image_1"
+							src="https://ranfa.oss-cn-hangzhou.aliyuncs.com/2022/7/27/kantboot-upload-file/00febcdf-add9-4ee2-9e0e-3f5f788d7ed01644930984862.png">
+						</image>
+ -->						
 						 <view class="cover_text">染发前</view>
 					</view>
 					<view style="height: 60rpx;"></view>

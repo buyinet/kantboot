@@ -1,7 +1,7 @@
 package com.kantboot.third.party.wechat.pay.exception;
 
 
-import com.kantboot.project.util.common.exception.BaseException;
+import com.kantboot.util.common.exception.BaseException;
 
 public class NotAppidException extends BaseException {
 

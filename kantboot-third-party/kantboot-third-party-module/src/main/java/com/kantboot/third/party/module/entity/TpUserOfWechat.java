@@ -2,7 +2,7 @@ package com.kantboot.third.party.module.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kantboot.system.user.entity.SysUser;
+import com.kantboot.system.user.module.entity.SysUser;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

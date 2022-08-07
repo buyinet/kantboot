@@ -78,19 +78,21 @@ var url = {
 	},
 
 	payNotify:{
-		save: "kantboot-auth-user/auth_pay_notify/save",
-		findAll: "kantboot-auth-user/auth_pay_notify/find_all",
-		remove: "kantboot-auth-user/auth_pay_notify/remove",
-		findCommonPage:"kantboot-auth-user/auth_pay_notify/find_common_page",
-		findCommonList:"kantboot-auth-user/auth_pay_notify/find_common_list"
+		save: "kantboot-pay/pay_notify/save",
+		findAll: "kantboot-pay/pay_notify/find_all",
+		remove: "kantboot-pay/pay_notify/remove",
+		findCommonPage:"kantboot-pay/pay_notify/find_common_page",
+		findCommonList:"kantboot-pay/pay_notify/find_common_list",
+		setDefaultUse:"kantboot-pay/pay_notify/set_default_use",
+		getDefaultUse:"kantboot-pay/pay_notify/get_default_use"
 	},
 	
 	authGoodsParent:{
-		save: "kantboot-auth-user/auth_goods_parent/save",
-		findAll: "kantboot-auth-user/auth_goods_parent/find_all",
-		remove: "kantboot-auth-user/auth_goods_parent/remove",
-		findCommonPage:"kantboot-auth-user/auth_goods_parent/find_common_page",
-		findCommonList:"kantboot-auth-user/auth_goods_parent/find_common_list"
+		save: "kantboot-pay/pay_goods_parent/save",
+		findAll: "kantboot-pay/pay_goods_parent/find_all",
+		remove: "kantboot-pay/pay_goods_parent/remove",
+		findCommonPage:"kantboot-pay/pay_goods_parent/find_common_page",
+		findCommonList:"kantboot-pay/pay_goods_parent/find_common_list"
 	},
 
 	fileOss:{

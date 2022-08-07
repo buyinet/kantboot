@@ -7,7 +7,8 @@
     "pages/static/static",
     "pages/guanyuwomen/guanyuwomen",
     "pages/tixian/tixian",
-    "pages/upload_work/upload_work"
+    "pages/upload_work/upload_work",
+    "pages/buy_success_work/buy_success_work"
   ],
   "subPackages": [],
   "window": {
@@ -44,6 +45,5 @@
     ]
   },
   "permission": {},
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }

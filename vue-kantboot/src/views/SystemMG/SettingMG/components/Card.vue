@@ -18,7 +18,16 @@
           <span class="commit">当前域名加端口号</span>
         </el-form-item>
 
-      <el-form-item label="设置默认角色">
+        <el-form-item label="根据名称查看id">
+          <el-input :value="paramData.fileVisitUrl+'/${id}'" disabled></el-input>
+        </el-form-item>
+
+        <el-form-item label="根据名称查看文件">
+          <el-input :value="paramData.fileVisitUrl+'/${bodyName}/${bodyField}'" disabled></el-input>
+        </el-form-item>
+
+
+        <el-form-item label="设置默认角色">
         <el-select
             style="width: 100%"
             v-model="paramData.roleIdByDefaultUse" placeholder="Select">

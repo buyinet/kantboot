@@ -1,6 +1,6 @@
 package com.kantboot.third.party.web.starter.controller;
 
-import com.kantboot.project.util.common.util.RestResult;
+import com.kantboot.util.common.util.RestResult;
 import com.kantboot.third.party.module.entity.TpWechatAppletParam;
 import com.kantboot.third.party.module.service.ITpWechatAppletParamService;
 import com.kantboot.util.core.controller.BaseController;

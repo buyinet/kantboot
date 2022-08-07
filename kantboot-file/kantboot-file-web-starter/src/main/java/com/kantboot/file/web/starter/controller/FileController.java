@@ -1,13 +1,16 @@
 package com.kantboot.file.web.starter.controller;
 
+import com.aliyun.oss.ClientBuilderConfiguration;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.common.comm.Protocol;
 import com.kantboot.file.module.entity.KfmFile;
 import com.kantboot.file.module.entity.KfmFileOss;
 import com.kantboot.file.module.entity.KfmFileParent;
 import com.kantboot.file.module.repository.CesFileParentRepository;
 import com.kantboot.file.module.repository.CesFileRepository;
-import com.kantboot.project.util.common.util.RestResult;
+import com.kantboot.system.user.module.service.ISysSettingService;
+import com.kantboot.util.common.util.RestResult;
 import com.kantboot.util.core.controller.BaseController;
 import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
@@ -37,6 +40,8 @@ public class FileController extends BaseController<KfmFile, Long> {
     @Resource
     CesFileRepository cesFileRepository;
 
+    @Resource
+    ISysSettingService sysSettingService;
     //获取上传到oss后的名字
     private static String fileName(MultipartFile myfile) {
 
@@ -46,6 +51,30 @@ public class FileController extends BaseController<KfmFile, Long> {
                 myfile.getOriginalFilename();
 
         return name;
+    }
+
+
+    @RequestMapping("/get_visit_url/{id}")
+    public RestResult<?> getVistUrl(@PathVariable("id") Long id){
+
+        KfmFile sysFileStore = cesFileRepository.findById(id).get();
+        if (sysFileStore.getStorageType().equals("path")) {
+            return RestResult.success(sysSettingService.getSetting().getFileVisitUrl()+id,"获取成功");
+        }
+
+        if (sysFileStore.getStorageType().equals("oss")) {
+            Date expiration = new Date(new Date().getTime() + 1000 * 30);
+            OSS oss = new OSSClientBuilder()
+                    .build(sysFileStore.getFileOss().getEndpoint(),
+                            sysFileStore.getFileOss().getAccessKeyId(),
+                            sysFileStore.getFileOss().getAccessKeySecret());
+
+            URL url = oss
+                    .generatePresignedUrl(sysFileStore.getFileOss().getBucketName(),
+                            sysFileStore.getPath(), expiration);
+            return RestResult.success(url.toString(),"获取成功");
+        }
+        return RestResult.success("错误存储模式","错误存储模式");
     }
 
     /**
@@ -172,10 +201,13 @@ public class FileController extends BaseController<KfmFile, Long> {
 
         if (sysFileStore.getStorageType().equals("oss")) {
             Date expiration = new Date(new Date().getTime() + 1000 * 30);
+            ClientBuilderConfiguration clientBuilderConfiguration=new ClientBuilderConfiguration();
+            clientBuilderConfiguration.setProtocol(Protocol.HTTPS);
             OSS oss = new OSSClientBuilder()
                     .build(sysFileStore.getFileOss().getEndpoint(),
                             sysFileStore.getFileOss().getAccessKeyId(),
-                            sysFileStore.getFileOss().getAccessKeySecret());
+                            sysFileStore.getFileOss().getAccessKeySecret(),
+                            clientBuilderConfiguration);
             URL url = oss
                     .generatePresignedUrl(sysFileStore.getFileOss().getBucketName(),
                             sysFileStore.getPath(), expiration);

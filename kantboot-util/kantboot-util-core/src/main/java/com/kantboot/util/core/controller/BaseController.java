@@ -1,7 +1,7 @@
 package com.kantboot.util.core.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.kantboot.project.util.common.util.RestResult;
+import com.kantboot.util.common.util.RestResult;
 import com.kantboot.util.core.entity.CommonEntity;
 import com.kantboot.util.core.entity.CommonEntityPageParam;
 import com.kantboot.util.core.exception.UpdateException;
@@ -148,7 +148,6 @@ public abstract class BaseController<T, ID> {
         if (!isInsert) {
             try {
                 Optional<T> byId = jpaRepository.findById((ID) findCommonUtil.getId(entity));
-                System.out.println("getId(entity) = " + findCommonUtil.getId(entity));
                 T entityByInsert = byId.get();
                 System.out.println("entityByInsert = " + JSON.toJSONString(entityByInsert));
                 BeanUtils.copyProperties(entity, entityByInsert, findCommonUtil.getNullPropertyNames(entity));

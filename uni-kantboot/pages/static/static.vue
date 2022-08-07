@@ -1,7 +1,9 @@
 <template>
 	<view>
 		<component v-show="pageComponent=='pageIndex'" is="pageIndex"></component>
+		<component v-show="pageComponent=='pagePlay'" is="pagePlay"></component>
 		<component v-show="pageComponent=='pageHome'" is="pageHome"></component>
+
 
 <view class="tabbar-view" :style="'bottom:'+tabBar.bottom+'rpx;'+'width:'+tabBar.width+'rpx'">
 	
@@ -41,14 +43,31 @@
 <script>
 	import pageIndex from '../../commpents/pageIndex/pageIndex.vue';
 	import pageHome from '../../commpents/pageHome/pageHome.vue';
+	import pagePlay from '../../commpents/pagePlay/pagePlay.vue';
 
 	var Request = getApp().globalData.Request;
 	var Api = getApp().globalData.Api;
 	
 	export default {
+		
 		components:{
 			pageIndex,
-			pageHome
+			pageHome,
+			pagePlay
+		},
+		onLoad(option) {
+			var pageComponent = option.pageComponent;
+			if(pageComponent==null){
+				this.pageComponent="pageIndex";
+			}else{
+				this.pageComponent=pageComponent;
+			}
+			var tabBarList = this.tabBar.list;
+			for(var i=0;i<tabBarList.length;i++){
+				if(tabBarList[i].component==pageComponent){
+					this.tabBar.selectedIndex=i;
+				}
+			}
 		},
 		data() {
 			return {
@@ -74,7 +93,7 @@
 					{
 					    "pagePath" : "pages/play/play",
 					    "text": "正在播放",
-						component:"pageIndex1",
+						component:"pagePlay",
 						"iconPath":Api.path+"kantboot-file/file/visit/tabbar/icon/video",
 						"selectedIconPath":Api.path+"kantboot-file/file/visit/tabbar/icon/video_selected"
 					},
@@ -91,14 +110,17 @@
 		},
 		methods: {
 			tabBarChange(index){
+				
 				this.tabBar.selectedIndex=index;
 				this.pageComponent=this.tabBar.list[index].component;
+				
 				if(this.interval!=null){
 					clearInterval(this.interval);
 				}
 				if(this.pageComponent!="pageIndex"){
 					this.tabBar.bottom=0;
 					this.tabBar.width=750;
+					
 					// this.interval=setInterval(()=>{
 					// 	if(this.tabBar.bottom>0){
 					// 		this.tabBar.bottom-=3;

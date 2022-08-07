@@ -1,7 +1,7 @@
 package com.kantboot.third.party.wechat.applet.exception;
 
 
-import com.kantboot.project.util.common.exception.BaseException;
+import com.kantboot.util.common.exception.BaseException;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

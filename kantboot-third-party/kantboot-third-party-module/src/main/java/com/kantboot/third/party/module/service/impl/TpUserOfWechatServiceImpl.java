@@ -1,12 +1,12 @@
 package com.kantboot.third.party.module.service.impl;
 
-import com.kantboot.system.user.entity.SysRole;
-import com.kantboot.system.user.entity.SysUser;
-import com.kantboot.system.user.repository.SysUserRepository;
-import com.kantboot.system.user.security.TokenManage;
-import com.kantboot.system.user.service.ISysRoleService;
-import com.kantboot.system.user.service.ISysUserService;
-import com.kantboot.system.user.vo.LoginVO;
+import com.kantboot.system.user.module.entity.SysRole;
+import com.kantboot.system.user.module.entity.SysUser;
+import com.kantboot.system.user.module.repository.SysUserRepository;
+import com.kantboot.system.user.module.security.TokenManage;
+import com.kantboot.system.user.module.service.ISysRoleService;
+import com.kantboot.system.user.module.service.ISysUserService;
+import com.kantboot.system.user.module.vo.LoginVO;
 import com.kantboot.third.party.module.entity.TpUserOfWechat;
 import com.kantboot.third.party.module.repository.TpUserOfWechatRepository;
 import com.kantboot.third.party.module.service.ITpUserOfWechatService;

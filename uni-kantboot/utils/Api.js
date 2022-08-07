@@ -7,18 +7,18 @@ var url = {
 	
 	// 用户
 	user: {
-		login: path + "kantboot-user/user/login",
-		join: path + "kantboot-user/user/join",
-		loginOut: path + "kantboot-user/user/login_out",
-		updatePassword: path + "kantboot-user/user/update_password",
-		getUserInfo: path + "kantboot-user/user/get_user_info",
-		save: path + "kantboot-user/user/save",
-		findAll: path + "kantboot-user/user/find_all",
-		findMine: path + "kantboot-user/user/find_mine",
-		remove: path + "kantboot-user/user/remove",
-		addBalanceYuan: path + "kantboot-user/user/add_balance_yuan",
-		findMineList: path + "kantboot-user/user/find_mine_list",
-		findCommonPage: path + "kantboot-user/user/find_common_page"
+		login: path + "kantboot-system/user/login",
+		join: path + "kantboot-system/user/join",
+		loginOut: path + "kantboot-system/user/login_out",
+		updatePassword: path + "kantboot-system/user/update_password",
+		getUserInfo: path + "kantboot-system/user/get_user_info",
+		save: path + "kantboot-system/user/save",
+		findAll: path + "kantboot-system/user/find_all",
+		findMine: path + "kantboot-system/user/find_mine",
+		remove: path + "kantboot-system/user/remove",
+		addBalanceYuan: path + "kantboot-system/user/add_balance_yuan",
+		findMineList: path + "kantboot-system/user/find_mine_list",
+		findCommonPage: path + "kantboot-system/user/find_common_page"
 	},
 	
 	cesAuthUserByWechat: {
@@ -26,47 +26,47 @@ var url = {
 	},
 	
 	authPayGoods: {
-		createPayingParam: path + "kantboot-auth-user/auth_pay_goods/create_paying_param"
+		createPayingParam: path + "kantboot-pay/pay_goods_parent/create_paying_param"
 	},
 
 	// 菜单
 	menu: {
-		save: path + "kantboot-user/menu/save",
-		findAll: path + "kantboot-user/menu/find_all",
-		findMine: path + "kantboot-user/menu/find_mine",
-		findMineList: path + "kantboot-user/menu/find_mine_list",
-		findCommonPage: path + "kantboot-user/menu/find_common_page",
-		remove: path + "kantboot-user/menu/remove"
+		save: path + "kantboot-system/menu/save",
+		findAll: path + "kantboot-system/menu/find_all",
+		findMine: path + "kantboot-system/menu/find_mine",
+		findMineList: path + "kantboot-system/menu/find_mine_list",
+		findCommonPage: path + "kantboot-system/menu/find_common_page",
+		remove: path + "kantboot-system/menu/remove"
 	},
 
 
 	// 角色
 	role: {
-		save: path + "kantboot-user/role/save",
-		findAll: path + "kantboot-user/role/find_all",
-		remove: path + "kantboot-user/role/remove",
-		findCommonPage: path + "kantboot-user/role/find_common_page",
-		findCommonList: path + "kantboot-user/role/find_common_list"
+		save: path + "kantboot-system/role/save",
+		findAll: path + "kantboot-system/role/find_all",
+		remove: path + "kantboot-system/role/remove",
+		findCommonPage: path + "kantboot-system/role/find_common_page",
+		findCommonList: path + "kantboot-system/role/find_common_list"
 	},
 
 	permission: {
-		save: path + "kantboot-user/permission/save",
-		findAll: path + "kantboot-user/permission/find_all",
-		remove: path + "kantboot-user/permission/remove",
-		findCommonPage: path + "kantboot-user/permission/find_common_page",
-		findCommonList: path + "kantboot-user/permission/find_common_list"
+		save: path + "kantboot-system/permission/save",
+		findAll: path + "kantboot-system/permission/find_all",
+		remove: path + "kantboot-system/permission/remove",
+		findCommonPage: path + "kantboot-system/permission/find_common_page",
+		findCommonList: path + "kantboot-system/permission/find_common_list"
 	},
 	// 组织
 	dept: {
-		save: path + "kantboot-user/dept/save",
-		findAll: path + "kantboot-user/dept/find_all",
-		remove: path + "kantboot-user/dept/remove"
+		save: path + "kantboot-system/dept/save",
+		findAll: path + "kantboot-system/dept/find_all",
+		remove: path + "kantboot-system/dept/remove"
 	},
 	setting: {
-		setRoleIdByUserJoin: path + "kantboot-user/setting/set_role_id_by_user_join",
-		setAuthAppletWechatIdByUserJoin: path + "kantboot-user/setting/set_auth_applet_wechat_id_by_user_join",
-		setAuthPayNotifyId: path + "kantboot-user/setting/set_auth_pay_notify_id",
-		getSetting: path + "kantboot-user/setting/get_setting"
+		setRoleIdByUserJoin: path + "kantboot-system/setting/set_role_id_by_user_join",
+		setAuthAppletWechatIdByUserJoin: path + "kantboot-system/setting/set_auth_applet_wechat_id_by_user_join",
+		setAuthPayNotifyId: path + "kantboot-system/setting/set_auth_pay_notify_id",
+		getSetting: path + "kantboot-system/setting/get_setting"
 	},
 	authWechatApplet: {
 		save: path + "kantboot-auth-user/auth_wechat_applet/save",
@@ -143,12 +143,13 @@ var url = {
 	},
 	
 	ranfaWork:{
-		save: path + "ranfa/ranfa_work/save",
-		change: path + "ranfa/ranfa_work/change",
-		findAll: path + "ranfa/ranfa_work/find_all",
-		remove: path + "ranfa/ranfa_work/remove",
-		findCommonPage:path + "ranfa/ranfa_work/find_common_page",
-		findCommonList:path + "ranfa/ranfa_work/find_common_list"
+		save: path + "project-ranfa/ranfa_work/save",
+		change: path + "project-ranfa/ranfa_work/change",
+		findAll: path + "project-ranfa/ranfa_work/find_all",
+		remove: path + "project-ranfa/ranfa_work/remove",
+		findCommonPage:path + "project-ranfa/ranfa_work/find_common_page",
+		findCommonList:path + "project-ranfa/ranfa_work/find_common_list",
+		findCommonPageByBuySuccess:path+"project-ranfa/ranfa_work/find_common_page_by_user_self_buy"
 	}
 	
 
