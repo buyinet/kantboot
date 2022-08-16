@@ -48,12 +48,12 @@
         </el-form-item>
 
         <el-form-item label="是否开启授权访问">
-          <el-radio v-model="paramData.useAuthVisit" :label="true">是</el-radio>
-          <el-radio v-model="paramData.useAuthVisit" :label="false">否</el-radio>
+          <el-radio v-model="paramData.authorizeVisit" :label="true">是</el-radio>
+          <el-radio v-model="paramData.authorizeVisit" :label="false">否</el-radio>
         </el-form-item>
 
-        <el-form-item label="设置授权回调地址" v-if="paramData.useAuthVisit">
-          <el-input v-model="paramData.authVisitCallbackUrl" />
+        <el-form-item label="设置授权回调地址" v-if="paramData.authorizeVisit">
+          <el-input v-model="paramData.authorizeVisitCallbackUrl" />
         </el-form-item>
 
         <el-form-item label="描述">
@@ -92,8 +92,8 @@ export default {
         "content": "",
         "fileOssId": null,
         "filePathId": null,
-        useAuthVisit: false,
-        authVisitCallbackUrl:null
+        authorizeVisit: false,
+        authorizeVisitCallbackUrl:null
       },
       fileOssList: [],
       filePathList: []

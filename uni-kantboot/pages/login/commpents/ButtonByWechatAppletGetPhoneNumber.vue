@@ -37,11 +37,18 @@
 								if (Request.isSuccess(res2)) {
 									uni.setStorageSync("token", res2.data.data.token);
 									this.$refs.uNotify.primary('登录成功');
-									uni.reLaunch({
-										url:"/pages/static/static"
-									});
+									console.log("==="+uni.getStorageSync("routeTo"));
+									if(uni.getStorageSync("routeTo")==null){
+										uni.reLaunch({
+											url:"/pages/static/static"
+										});										
+									}else{
+										uni.reLaunch({
+											url:uni.getStorageSync("routeTo")
+										});
+											uni.setStorageSync("routeTo",null)
+									}
 								}
-								console.log(123);
 							}
 						});
 					}

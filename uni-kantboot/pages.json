@@ -5,6 +5,19 @@
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+		    "path" : "pages/static/static",
+		    "style" :                                                                                    
+		    {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "正在播放",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": false,
+				"navigationBarTextStyle": "white",
+				"navigationStyle": "custom"
+		    }
+		    
+		},
+		{
 		    "path" : "pages/login/login",
 		    "style" :                                                                                    
 		    {
@@ -39,17 +52,12 @@
             "path" : "pages/play/play",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/static/static",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "正在播放",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": false,
+				"navigationBarTextStyle": "black",
+				"navigationStyle": "default"
             }
             
         }
@@ -99,34 +107,38 @@
 				"navigationStyle": "default"
             }
             
-        } 
+        },{
+            "path" : "pages/user_self_collection/user_self_collection",
+            "style" :                                                                                    
+            {
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "我的收藏",
+				"navigationBarBackgroundColor": "#FFF",
+				"backgroundColor": "#F8F8F8",
+				"navigationStyle": "default"
+            }
+            
+        }
+
+        ,{
+            "path" : "pages/indexByShare/indexByShare",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/indexToShare/indexToShare",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
-	"tabBar": {
-		"color": "#8a8a8a",
-		"selectedColor": "#5EB2F3",
-		"borderStyle": "white",
-		"backgroundColor": "#FFFFFF",
-		"list": [
-			{
-			"pagePath": "pages/index/index",
-			"text": "首页",
-			"iconPath":"/static/tabbar/index.png",
-			"selectedIconPath":"static/tabbar/index_selected.png"
-		}, 
-		{
-		    "pagePath" : "pages/play/play",
-		    "text": "播放",
-		    "iconPath":"/static/tabbar/video.png",
-		    "selectedIconPath":"static/tabbar/video_selected.png"
-		},
-		{
-			"pagePath": "pages/home/home",
-			"text": "我的",
-			"iconPath":"/static/tabbar/mine.png",
-			"selectedIconPath":"static/tabbar/mine_selected.png"
-		}
-		]
-	},
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "App",

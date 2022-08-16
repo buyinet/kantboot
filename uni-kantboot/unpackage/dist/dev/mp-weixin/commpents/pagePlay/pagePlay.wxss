@@ -24,6 +24,14 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.share-icon-hover {
+  opacity: .4;
+}
+.status_bar {
+  height: 25px;
+  width: 100%;
+  background-color: #000;
+}
 page {
   background-color: #F2F2F2;
 }
@@ -41,5 +49,40 @@ page {
 }
 .sss_image:active {
   width: 188rpx;
+}
+.header {
+  height: 100rpx;
+  font-size: 35rpx;
+  text-align: center;
+  line-height: 120rpx;
+  font-weight: bold;
+  z-index: 1;
+  color: rgba(0, 0, 0, 0.8);
+}
+.exp {
+  display: inline-block;
+  padding: 0rpx 20rpx 0rpx 20rpx;
+  font-size: 35rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 5rpx 10rpx rgba(118, 118, 118, 0.3), 0 -10rpx 5rpx rgba(118, 118, 118, 0.1) inset;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 20rpx;
+}
+.exp:active {
+  padding: 0rpx 20rpx 0rpx 20rpx;
+  line-height: 70rpx;
+  box-shadow: 0 3rpx 10rpx rgba(118, 118, 118, 0.3), 0 -6rpx 5rpx rgba(118, 118, 118, 0.1) inset;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.exp-box {
+  display: inline-block;
+  margin-left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  padding: 40rpx 40rpx 20rpx 40rpx;
+  box-sizing: border-box;
 }
 

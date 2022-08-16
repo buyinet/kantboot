@@ -13,6 +13,7 @@ import org.springframework.cache.annotation.CacheConfig;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -102,11 +103,41 @@ public class SysUser implements Serializable {
     private String idCard;
 
     /**
-     * 余额
+     * 余额（以“分”为单位）
      */
     @ApiModelProperty(value = "余额")
     @Column(name="balance",columnDefinition="0")
     private Long balance;
+
+    /**
+     * 余额（以“元“为单位”）
+     */
+    @org.springframework.data.annotation.Transient
+    private Double balanceYuan;
+
+    /**
+     * 余额，以元为单位
+     * @param balanceYuan
+     */
+    public SysUser setBalanceYuan(Long balanceYuan) {
+        BigDecimal bigDecimal = new BigDecimal(balanceYuan);
+        BigDecimal multiply = bigDecimal.multiply(new BigDecimal(100));
+        this.setBalance(multiply.longValue());
+        return this;
+    }
+
+    /**
+     * 余额，以元为单位
+     */
+    public Double getBalanceYuan() {
+        if(getBalance()==null){
+            return null;
+        }
+        BigDecimal bigDecimal = new BigDecimal(getBalance());
+        BigDecimal multiply = bigDecimal.divide(new BigDecimal(100));
+        return multiply.doubleValue();
+    }
+
 
     /**
      * 总收入

@@ -2,8 +2,10 @@ package com.aaarfyh.ranfa.module.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kantboot.pay.module.entity.PayGoods;
+import com.kantboot.pay.module.entity.PayGoodsBuy;
+import com.kantboot.pay.module.entity.PayGoodsCollection;
 import com.kantboot.pay.module.entity.PayGoodsInOrder;
+import com.kantboot.pay.util.common.annotation.GoodsEntityAnnotation;
 import com.kantboot.pay.util.common.entity.BaseGoodsEntity;
 import com.kantboot.system.user.module.entity.SysSetting;
 import com.kantboot.system.user.module.entity.SysUser;
@@ -23,6 +25,7 @@ import java.util.*;
  */
 @Entity
 @Table(name="bus_ranfa_work")
+@GoodsEntityAnnotation(parentName = "ranfa")
 @Getter
 @Setter
 @DynamicInsert(true)
@@ -32,7 +35,6 @@ import java.util.*;
 public class BusRanfaWork implements BaseGoodsEntity,Serializable {
 
     @Id
-
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
@@ -76,7 +78,7 @@ public class BusRanfaWork implements BaseGoodsEntity,Serializable {
      * 审核状态
      */
     @Column(name="audit_status",columnDefinition="0")
-    private Long auditStatus;
+    private Integer auditStatus;
 
     /**
      * 审核不通过原因
@@ -142,7 +144,7 @@ public class BusRanfaWork implements BaseGoodsEntity,Serializable {
     @Column(name="pay_goods_parent_name",columnDefinition="ranfa")
     private String payGoodsParentName;
 
-//    @JsonIgnore
+    @JsonIgnore
     @OneToMany(targetEntity = PayGoodsInOrder.class,
             cascade = CascadeType.DETACH,
             fetch = FetchType.EAGER)
@@ -151,13 +153,23 @@ public class BusRanfaWork implements BaseGoodsEntity,Serializable {
     private Set<PayGoodsInOrder> payGoodsInOrders;
 
 
-    @OneToOne(targetEntity = PayGoods.class,
+    @JsonIgnore
+    @OneToOne(targetEntity = PayGoodsBuy.class,
             cascade = CascadeType.DETACH,
             fetch = FetchType.EAGER)
     @JoinColumn(name = "pay_goods_parent_name",referencedColumnName = "pay_goods_parent_name",insertable = false,updatable = false)
     @JoinColumn(name = "id",referencedColumnName = "goods_id",insertable = false,updatable = false)
-    private PayGoods payGoods;
+    private PayGoodsBuy payGoodsBuy;
 
+
+
+    @JsonIgnore
+    @OneToOne(targetEntity = PayGoodsCollection.class,
+            cascade = CascadeType.DETACH,
+            fetch = FetchType.EAGER)
+    @JoinColumn(name = "pay_goods_parent_name",referencedColumnName = "pay_goods_parent_name",insertable = false,updatable = false)
+    @JoinColumn(name = "id",referencedColumnName = "goods_id",insertable = false,updatable = false)
+    private PayGoodsCollection payGoodsCollection;
 
     @OneToOne(targetEntity = SysUser.class)
     @JoinColumn(name = "user_id_by_upload",referencedColumnName = "id",insertable = false,updatable = false)
@@ -168,6 +180,13 @@ public class BusRanfaWork implements BaseGoodsEntity,Serializable {
             fetch = FetchType.EAGER)
     @JoinColumn(name = "ranfa_work_id",referencedColumnName = "id")
     private Set<BusRanfaWorkVideo> ranfaWorkVideos;
+
+    @org.springframework.data.annotation.Transient
+    private Boolean buy;
+
+    @org.springframework.data.annotation.Transient
+    private Boolean collection;
+
 
     /**
      * 染发前图片访问路径
@@ -197,7 +216,8 @@ public class BusRanfaWork implements BaseGoodsEntity,Serializable {
      * 根据 集 来正序获取
      * @return
      */
-    public List<String> getFileUrlsByVideo(){
+    public List<String> getFileUrlsOfVideo(){
+
         if(getSetting()==null){
             return null;
         }
@@ -214,10 +234,11 @@ public class BusRanfaWork implements BaseGoodsEntity,Serializable {
         });
         List<String> result=new ArrayList<String>();
         for (BusRanfaWorkVideo cesRanfaWorkVideo : ranfaWorkVideoList) {
-            result.add(cesRanfaWorkVideo.getFileUrlByVideo());
+            result.add(cesRanfaWorkVideo.getFileUrlOfVideo());
         }
 
         return result;
     }
+
 
 }

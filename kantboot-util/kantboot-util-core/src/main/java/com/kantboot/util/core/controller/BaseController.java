@@ -40,7 +40,7 @@ public abstract class BaseController<T, ID> {
      * @return
      */
     @PostMapping("/find_common_list")
-    public RestResult<?> findCommonByList(@RequestBody CommonEntity<T> commonEntity) {
+    public RestResult<List<T>> findCommonByList(@RequestBody CommonEntity<T> commonEntity) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         try {
@@ -67,7 +67,7 @@ public abstract class BaseController<T, ID> {
      * @return
      */
     @PostMapping("/find_common_page")
-    public RestResult<?> findCommonByPage(@RequestBody CommonEntityPageParam<T> pageParam) {
+    public RestResult<Page<T>> findCommonByPage(@RequestBody CommonEntityPageParam<T> pageParam) {
         CommonEntity<T> commonEntity = pageParam.getData();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -81,7 +81,7 @@ public abstract class BaseController<T, ID> {
             return RestResult.success(all, "查询成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return RestResult.error("查询失败-catch");
+            return RestResult.error("查询失败");
         } finally {
             if(entityManager!=null){
                 entityManager.close();
@@ -120,12 +120,12 @@ public abstract class BaseController<T, ID> {
      * @return
      */
     @PostMapping("/find_by_id")
-    public RestResult<?> findById(@RequestBody T entity) {
+    public RestResult<T> findById(@RequestBody T entity) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         SimpleJpaRepository<T, ID> jpaRepository = new SimpleJpaRepository<T, ID>((Class<T>) entity.getClass(), entityManager);
         Optional<T> byId = jpaRepository.findById((ID) findCommonUtil.getId(entity));
         entityManager.close();
-        return RestResult.success(byId, "获取成功");
+        return RestResult.success(byId.get(), "获取成功");
     }
 
     /**

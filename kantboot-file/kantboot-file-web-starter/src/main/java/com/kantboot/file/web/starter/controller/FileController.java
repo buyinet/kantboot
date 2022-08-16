@@ -1,5 +1,6 @@
 package com.kantboot.file.web.starter.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.aliyun.oss.ClientBuilderConfiguration;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
@@ -10,25 +11,26 @@ import com.kantboot.file.module.entity.KfmFileParent;
 import com.kantboot.file.module.repository.CesFileParentRepository;
 import com.kantboot.file.module.repository.CesFileRepository;
 import com.kantboot.system.user.module.service.ISysSettingService;
+import com.kantboot.util.common.exception.BaseException;
+import com.kantboot.util.common.util.RedisUtil;
 import com.kantboot.util.common.util.RestResult;
 import com.kantboot.util.core.controller.BaseController;
 import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/file")
@@ -216,16 +218,36 @@ public class FileController extends BaseController<KfmFile, Long> {
         }
     }
 
+    @Resource
+    RestTemplate restTemplate;
+
+    @Resource
+    HttpServletRequest request;
+
+    @Resource
+    RedisUtil redisUtil;
+
+
     /**
-     * 查看在本地存储的文件
+     *
+     * @param id 文件id
+     * @param uid 临时访问码
+     * @param response
+     * @return
      */
     @SneakyThrows
-    @RequestMapping("/visit/{id}")
-    public void pathView(@PathVariable("id") Long id, HttpServletResponse response) {
-
-
+    @RequestMapping("/visit/{id}/{uid}")
+    public void pathView2(
+            @PathVariable("id") Long id,
+            @PathVariable("uid") String uid,
+            HttpServletResponse response){
+        String fileId = redisUtil.get("file_visit_url:" + uid + ":file_id");
+        if(!(id+"").equals(fileId)){
+            throw new BaseException(3000,"访问失败");
+        }
         response.setCharacterEncoding("UTF-8");
         KfmFile sysFileStore = cesFileRepository.findById(id).get();
+        System.out.println(sysFileStore.getFileParent().getAuthorizeVisit());
         if (sysFileStore.getStorageType().equals("path")) {
             String realPath = sysFileStore.getPath();
             String substring = realPath.substring(realPath.lastIndexOf("/"));
@@ -239,11 +261,81 @@ public class FileController extends BaseController<KfmFile, Long> {
 
         if (sysFileStore.getStorageType().equals("oss")) {
             Date expiration = new Date(new Date().getTime() + 1000 * 30);
+
             OSS oss = new OSSClientBuilder()
                     .build(sysFileStore.getFileOss().getEndpoint(),
                             sysFileStore.getFileOss().getAccessKeyId(),
                             sysFileStore.getFileOss().getAccessKeySecret());
+//            oss.setBucketTransferAcceleration(sysFileStore.getFileOss().getBucketName(), true);
+            URL url = oss
+                    .generatePresignedUrl(sysFileStore.getFileOss().getBucketName(),
+                            sysFileStore.getPath(), expiration);
+            response.sendRedirect(url.toString());
+            return;
+        }
+    }
+    /**
+     * 查看在本地存储的文件
+     */
+    @SneakyThrows
+    @RequestMapping("/visit/{id}")
+    public void pathView(@PathVariable("id") Long id, HttpServletResponse response) {
 
+        System.out.println("======");
+        response.setCharacterEncoding("UTF-8");
+        KfmFile sysFileStore = cesFileRepository.findById(id).get();
+        System.out.println(sysFileStore.getFileParent().getAuthorizeVisit());
+        if(sysFileStore.getFileParent().getAuthorizeVisit()){
+            System.out.println("=====111111");
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("token",request.getHeader("token"));
+            headers.add("User-Agent",request.getHeader("User-Agent"));
+            HashMap<String, Long> stringStringHashMap = new HashMap<>();
+            stringStringHashMap.put("fileId",id);
+
+            HttpEntity<HashMap<String,Long>> requestEntity = new HttpEntity(stringStringHashMap, headers);
+            RestResult<Boolean> restResult = restTemplate.postForObject(sysFileStore.getFileParent().getAuthorizeVisitCallbackUrl(),
+                    requestEntity,RestResult.class);
+            if(!restResult.getData()){
+                throw new BaseException(3000,"没有该文件的访问授权权限");
+            }
+            if(restResult.getData()){
+
+                response.setContentType("json/application");
+                HashMap<String,Object> map=new HashMap<>();
+                String uuid = UUID.randomUUID().toString();
+                redisUtil.setEx("file_visit_url:"+uuid+":file_id",id+"",30l, TimeUnit.MINUTES);
+                String url = sysSettingService.getSetting().getFileVisitUrl() + id + "/" + uuid;
+
+                map.put("url",url);
+
+                RestResult<?> result = RestResult.success(map, "获取成功");
+                PrintWriter writer = response.getWriter();
+                writer.println(JSON.toJSONString(result));
+                writer.close();
+            }
+//            System.out.println("JSON.toJSONString(restResult) = " + JSON.toJSONString(restResult));
+        }
+
+        if (sysFileStore.getStorageType().equals("path")) {
+            String realPath = sysFileStore.getPath();
+            String substring = realPath.substring(realPath.lastIndexOf("/"));
+            response.setHeader("Content-Disposition", "filename=" + UUID.randomUUID().toString() + "." + substring);
+            FileInputStream inputStream = new FileInputStream(new File(realPath));
+            ServletOutputStream outputStream = response.getOutputStream();
+            IOUtils.copy(inputStream, outputStream);
+            outputStream.flush();
+            return;
+        }
+
+        if (sysFileStore.getStorageType().equals("oss")) {
+            Date expiration = new Date(new Date().getTime() + 1000 * 30);
+
+            OSS oss = new OSSClientBuilder()
+                    .build(sysFileStore.getFileOss().getEndpoint(),
+                            sysFileStore.getFileOss().getAccessKeyId(),
+                            sysFileStore.getFileOss().getAccessKeySecret());
+//            oss.setBucketTransferAcceleration(sysFileStore.getFileOss().getBucketName(), true);
             URL url = oss
                     .generatePresignedUrl(sysFileStore.getFileOss().getBucketName(),
                             sysFileStore.getPath(), expiration);

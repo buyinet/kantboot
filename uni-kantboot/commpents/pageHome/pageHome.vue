@@ -61,7 +61,7 @@
 				</image>
 				<text>上传作品</text></view>
 			<view
-				@click="toPage('/pages/my_collect/my_collect')"
+				@click="toPage('/pages/user_self_collection/user_self_collection')"
 				>
 				<image
 				style="width: 45rpx;"
@@ -77,6 +77,7 @@
 				</image>
 				<text>平台说明</text></view>
 		</view>
+		
 	</view>
 </template>
 
@@ -128,7 +129,7 @@ let that;
 
 					if(Request.isSuccess(res)){
 						this.userInfo = res.data.data;
-						console.log(JSON.stringify(this.userInfo));
+						// console.log(JSON.stringify(this.userInfo));
 					}
 				}
 				});

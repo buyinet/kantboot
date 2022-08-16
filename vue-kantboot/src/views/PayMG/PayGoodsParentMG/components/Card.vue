@@ -9,16 +9,21 @@
 				</el-button>
 			</div>
 		</template>
-		<el-table height="calc(100vh - 350px)" row-key="id" default-expand-all :cell-style="{'textAlign':'center'}"
+		<el-table
+		:default-expand-all="false"
+		height="calc(100vh - 350px)" row-key="id" default-expand-all :cell-style="{'textAlign':'center'}"
 			:header-cell-style="{'textAlign':'center'}" :data="bodyData.content" style="width: 100%">
 			<el-table-column type="expand" label="传参" width="100">
 				<template #default="props">
 					<div>
 						
 						<v-md-editor v-model="props.row.paramMdStr" mode="preview"></v-md-editor>
+						<v-md-editor v-model="props.row.collectionParamMdStr" mode="preview"></v-md-editor>
 					</div>
 				</template>
 			</el-table-column>
+
+
 			<el-table-column label="序号">
 				<template #default="scope">
 					{{ scope.$index + 1 }}
@@ -148,7 +153,7 @@
 							var param=this.bodyData.content[i].param;
 							this.bodyData.content[i]["paramMdStr"] =
 								`
-> 以下为请求参数示例:
+> 以下为请求参数示例-支付传参:
 \`\`\`json
 /**
  * 支付方式:
@@ -163,6 +168,23 @@
 		goodsId:1, //商品id,必填
 		number:1, //数量，选填
 		coupons:[], //优惠券,选填
+		otherParam:[{ //其它参数
+	
+		}]
+	}]
+}
+\`\`\`
+							`;
+
+this.bodyData.content[i]["collectionParamMdStr"] =
+								`
+> 以下为请求参数示例-收藏传参:
+\`\`\`json
+{
+	goodsParentName: "${content.name}", //此类商品统一识别名称，必填
+	collectionParams:[{
+		goodsId:1, //商品id,必填
+		number:1, //数量，选填
 		otherParam:[{ //其它参数
 	
 		}]

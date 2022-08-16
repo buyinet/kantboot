@@ -41,8 +41,8 @@ public class PayGoodsInOrder implements Serializable {
     @Column(name="goods_id")
     private String goodsId;
 
-    @Column(name="number")
-    private String number;
+    @Column(name="number",columnDefinition="1")
+    private Long number;
 
     @Column(name="status")
     private Integer status;

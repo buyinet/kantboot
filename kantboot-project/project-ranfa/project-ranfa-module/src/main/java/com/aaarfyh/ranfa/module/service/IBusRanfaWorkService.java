@@ -1,11 +1,12 @@
 package com.aaarfyh.ranfa.module.service;
 
+import com.aaarfyh.ranfa.module.entity.BusRanfaBrand;
 import com.aaarfyh.ranfa.module.entity.BusRanfaWork;
-import com.kantboot.pay.util.common.util.GoodsParentParam;
+import com.kantboot.pay.util.common.service.IBaseGoodsService;
+import com.kantboot.pay.util.common.util.GoodsPayParam;
 import com.kantboot.pay.util.common.util.PayResult;
-import com.kantboot.util.core.service.IBaseService;
 
-public interface IBusRanfaWorkService extends IBaseService<BusRanfaWork,Long> {
+public interface IBusRanfaWorkService extends IBaseGoodsService<BusRanfaWork,Long> {
 
     /**
      * 随机切换视频
@@ -14,9 +15,23 @@ public interface IBusRanfaWorkService extends IBaseService<BusRanfaWork,Long> {
     BusRanfaWork change();
 
     /**
+     * 将品牌放进切换中
+     * @return
+     */
+    BusRanfaWork brandToChange(Long ranfaBrandId);
+
+    /**
+     * 将分类放进切换中
+     * @param ranfaBrandId
+     * @return
+     */
+    BusRanfaWork techniqueToChange(Long ranfaTechniqueId);
+
+    BusRanfaBrand brandByChange();
+    /**
      * 支付前回调
      * @param param
      * @return
      */
-    PayResult payBefore(GoodsParentParam param);
+    PayResult payBefore(GoodsPayParam param);
 }

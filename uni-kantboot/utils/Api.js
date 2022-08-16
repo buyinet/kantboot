@@ -1,5 +1,6 @@
 // var path = "http://localhost/";
-var path="https://aaahair.top/";
+var path = "https://aaahair.top/";
+// var path="https://project.ranfa.kantboot.com/";
 
 var url = {
 	
@@ -7,26 +8,37 @@ var url = {
 	
 	// 用户
 	user: {
+		// 登录
 		login: path + "kantboot-system/user/login",
+		// 注册
 		join: path + "kantboot-system/user/join",
+		// 退出登录
 		loginOut: path + "kantboot-system/user/login_out",
+		// 修改密码
 		updatePassword: path + "kantboot-system/user/update_password",
+		// 获取用户信息
 		getUserInfo: path + "kantboot-system/user/get_user_info",
+		// 添加用户
 		save: path + "kantboot-system/user/save",
 		findAll: path + "kantboot-system/user/find_all",
 		findMine: path + "kantboot-system/user/find_mine",
+		// 删除用户
 		remove: path + "kantboot-system/user/remove",
-		addBalanceYuan: path + "kantboot-system/user/add_balance_yuan",
 		findMineList: path + "kantboot-system/user/find_mine_list",
 		findCommonPage: path + "kantboot-system/user/find_common_page"
 	},
 	
 	cesAuthUserByWechat: {
+		// 微信小程序登录
 		loginByApplet: path + "kantboot-third-party/user_of_wechat/login"
 	},
 	
 	authPayGoods: {
-		createPayingParam: path + "kantboot-pay/pay_goods_parent/create_paying_param"
+		// 支付
+		createPayingParam: path + "kantboot-pay/pay_goods_parent/create_paying_param",
+		collection: path+"kantboot-pay/pay_goods_parent/to_collection",
+		cancelCollection: path+"kantboot-pay/pay_goods_parent/cancel_collection"
+		
 	},
 
 	// 菜单
@@ -127,19 +139,20 @@ var url = {
 	},
 	
 	ranfaBrand:{
-		save: path + "ranfa/ranfa_brand/save",
-		findAll: path + "ranfa/ranfa_brand/find_all",
-		remove: path + "ranfa/ranfa_brand/remove",
-		findCommonPage:path + "ranfa/ranfa_brand/find_common_page",
-		findCommonList:path + "ranfa/ranfa_brand/find_common_list"
+		save: path + "project-ranfa/ranfa_brand/save",
+		findAll: path + "project-ranfa/ranfa_brand/find_all",
+		remove: path + "project-ranfa/ranfa_brand/remove",
+		findCommonPage:path + "project-ranfa/ranfa_brand/find_common_page",
+		findCommonList:path + "project-ranfa/ranfa_brand/find_common_list",
+		findById:path+"project-ranfa/ranfa_brand/find_by_id"
 	},
 	
 	ranfaTechnique:{
-		save: path + "ranfa/ranfa_technique/save",
-		findAll: path + "ranfa/ranfa_technique/find_all",
-		remove: path + "ranfa/ranfa_technique/remove",
-		findCommonPage:path + "ranfa/ranfa_technique/find_common_page",
-		findCommonList:path + "ranfa/ranfa_technique/find_common_list"
+		save: path + "project-ranfa/ranfa_technique/save",
+		findAll: path + "project-ranfa/ranfa_technique/find_all",
+		remove: path + "project-ranfa/ranfa_technique/remove",
+		findCommonPage:path + "project-ranfa/ranfa_technique/find_common_page",
+		findCommonList:path + "project-ranfa/ranfa_technique/find_common_list"
 	},
 	
 	ranfaWork:{
@@ -149,7 +162,13 @@ var url = {
 		remove: path + "project-ranfa/ranfa_work/remove",
 		findCommonPage:path + "project-ranfa/ranfa_work/find_common_page",
 		findCommonList:path + "project-ranfa/ranfa_work/find_common_list",
-		findCommonPageByBuySuccess:path+"project-ranfa/ranfa_work/find_common_page_by_user_self_buy"
+		findCommonPageByBuySuccess:path+"project-ranfa/ranfa_work/find_common_page_by_user_self_buy",
+		findCommonPageByUserSelfCollection:path+"project-ranfa/ranfa_work/find_common_page_by_user_self_collection",
+		
+		findById:path+"project-ranfa/ranfa_work/find_by_id",
+		findCommonGoodsPage:path+"project-ranfa/ranfa_work/find_common_goods_page",
+		brandToChange:path+"project-ranfa/ranfa_work/brand_to_change",
+		brandByChange:path+"project-ranfa/ranfa_work/brand_by_change",
 	}
 	
 

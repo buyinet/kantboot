@@ -35,13 +35,13 @@
         </template>
       </el-table-column>
       <el-table-column prop="fileType" label="文件类型" />
-      <el-table-column prop="useAuthVisit" label="是否开启授权访问" width="150">
+      <el-table-column prop="authorizeVisit" label="是否开启授权访问" width="150">
         <template #default="scope">
-          <div v-if="scope.row.useAuthVisit">
+          <div v-if="scope.row.authorizeVisit">
             <div>是</div>
-            <div>[ {{scope.row.authVisitCallbackUrl}} ]</div>
+            <div>[ {{scope.row.authorizeVisitCallbackUrl}} ]</div>
           </div>
-          <div v-if="!scope.row.useAuthVisit">
+          <div v-if="!scope.row.authorizeVisit">
             <div>否</div>
           </div>
         </template>

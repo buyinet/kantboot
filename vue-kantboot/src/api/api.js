@@ -128,19 +128,19 @@ var url = {
 	},
 
 	ranfaBrand:{
-		save: "ranfa/ranfa_brand/save",
-		findAll: "ranfa/ranfa_brand/find_all",
-		remove: "ranfa/ranfa_brand/remove",
-		findCommonPage:"ranfa/ranfa_brand/find_common_page",
-		findCommonList:"ranfa/ranfa_brand/find_common_list"
+		save: "project-ranfa/ranfa_brand/save",
+		findAll: "project-ranfa/ranfa_brand/find_all",
+		remove: "project-ranfa/ranfa_brand/remove",
+		findCommonPage:"project-ranfa/ranfa_brand/find_common_page",
+		findCommonList:"project-ranfa/ranfa_brand/find_common_list"
 	},
 
 	ranfaTechnique:{
-		save: "ranfa/ranfa_technique/save",
-		findAll: "ranfa/ranfa_technique/find_all",
-		remove: "ranfa/ranfa_technique/remove",
-		findCommonPage:"ranfa/ranfa_technique/find_common_page",
-		findCommonList:"ranfa/ranfa_technique/find_common_list"
+		save: "project-ranfa/ranfa_technique/save",
+		findAll: "project-ranfa/ranfa_technique/find_all",
+		remove: "project-ranfa/ranfa_technique/remove",
+		findCommonPage:"project-ranfa/ranfa_technique/find_common_page",
+		findCommonList:"project-ranfa/ranfa_technique/find_common_list"
 	}
 	
 	

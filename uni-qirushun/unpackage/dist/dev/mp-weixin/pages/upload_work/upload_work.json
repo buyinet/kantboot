@@ -1,0 +1,8 @@
+{
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "上传作品",
+  "navigationBarBackgroundColor": "#FFF",
+  "backgroundColor": "#F8F8F8",
+  "navigationStyle": "default",
+  "usingComponents": {}
+}

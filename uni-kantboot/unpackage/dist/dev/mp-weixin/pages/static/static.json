@@ -1,9 +1,14 @@
 {
-  "navigationBarTitleText": "",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "正在播放",
+  "navigationBarBackgroundColor": "#FFFFFF",
   "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
   "usingComponents": {
+    "u-popup": "/uni_modules/uview-ui/components/u-popup/u-popup",
     "u-tabbar": "/uni_modules/uview-ui/components/u-tabbar/u-tabbar",
     "u-tabbar-item": "/uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item",
+    "u-toast": "/uni_modules/uview-ui/components/u-toast/u-toast",
     "page-index": "/commpents/pageIndex/pageIndex",
     "page-home": "/commpents/pageHome/pageHome",
     "page-play": "/commpents/pagePlay/pagePlay"

@@ -1,0 +1,131 @@
+{
+	// 如果您是通过uni_modules形式引入uView，可以忽略此配置
+	"easycom": {
+		"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+		    "path" : "pages/static/static",
+		    "style" :                                                                                    
+		    {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "正在播放",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": false,
+				"navigationBarTextStyle": "black",
+				"navigationStyle": "custom"
+		    }
+		    
+		},
+		{
+		    "path" : "pages/login/login",
+		    "style" :                                                                                    
+		    {
+				// "navigationBarTextStyle": "white",
+				// "navigationBarTitleText": "登录页面",
+				// "navigationBarBackgroundColor": "#FFFFFF",
+				// "enablePullDownRefresh": false,
+				// "navigationBarTextStyle": "black",
+				// "navigationStyle": "default"
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/index/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/home/home",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/play/play",
+            "style" :                                                                                    
+            {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "正在播放",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": false,
+				"navigationBarTextStyle": "black",
+				"navigationStyle": "default"
+            }
+            
+        }
+        ,{
+            "path" : "pages/guanyuwomen/guanyuwomen",
+            "style" :                                                                                    
+            {
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "平台说明",
+				"navigationBarBackgroundColor": "#FFF",
+				"backgroundColor": "#F8F8F8",
+				"navigationStyle": "default"
+            }
+            
+        }        ,{
+            "path" : "pages/tixian/tixian",
+            "style" :                                                                                    
+            {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "提现",
+				"navigationBarBackgroundColor": "#2979ff",
+				"backgroundColor": "#F8F8F8",
+				"navigationStyle": "default"
+            }
+            
+        },
+		{
+		    "path" : "pages/upload_work/upload_work",
+		    "style" :                                                                                    
+		    {
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "上传作品",
+				"navigationBarBackgroundColor": "#FFF",
+				"backgroundColor": "#F8F8F8",
+				"navigationStyle": "default"
+		    }
+		    
+		}    
+		,{
+            "path" : "pages/buy_success_work/buy_success_work",
+            "style" :                                                                                    
+            {
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "已购买的教学视频",
+				"navigationBarBackgroundColor": "#FFF",
+				"backgroundColor": "#F8F8F8",
+				"navigationStyle": "default"
+            }
+            
+        },{
+            "path" : "pages/user_self_collection/user_self_collection",
+            "style" :                                                                                    
+            {
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "我的收藏",
+				"navigationBarBackgroundColor": "#FFF",
+				"backgroundColor": "#F8F8F8",
+				"navigationStyle": "default"
+            }
+            
+        }
+
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "App",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"navigationStyle": "custom"
+	}
+}

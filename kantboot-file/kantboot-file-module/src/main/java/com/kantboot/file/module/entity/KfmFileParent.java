@@ -61,14 +61,12 @@ public class KfmFileParent {
     /**
      * 是否开启授权访问
      */
-    @Column(name = "is_use_auth_visit", columnDefinition = "0")
-    private Boolean useAuthVisit;
+    @Column(name = "is_authorize_visit",columnDefinition="0")
+    private Boolean authorizeVisit;
 
-    /**
-     * 授权访问回调地址
-     */
-    @Column(name = "use_auth_visit_callback_url")
-    private String authVisitCallbackUrl;
+    @Column(name = "authorize_visit_notify_url")
+    private String authorizeVisitCallbackUrl;
+
 
     @OneToOne(targetEntity = KfmFileOss.class)
     @JoinColumn(name = "file_oss_id", referencedColumnName = "id", insertable = false, updatable = false)

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "backgroud": "/pages/login/commpents/Backgroud",
+    "button-by-wechat-applet-get-phone-number": "/pages/login/commpents/ButtonByWechatAppletGetPhoneNumber"
+  }
+}

@@ -1,14 +1,17 @@
 {
   "pages": [
+    "pages/static/static",
     "pages/login/login",
     "pages/index/index",
     "pages/home/home",
     "pages/play/play",
-    "pages/static/static",
     "pages/guanyuwomen/guanyuwomen",
     "pages/tixian/tixian",
     "pages/upload_work/upload_work",
-    "pages/buy_success_work/buy_success_work"
+    "pages/buy_success_work/buy_success_work",
+    "pages/user_self_collection/user_self_collection",
+    "pages/indexByShare/indexByShare",
+    "pages/indexToShare/indexToShare"
   ],
   "subPackages": [],
   "window": {
@@ -17,32 +20,6 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8",
     "navigationStyle": "custom"
-  },
-  "tabBar": {
-    "color": "#8a8a8a",
-    "selectedColor": "#5EB2F3",
-    "borderStyle": "white",
-    "backgroundColor": "#FFFFFF",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "/static/tabbar/index.png",
-        "selectedIconPath": "static/tabbar/index_selected.png"
-      },
-      {
-        "pagePath": "pages/play/play",
-        "text": "播放",
-        "iconPath": "/static/tabbar/video.png",
-        "selectedIconPath": "static/tabbar/video_selected.png"
-      },
-      {
-        "pagePath": "pages/home/home",
-        "text": "我的",
-        "iconPath": "/static/tabbar/mine.png",
-        "selectedIconPath": "static/tabbar/mine_selected.png"
-      }
-    ]
   },
   "permission": {},
   "usingComponents": {}

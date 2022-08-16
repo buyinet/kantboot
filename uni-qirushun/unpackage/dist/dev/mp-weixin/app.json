@@ -1,0 +1,24 @@
+{
+  "pages": [
+    "pages/static/static",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/home/home",
+    "pages/play/play",
+    "pages/guanyuwomen/guanyuwomen",
+    "pages/tixian/tixian",
+    "pages/upload_work/upload_work",
+    "pages/buy_success_work/buy_success_work",
+    "pages/user_self_collection/user_self_collection"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "App",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8",
+    "navigationStyle": "custom"
+  },
+  "permission": {},
+  "usingComponents": {}
+}

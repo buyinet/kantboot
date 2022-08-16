@@ -37,10 +37,11 @@ public class SysMenu  implements Serializable {
     @Column(name="id")
     private Long id;
 
+
     /**
      * 路径
      */
-    @Column(name="path")
+    @Column(name="path",columnDefinition="varchar(255) default '/'")
     private String path;
 
     /**

@@ -1,24 +1,24 @@
 package com.kantboot.pay.module.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.kantboot.pay.module.entity.PayGoodsCollection;
 import com.kantboot.pay.module.entity.PayGoodsInOrder;
 import com.kantboot.pay.module.entity.PayGoodsOrder;
 import com.kantboot.pay.module.entity.PayGoodsParent;
+import com.kantboot.pay.module.repository.PayGoodsCollectionRepository;
 import com.kantboot.pay.module.repository.PayGoodsInOrderRepository;
 import com.kantboot.pay.module.repository.PayGoodsOrderRepository;
 import com.kantboot.pay.module.repository.PayGoodsParentRepository;
 import com.kantboot.pay.module.service.IPayGoodsParentService;
 import com.kantboot.pay.module.service.IPayNotifyService;
-import com.kantboot.pay.util.common.util.GoodsParentParam;
-import com.kantboot.pay.util.common.util.PayParam;
-import com.kantboot.pay.util.common.util.PayResult;
-import com.kantboot.util.common.util.RestResult;
+import com.kantboot.pay.util.common.util.*;
 import com.kantboot.system.user.module.entity.SysUser;
 import com.kantboot.system.user.module.service.ISysUserService;
 import com.kantboot.third.party.module.service.ITpUserOfWechatService;
 import com.kantboot.third.party.module.service.ITpWechatAppletParamService;
 import com.kantboot.third.party.wechat.pay.entity.PayUnifiedOrder;
 import com.kantboot.third.party.wechat.pay.entity.PayingParam;
+import com.kantboot.util.common.util.RestResult;
 import com.kantboot.util.core.service.impl.BaseServiceImpl;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -66,7 +66,7 @@ public class PayGoodsParentServiceImpl
      * @param param
      * @return
      */
-    private PayGoodsParent getPayGoodsParent(GoodsParentParam param){
+    private PayGoodsParent getPayGoodsParent(GoodsPayParam param){
         String goodsParentName = param.getGoodsParentName();
         PayGoodsParent result = repository.findByName(goodsParentName);
         return result;
@@ -78,13 +78,13 @@ public class PayGoodsParentServiceImpl
      * @return
      */
     private PayResult getPayResult(PayGoodsParent payGoodsParent,
-                                   GoodsParentParam param){
+                                   GoodsPayParam param){
         //start:携带对应的响应头向支付前回调获取支付参数
         String payBeforeUrl = payGoodsParent.getPayBeforeUrl();
         HttpHeaders headers = new HttpHeaders();
         headers.add("token",request.getHeader("token"));
         headers.add("User-Agent",request.getHeader("User-Agent"));
-        HttpEntity<GoodsParentParam> requestEntity = new HttpEntity(param, headers);
+        HttpEntity<GoodsPayParam> requestEntity = new HttpEntity(param, headers);
         RestResult restResult = restTemplate.postForObject(payBeforeUrl,requestEntity,RestResult.class);
         //end:携带对应的响应头向支付前回调获取支付参数
         Object data = restResult.getData();
@@ -133,7 +133,7 @@ public class PayGoodsParentServiceImpl
     }
 
     @Override
-    public Object createPayingParam(GoodsParentParam param) {
+    public Object createPayingParam(GoodsPayParam param) {
 
         PayGoodsParent payGoodsParent = this.getPayGoodsParent(param);
 
@@ -156,6 +156,46 @@ public class PayGoodsParentServiceImpl
         return payingParam;
     }
 
+    @Resource
+    PayGoodsCollectionRepository payGoodsCollectionRepository;
+    @Override
+    public Object toCollection(GoodsCollectionParam param) {
 
+        Long userId = userService.getUserInfo().getId();
 
+        List<PayGoodsCollection> payGoodsCollections=new ArrayList<>();
+        List<CollectionParam> collectionParams = param.getCollectionParams();
+        for (CollectionParam collectionParam : collectionParams) {
+            String goodsId = collectionParam.getGoodsId();
+            payGoodsCollections.add(
+                    new PayGoodsCollection()
+                            .setGoodsId(collectionParam.getGoodsId())
+                            .setUserId(userId)
+                            .setPayGoodsParentName(param.getGoodsParentName())
+            );
+        }
+
+        payGoodsCollectionRepository.saveAll(payGoodsCollections);
+
+        return null;
+    }
+
+    @Override
+    public Object cancelCollection(GoodsCollectionParam param) {
+        Long userId = userService.getUserInfo().getId();
+        List<CollectionParam> collectionParams = param.getCollectionParams();
+        List<PayGoodsCollection> payGoodsCollections=new ArrayList<>();
+        for (CollectionParam collectionParam : collectionParams) {
+            PayGoodsCollection byGoodsIdAndUserIdAndPayGoodsParentName = payGoodsCollectionRepository.findByGoodsIdAndUserIdAndPayGoodsParentName(
+                    collectionParam.getGoodsId(),
+                    userId,
+                    param.getGoodsParentName());
+            if(byGoodsIdAndUserIdAndPayGoodsParentName!=null){
+                payGoodsCollections.add(byGoodsIdAndUserIdAndPayGoodsParentName);
+            }
+
+        }
+        payGoodsCollectionRepository.deleteAll(payGoodsCollections);
+        return null;
+    }
 }

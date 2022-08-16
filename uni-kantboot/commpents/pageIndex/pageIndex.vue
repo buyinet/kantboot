@@ -25,16 +25,18 @@
 						</image>
 						<view class="cover_text">染发后</view>
 					</view>
-
+					<!-- <view>{{bodyData.ranfaBrand.name}}</view> -->
 				</u-col>
 				<u-col span="1"></u-col>
 				<u-col span="4.5">
 					<view class="btn_images">
 						<image @click="change()" class="btn_image" src="../../static/index_1.png"></image>
 						<view style="height: 20rpx;"></view>
-						<image @click="pay()" class="btn_image" src="../../static/index_3.png"></image>
+						<image @click="pay()" v-show="!bodyData.buy" class="btn_image" src="../../static/index_3.png"></image>
+						<image @click="toPlay(bodyData.id)" v-show="bodyData.buy" class="btn_image" src="../../static/index_03.png"></image>
 						<view style="height: 20rpx;"></view>
-						<image class="btn_image" src="../../static/index_2.png"></image>
+						<image @click="collection()" class="btn_image" v-show="!bodyData.collection" src="../../static/index_2.png"></image>
+						<image @click="cancelCollection()" v-show="bodyData.collection" class="btn_image" src="../../static/index_2_1.png"></image>
 					</view>
 				</u-col>
 				<u-col span="0.5"></u-col>
@@ -68,6 +70,7 @@
 			}
 		},
 		onShow() {
+
 			// this.change();
 		},
 		mounted() {
@@ -95,7 +98,74 @@
 				Request.request({
 					url: Api.ranfaWork.change,
 					success: (res) => {
+						// console.log("=======++++"+JSON.stringify(res));
 						this.bodyData = res.data.data
+					}
+				});
+			},
+			toPlay(id){
+				uni.setStorageSync("ranfaWorkIdOfPlay",id)
+				uni.reLaunch({
+					url:"/pages/static/static?pageComponent=pagePlay",
+				})
+			},
+			cancelCollection(){
+				Request.requestSync({
+					url: Api.authPayGoods.cancelCollection,
+					data: {
+						goodsParentName: "ranfa", //此类商品统一识别名称，必填
+						collectionParams: [{
+							goodsId: this.bodyData.id, //商品id,必填
+							number: 1, //数量，选填
+							coupons: [], //优惠券,选填
+							otherParam: [{ //其它参数
+				
+							}]
+						}]
+					},
+					success: (res)=>{
+						Request.request({
+							url: Api.ranfaWork.findById,
+							data:{
+								id:this.bodyData.id
+							},
+							success: (res) => {
+								this.bodyData = res.data.data
+								
+								this.$forceUpdate();
+							}
+						});
+						this.$forceUpdate();
+					}
+				});
+			},
+			collection(){
+				Request.requestSync({
+					url: Api.authPayGoods.collection,
+					data: {
+						goodsParentName: "ranfa", //此类商品统一识别名称，必填
+						collectionParams: [{
+							goodsId: this.bodyData.id, //商品id,必填
+							number: 1, //数量，选填
+							coupons: [], //优惠券,选填
+							otherParam: [{ //其它参数
+				
+							}]
+						}]
+					},
+					success: (res)=>{
+						Request.request({
+							url: Api.ranfaWork.findById,
+							data:{
+								id:this.bodyData.id
+							},
+							success: (res) => {
+								this.bodyData = res.data.data
+								
+								this.$forceUpdate();
+							}
+						});
+						this.$forceUpdate();
 					}
 				});
 			},
@@ -117,7 +187,22 @@
 						uni.requestPayment({
 							provider: 'wxpay', // 服务提提供商
 							...res.data.data, // 签名
-							success: function(res1) {
+							success: (res1)=> {
+								//支付成功后，对此id的商品重新获取，主要判断是否真的购买，以改变bodyData.buy来渲染页面
+								Request.request({
+									url: Api.ranfaWork.findById,
+									data:{
+										id:this.bodyData.id
+									},
+									success: (res) => {
+										this.bodyData = res.data.data
+										if(this.bodyData.buy){
+											this.toPlay(this.bodyData.id);
+										}
+										this.$forceUpdate();
+									}
+								});
+								
 								console.log('支付成功', res1);
 								// 业务逻辑。。。
 							},

@@ -1,14 +1,27 @@
 package com.kantboot.pay.util.common.entity;
 
-import com.kantboot.pay.module.entity.PayGoods;
+import com.kantboot.pay.module.entity.PayGoodsBuy;
+import com.kantboot.pay.module.entity.PayGoodsCollection;
 
-public interface BaseGoodsEntity{
+import java.io.Serializable;
+
+
+public interface BaseGoodsEntity extends Serializable {
 
 //    Set<PayGoodsInOrder> getPayGoodsInOrders();
+    Object setBuy(Boolean entity);
+    Boolean getBuy();
 
-    PayGoods getPayGoods();
+    PayGoodsBuy getPayGoodsBuy();
 
-    Object setPayGoods(PayGoods entity);
+    Object setPayGoodsBuy(PayGoodsBuy entity);
+
+    PayGoodsCollection getPayGoodsCollection();
+
+    Object setPayGoodsCollection(PayGoodsCollection entity);
+
+    Object setCollection(Boolean entity);
+    Boolean getCollection();
 
 //    Object setPayGoodsInOrders(Set<PayGoodsInOrder> entity);
 

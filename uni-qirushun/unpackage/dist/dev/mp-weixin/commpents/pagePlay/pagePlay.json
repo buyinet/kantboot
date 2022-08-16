@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "u-subsection": "/uni_modules/uview-ui/components/u-subsection/u-subsection",
+    "u-grid": "/uni_modules/uview-ui/components/u-grid/u-grid",
+    "u-grid-item": "/uni_modules/uview-ui/components/u-grid-item/u-grid-item",
+    "kt-video": "/commpents/kt/ktFile/ktVideo"
+  }
+}

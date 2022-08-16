@@ -1,10 +1,12 @@
 package com.aaarfyh.ranfa.module.util;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @Data
+@Accessors(chain = true)
 public class RanfaWorkChangeUtil {
 
     /**
@@ -23,6 +25,16 @@ public class RanfaWorkChangeUtil {
      * 用户正在停留的id
      */
     private Long id;
+
+    /**
+     * 品牌id
+     */
+    private Long ranfaBrandId;
+
+    /**
+     * 分类id
+     */
+    private Long ranfaTechniqueId;
 
     private Integer page;
 

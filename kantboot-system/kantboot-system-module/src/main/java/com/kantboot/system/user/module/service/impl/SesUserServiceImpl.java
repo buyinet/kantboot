@@ -2,7 +2,6 @@ package com.kantboot.system.user.module.service.impl;
 
 import com.google.common.collect.Interner;
 import com.google.common.collect.Interners;
-import com.kantboot.util.common.exception.BaseException;
 import com.kantboot.system.user.module.entity.SysDept;
 import com.kantboot.system.user.module.entity.SysPermission;
 import com.kantboot.system.user.module.entity.SysRole;
@@ -15,6 +14,8 @@ import com.kantboot.system.user.module.security.TokenManage;
 import com.kantboot.system.user.module.service.ISysRoleService;
 import com.kantboot.system.user.module.service.ISysUserService;
 import com.kantboot.system.user.module.vo.LoginVO;
+import com.kantboot.util.common.exception.BaseException;
+import com.kantboot.util.core.service.impl.BaseServiceImpl;
 import com.kantboot.util.core.util.PageParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
@@ -27,11 +28,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
 @Slf4j
-public class SesUserServiceImpl implements ISysUserService {
+public class SesUserServiceImpl
+        extends BaseServiceImpl<SysUser,Long>
+        implements ISysUserService {
 
 
     /**
@@ -156,14 +160,18 @@ public class SesUserServiceImpl implements ISysUserService {
         return false;
     }
 
+    private Interner<String> interner= Interners.<String>newStrongInterner();
+
     @Override
     public SysUser getUserInfo() {
-        //获取 用户名
-        String userName = tokenManage.getUserName();
+        //用户名
+        String userName = null;
+        synchronized (interner.intern(tokenManage.getToken())){
+            //获取 用户名
+            userName = tokenManage.getUserName();
+        }
         return sysUserRepository.findByUsername(userName);
     }
-
-    private Interner<String> interner= Interners.<String>newStrongInterner();
 
     /**
      * 生成用户名
@@ -259,6 +267,7 @@ public class SesUserServiceImpl implements ISysUserService {
     public void loginOut() {
         tokenManage.removeToken();
     }
+
 
 
     @Override
@@ -379,36 +388,56 @@ public class SesUserServiceImpl implements ISysUserService {
         SysUser userInfo = getUserInfo();
         String username = userInfo.getUsername();
 
-        synchronized(username.intern()) {
+        synchronized(interner.intern(username)) {
             userInfo.setBalance(userInfo.getBalance() + money);
             sysUserRepository.save(userInfo);
         }
 
     }
-//
-//    /**
-//     * 添加 余额，以 元 为单位
-//     *
-//     * @param moneyYuan
-//     */
-//    @Override
-//    public void addBalanceYuan(Double moneyYuan) {
-//
-//        SysUser userInfo = getUserInfo();
-//        String username = userInfo.getUsername();
-//
-//        synchronized (username.intern()){
-//            Long balance = userInfo.getBalance();
-//            // 将余额转换成单位元
-//            BigDecimal balanceYuan = new BigDecimal
-//                    (Double.toString(balance)).divide(new BigDecimal(100));
-//            BigDecimal multiply = balanceYuan.add
-//                    (new BigDecimal(moneyYuan)).multiply(new BigDecimal(100));
-//            userInfo.setBalance(multiply.longValue());
-//            sysUserRepository.save(userInfo);
-//        }
-//
-//    }
+
+    @Override
+    public void addBalance(Long id, Long money) {
+        String idStr = id + "";
+        synchronized (interner.intern(idStr)){
+            SysUser sysUser = sysUserRepository.findById(id).get();
+            BigDecimal add = new BigDecimal(sysUser.getBalance()).add(new BigDecimal(money));
+            sysUser.setBalance(add.longValue());
+            sysUserRepository.save(sysUser);
+        }
+    }
+    
+    
+
+    @Override
+    public void addBalanceYuan(Long id, Double moneyYuan) {
+        BigDecimal bigDecimal = new BigDecimal(moneyYuan);
+        BigDecimal multiply = bigDecimal.multiply(new BigDecimal(moneyYuan));
+        this.addBalance(id,multiply.longValue());
+    }
+
+    /**
+     * 添加 余额，以 元 为单位
+     *
+     * @param moneyYuan
+     */
+    @Override
+    public void addBalanceYuan(Double moneyYuan) {
+
+        SysUser userInfo = getUserInfo();
+        String username = userInfo.getUsername();
+
+        synchronized (username.intern()){
+            Long balance = userInfo.getBalance();
+            // 将余额转换成单位元
+            BigDecimal balanceYuan = new BigDecimal
+                    (Double.toString(balance)).divide(new BigDecimal(100));
+            BigDecimal multiply = balanceYuan.add
+                    (new BigDecimal(moneyYuan)).multiply(new BigDecimal(100));
+            userInfo.setBalance(multiply.longValue());
+            sysUserRepository.save(userInfo);
+        }
+
+    }
 
     /**
      * 修改密码

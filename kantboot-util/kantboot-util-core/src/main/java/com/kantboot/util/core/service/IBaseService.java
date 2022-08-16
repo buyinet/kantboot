@@ -24,6 +24,7 @@ public interface IBaseService<T,ID> {
      */
     Page<T> findCommonByPage(CommonEntityPageParam<T> pageParam);
 
+    T findById(T entity);
 
     /**
      * 通用删除

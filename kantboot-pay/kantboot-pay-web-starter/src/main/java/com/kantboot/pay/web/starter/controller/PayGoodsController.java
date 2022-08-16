@@ -1,7 +1,7 @@
 package com.kantboot.pay.web.starter.controller;
 
-import com.kantboot.pay.module.entity.PayGoods;
-import com.kantboot.pay.util.common.util.GoodsParentParam;
+import com.kantboot.pay.module.entity.PayGoodsBuy;
+import com.kantboot.pay.util.common.util.GoodsPayParam;
 import com.kantboot.pay.util.common.util.PayResult;
 import com.kantboot.system.user.module.entity.SysUser;
 import com.kantboot.system.user.module.service.ISysUserService;
@@ -18,14 +18,14 @@ import java.io.InputStreamReader;
 @RestController
 @Log4j2
 @RequestMapping("/pay_goods")
-public class PayGoodsController extends BaseController<PayGoods,Long> {
+public class PayGoodsController extends BaseController<PayGoodsBuy,Long> {
 
 
     @Resource
     ISysUserService userService;
 
     @PostMapping("/aa")
-    public RestResult<PayResult> aa(@RequestBody GoodsParentParam param){
+    public RestResult<PayResult> aa(@RequestBody GoodsPayParam param){
         SysUser userInfo = userService.getUserInfo();
         PayResult result=new PayResult();
         result.setState(2000);

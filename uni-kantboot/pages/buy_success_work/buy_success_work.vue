@@ -1,7 +1,59 @@
-<template>
+Buy<template>
 	<view>
-		<view>
+		
+		<u-popup :overlayOpacity=".7" :show="checkShow" :customStyle="{overflowY: 'scroll'}" :safeAreaInsetTop="true"
+			@close="closeCheck" @open="openCheck" class="brand-box" mode="right">
+			<view style="text-align: center;font-weight: bold;color: rgba(0,0,0,.2);">
+				品牌选择
+			</view>
+			<view class="brand"
+			 @click="
+			 paramData.pageNumber=1;
+			 ranfaBrandBySelected={id:null};
+			 paramData.data.and.eq[0].ranfaBrandId=null;this.closeCheck();this.findCommon();" >
+				<text v-if="null!=paramData.data.and.eq[0].ranfaBrandId">全部</text>
+				<text v-if="null==paramData.data.and.eq[0].ranfaBrandId" style="opacity: .7;"
+				>全部</text>
+			</view>
+			<view class="brand"
+			 v-for="(item,index) in ranfaBrands"
+			 @click="
+			 paramData.pageNumber=1;
+			 ranfaBrandBySelected=item;
+			 paramData.data.and.eq[0].ranfaBrandId=item.id;this.closeCheck();this.findCommon();" >
+				<text v-if="item.id!=paramData.data.and.eq[0].ranfaBrandId">{{item.name}}</text>
+				<text v-if="item.id==paramData.data.and.eq[0].ranfaBrandId" style="opacity: .7;"
+				>{{item.name}}</text>
+			</view>
+		</u-popup>
+		
+		<u-popup :overlayOpacity=".7" :show="checkShow2" :customStyle="{overflowY: 'scroll'}" :safeAreaInsetTop="true"
+			@close="closeCheck2" @open="openCheck2" class="brand-box" mode="right">
+			<view style="text-align: center;font-weight: bold;color: rgba(0,0,0,.2);">
+				分类选择
+			</view>
+			<view class="brand"
+			 @click="
+			 paramData.pageNumber=1;
+			 ranfaTechniqueBySelected={id:null};
+			 paramData.data.and.eq[0].ranfaTechniques[0].id=null;this.closeCheck2();this.findCommon();" >
+				<text v-if="null!=paramData.data.and.eq[0].ranfaTechniques[0].id">全部</text>
+				<text v-if="null==paramData.data.and.eq[0].ranfaTechniques[0].id" style="opacity: .7;"
+				>全部</text>
+			</view>
+			<view class="brand"
+			 v-for="(item,index) in ranfaTechniques"
+			 @click="
+			 paramData.pageNumber=1;
+			 ranfaTechniqueBySelected=item;
+			 paramData.data.and.eq[0].ranfaTechniques[0].id=item.id;this.closeCheck2();this.findCommon();" >
+				<text v-if="item.id!=paramData.data.and.eq[0].ranfaTechniques[0].id">{{item.name}}</text>
+				<text v-if="item.id==paramData.data.and.eq[0].ranfaTechniques[0].id" style="opacity: .7;"
+				>{{item.name}}</text>
+			</view>
+		</u-popup>
 
+		<view>
 			<view v-if="bodyData.content.length==0" class="not-to">
 				<image mode="widthFix" src="../../static/5.png"></image>
 				<view>暂无已购视频</view>
@@ -56,7 +108,11 @@
 
 								价格：<text>{{item.price/100}}元</text>
 							</view>
-							<view v-if="item.auditStatus==1" @click="toPlay(item.id)" class="edit_text">查看</view>
+							<view v-if="item.auditStatus==1" class="edit_text">
+								<view @click="toPlay(item.id)" style="display: inline;margin-right: 20rpx;">查看</view>
+								<view style="display: inline;" @click="toPage('/pages/indexToShare/indexToShare?ranfaWorkId='+item.id)">
+									分享</view>
+							</view>
 						</view>
 					</view>
 				</view>
@@ -77,10 +133,42 @@
 			width: 680rpx;">
 			<u-grid :border="true" col="5">
 				<u-grid-item>
-					<text class="grid-text" style="font-weight: bold;color: gray;">选择品牌</text>
+					<text 
+					@click="openCheck()"
+					v-if="ranfaBrandBySelected.id==null"
+					class="grid-text" style="font-weight: bold;color: gray;">选择品牌</text>
+					<text
+					@click="openCheck()"
+					v-if="ranfaBrandBySelected.id!=null"
+					class="grid-text" style="font-weight: bold;
+					font-size: 25rpx;
+					color: gray;">
+					<text style="font-size: 15rpx;">品牌：</text>
+					<text v-if="ranfaBrandBySelected.name.length<4">{{ranfaBrandBySelected.name}}</text>
+					<text v-if="ranfaBrandBySelected.name.length>=4"
+					style="font-size: 20rpx;"
+					>{{ranfaBrandBySelected.name}}</text>
+					
+					</text>
 				</u-grid-item>
 				<u-grid-item>
-					<text class="grid-text" style="font-weight: bold;color: gray;">选择分类</text>
+				<text 
+					@click="openCheck2()"
+					v-if="ranfaTechniqueBySelected.id==null"
+					class="grid-text" style="font-weight: bold;color: gray;">选择分类</text>
+					<text
+					@click="openCheck2()"
+					v-if="ranfaTechniqueBySelected.id!=null"
+					class="grid-text" style="font-weight: bold;
+					font-size: 25rpx;
+					color: gray;">
+					<text style="font-size: 15rpx;">分类：</text>
+					<text v-if="ranfaTechniqueBySelected.name.length<4">{{ranfaTechniqueBySelected.name}}</text>
+					<text v-if="ranfaTechniqueBySelected.name.length>=4"
+					style="font-size: 20rpx;"
+					>{{ranfaTechniqueBySelected.name}}</text>
+					
+					</text>
 				</u-grid-item>
 
 				<u-grid-item @click="paramData.pageNumber--;this.findCommon()">
@@ -109,15 +197,31 @@
 	export default {
 		data() {
 			return {
-
+				ranfaBrandBySelected:{
+					id:null
+				},
+				ranfaTechniqueBySelected:{
+					
+				},
+				ranfaTechniques:[],
+				ranfaBrands:[],
+				checkShow: false,
+				checkShow2: false,
 				paramData: {
 					"pageNumber": 1,
 					"pageSize": 5,
 					"sortType": "DESC",
-					"sortField": "payGoods.gmtModified",
+					"sortField": "payGoodsBuy.gmtModified",
 					"data": {
 						"and": {
-							"eq": [],
+							"eq": [
+								{
+									ranfaBrandId:null,
+									ranfaTechniques:[
+										{id:null}
+									]
+								},
+							],
 							"vague": [],
 							"like": [],
 							"gt": [],
@@ -143,16 +247,65 @@
 		},
 		mounted() {
 			this.findCommon();
+			this.getRanfaBrands();
+			this.getRanfaTechniques();
 		},
 		methods: {
+			toPage(page){
+				uni.navigateTo({
+					url:page
+				})
+			},
+			getRanfaTechniques() {
+				Request.request({
+					url: Api.ranfaTechnique.findCommonList,
+					data: {
+						entity: {}
+					},
+					success: (res) => {
+						
+						this.ranfaTechniques = res.data.data;
+						// console.log(JSON.stringify(res));
+						this.$forceUpdate();
+					}
+				});
+			},
+			getRanfaBrands() {
+				Request.request({
+					url: Api.ranfaBrand.findCommonList,
+					data: {
+						entity: {}
+					},
+					success: (res) => {
+			
+						this.ranfaBrands = res.data.data;
+						// console.log(JSON.stringify(res));
+						this.$forceUpdate();
+					}
+				});
+			},
+			closeCheck() {
+				this.checkShow = false
+			},
+			openCheck() {
+				this.checkShow = true;
+			},
+			closeCheck2() {
+				this.checkShow2 = false
+			},
+			openCheck2() {
+				this.checkShow2 = true;
+			},
+			toPlay(id){
+				uni.setStorageSync("ranfaWorkIdOfPlay",id)
+				uni.navigateTo({
+					url:"/pages/play/play",
+				})
+			},
 			findCommon() {
 				console.log(this.paramData.pageNumber);
 				if(this.paramData.pageNumber<1){
 					this.paramData.pageNumber=1;
-					return false;
-				}
-				if(this.paramData.pageNumber>this.bodyData.totalPages){
-					this.paramData.pageNumber=this.bodyData.totalPages;
 					return false;
 				}
 				
@@ -161,6 +314,11 @@
 					data: this.paramData,
 					success: (res) => {
 						this.bodyData = res.data.data;
+						console.log(this.bodyData);
+						if(this.paramData.pageNumber>this.bodyData.totalPages-1){
+							this.paramData.pageNumber=this.bodyData.totalPages-1;
+							return false;
+						}
 					}
 				});
 
@@ -187,7 +345,15 @@
 			width: 100%;
 		}
 	}
+	.brand {
+		padding: 20rpx;
+		text-align: center;
+		color: gray;
+	}
 
+	.brand:active {
+		color: rgba(118, 118, 118, .5);
+	}
 	.box {
 		position: relative;
 		box-shadow: 0 5rpx 5rpx rgba(118, 118, 118, .1);
@@ -251,14 +417,14 @@
 					position: absolute;
 					color: #4EC1FF;
 					opacity: .9;
-					width: 140rpx;
+					width: 300rpx;
 					font-size: 24rpx;
 					position: absolute;
 					top: 0;
 					left: 180rpx;
 				}
 
-				.edit_text:active {
+				.edit_text>view:active {
 					opacity: .2;
 				}
 			}

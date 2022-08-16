@@ -7,4 +7,10 @@ public interface IPayNotifyService {
 
     PayNotify getDefaultUse();
     PayNotify setDefaultUse(Long id);
+
+    /**
+     * 回调
+     * @return
+     */
+    Object payNotify();
 }

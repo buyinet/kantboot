@@ -860,6 +860,16 @@ public class BaseServiceImpl<T,ID> implements IBaseService<T,ID> {
     }
 
     @Override
+    public T findById(T entity) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        SimpleJpaRepository<T, ID> jpaRepository = new SimpleJpaRepository<T, ID>((Class<T>) entity.getClass(), entityManager);
+        Optional<T> byId = jpaRepository.findById((ID) getId(entity));
+        entityManager.close();
+        return byId.get();
+    }
+
+
+    @Override
     public Page<T> findCommonByPage( CommonEntityPageParam<T> pageParam) {
         CommonEntity<T> commonEntity = pageParam.getData();
         EntityManager entityManager = entityManagerFactory.createEntityManager();

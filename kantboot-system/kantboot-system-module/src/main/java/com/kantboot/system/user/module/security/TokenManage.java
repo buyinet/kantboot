@@ -181,6 +181,14 @@ public class TokenManage {
         redisUtil.delete("token:" + token + ":secret");
     }
 
+    /**
+     * 获取token
+     * @return
+     */
+    public String getToken(){
+        String token = request.getHeader("token");
+        return token;
+    };
     //生成秘钥
     public static String createSecret(){
         String secret = UUID.randomUUID().toString();

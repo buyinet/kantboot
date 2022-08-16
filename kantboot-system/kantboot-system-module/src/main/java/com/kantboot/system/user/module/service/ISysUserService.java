@@ -2,11 +2,12 @@ package com.kantboot.system.user.module.service;
 
 import com.kantboot.system.user.module.entity.SysUser;
 import com.kantboot.system.user.module.vo.LoginVO;
+import com.kantboot.util.core.service.IBaseService;
 import com.kantboot.util.core.util.PageParam;
 
 import java.util.List;
 
-public interface ISysUserService {
+public interface ISysUserService extends IBaseService<SysUser,Long> {
 
     /**
      *  判断用户是否有权限进入对应的URI
@@ -19,6 +20,7 @@ public interface ISysUserService {
      */
     SysUser getUserInfo();
 
+//    SysUser getUserInfo(Long id);
     /**
      * 用户注册，注册成功之后，客户端便可保留登录状态
      * @param sysUser
@@ -55,10 +57,17 @@ public interface ISysUserService {
      */
     void addBalance(Long money);
 
-//    /**
-//     * 添加 余额,以"元" 为单位
-//     */
-//    void addBalanceYuan(Double moneyYuan);
+    /**
+     * 添加 余额,以"元" 为单位
+     */
+    void addBalanceYuan(Double moneyYuan);
+
+    void addBalance(Long id,Long money);
+
+    /**
+     * 添加 余额,以"元" 为单位
+     */
+    void addBalanceYuan(Long id,Double moneyYuan);
 
     /**
      * 修改密码
