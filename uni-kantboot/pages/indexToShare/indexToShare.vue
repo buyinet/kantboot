@@ -391,7 +391,7 @@
 	.cover_images {
 		position: fixed;
 		width: 100%;
-		bottom: 240rpx;
+		bottom: 200rpx;
 
 		.cover_image_view {
 			position: relative;
