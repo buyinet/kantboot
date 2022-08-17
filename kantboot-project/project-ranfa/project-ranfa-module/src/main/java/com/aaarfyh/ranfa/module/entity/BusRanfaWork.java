@@ -39,6 +39,9 @@ public class BusRanfaWork implements BaseGoodsEntity,Serializable {
     @Column(name="id")
     private Long id;
 
+    @Column(name="iden")
+    private String iden;
+
     @Column(name="user_id_by_upload")
     private Long userIdByUpload;
 

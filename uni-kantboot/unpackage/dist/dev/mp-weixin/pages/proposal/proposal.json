@@ -1,0 +1,10 @@
+{
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "投诉或建议",
+  "navigationBarBackgroundColor": "#FFF",
+  "backgroundColor": "#F8F8F8",
+  "navigationStyle": "default",
+  "usingComponents": {
+    "u-button": "/uni_modules/uview-ui/components/u-button/u-button"
+  }
+}

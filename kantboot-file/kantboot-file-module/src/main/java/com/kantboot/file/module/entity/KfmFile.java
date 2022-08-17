@@ -35,6 +35,9 @@ public class KfmFile {
     @Column(name = "path")
     private String path;
 
+    @Column(name = "path_by_no_watermark")
+    private String pathByNoWatermark;
+
     @Column(name = "name")
     private String name;
 
@@ -111,10 +114,10 @@ public class KfmFile {
     }
 
     public String getVisitUrlByName() {
-        if (getSetting() == null) {
+        if (getSetting() == null||this.getFileParent()==null) {
             return null;
         }
-        return getSetting().getHost() + "/kantboot-file/file/visit/" + this.fileParent.getBodyName() + "/" + this.fileParent.getBodyField() + "/" + name;
+        return getSetting().getHost() + "/kantboot-file/file/visit/" + this.getFileParent().getBodyName() + "/" + this.getFileParent().getBodyField() + "/" + getName();
     }
 
 }

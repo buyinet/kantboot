@@ -35,6 +35,7 @@ public class TokenManage {
     // token 有效时长
     private int tokenExpiration = 24*60*60*1000;
 
+
     @SneakyThrows
     public String createToken(String username){
 

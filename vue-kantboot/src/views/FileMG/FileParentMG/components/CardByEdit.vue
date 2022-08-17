@@ -38,12 +38,11 @@
           </el-select>
         </el-form-item>
 
-
-
         <el-form-item label="选择path (本地路径存储)" v-if="paramData.storageType == 'path'">
           <el-select v-model="paramData.filePathId" style="width: 100%">
             <el-option v-for="item in filePathList" :key="item.id" :label="item.title + '[' + item.path + ']'"
-              :value="item.id" />
+              :value="item.id" 
+              />
           </el-select>
         </el-form-item>
 
@@ -52,6 +51,26 @@
           <el-radio v-model="paramData.authorizeVisit" :label="false">否</el-radio>
         </el-form-item>
 
+        <el-form-item label="是否开启水印">
+          <el-radio v-model="paramData.useWatermark" :label="true">是</el-radio>
+          <el-radio v-model="paramData.useWatermark" :label="false">否</el-radio>
+        </el-form-item>
+        
+        <el-form-item v-show="paramData.useWatermark" :label="'水印url：'+watermarkFileBySelected.visitUrlById">
+         
+         <div style="background-color: rgba(0,0,0,.2);width: 100%;">
+        
+            <img v-for="(item,index) in watermarkFiles" :src="item.visitUrlById"
+              :style="
+              watermarkFileBySelected.id==item.id?
+              'background-color:rgba(118,118,118,.7);width: 100px;height: 100px;':
+              'width: 100px;height: 100px;'"
+              @click="watermarkFileBySelected=item;paramData.fileIdByWatermark=item.id"
+            />
+          </div>
+          </el-form-item>
+          
+          <!-- {{watermarkFiles}} -->
         <el-form-item label="设置授权回调地址" v-if="paramData.authorizeVisit">
           <el-input v-model="paramData.authorizeVisitCallbackUrl" />
         </el-form-item>
@@ -93,8 +112,12 @@ export default {
         "fileOssId": null,
         "filePathId": null,
         authorizeVisit: false,
-        authorizeVisitCallbackUrl:null
+        useWatermark:false,
+        authorizeVisitCallbackUrl:null,
+        fileIdByWatermark:null
       },
+       watermarkFileBySelected:{},
+      watermarkFiles:[],
       fileOssList: [],
       filePathList: []
     }
@@ -102,8 +125,30 @@ export default {
   mounted() {
     this.getFileOssList();
     this.getFilePathList();
+    this.getWatermarkFiles();
+    
   },
   methods: {
+    getWatermarkFiles(){
+      this.$request.post({
+        url: this.$api.file.findCommonList,
+        data: { 
+          and:{
+            eq:[{"fileParent":{
+              "bodyName":"file",
+              "bodyField":"Watermark"
+            }}]
+          },
+          entity: {}
+        },
+        stateSuccess: (res) => {
+          this.watermarkFiles = res.data;
+        },
+        stateFailed: (res) => {
+
+        }
+      });
+    },
     getFileOssList() {
       this.$request.post({
         url: this.$api.fileOss.findCommonList,

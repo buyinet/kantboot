@@ -87,6 +87,9 @@
 						<view v-if="item.title!=null" class="title">{{item.title}}</view>
 						<view style="height: 20rpx;"></view>
 						<view style="font-size: 25rpx;">
+							<view style="color: gray;">编号：{{item.iden}}
+							</view>
+							<view style="height: 20rpx;"></view>
 							<view style="color: gray;">品牌：{{item.ranfaBrand.name}}</view>
 							<view style="height: 20rpx;"></view>
 							<view style="color: gray;">分类:
@@ -104,7 +107,6 @@
 
 						<view class="bottom">
 							<view class="left2">
-
 								价格：<text>{{item.price/100}}元</text>
 							</view>
 							<view v-if="item.auditStatus==1&&item.buy" @click="toPlay(item.id)" class="edit_text">
@@ -112,6 +114,9 @@
 							</view>
 							<view v-if="item.auditStatus==1&&!item.buy" @click="pay(item.id)" class="edit_text">
 								购买
+							</view>
+							<view style="display: inline;margin-left: 60rpx;" class="edit_text" @click="toPage('/pages/indexToShare/indexToShare?ranfaWorkId='+item.id)">
+								分享
 							</view>
 						</view>
 					</view>
@@ -251,6 +256,11 @@
 			this.getRanfaTechniques();
 		},
 		methods: {
+			toPage(page){
+				uni.navigateTo({
+					url:page
+				})
+			},
 			pay(id) {
 				Request.requestSync({
 					url: Api.authPayGoods.createPayingParam,
@@ -441,7 +451,7 @@
 
 			.bottom {
 				position: absolute;
-				top: 200rpx;
+				top: 220rpx;
 
 				.left2 {
 					font-size: 24rpx;
@@ -468,6 +478,18 @@
 				}
 			}
 		}
+	}
+	.edit_text1 {
+		position: absolute;
+		color: #4EC1FF;
+		opacity: .9;
+		width: 140rpx;
+		font-size: 20rpx;
+		position: absolute;
+	}
+	
+	.edit_text1:active {
+		opacity: .2;
 	}
 
 	.grid-text {

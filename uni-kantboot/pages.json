@@ -138,6 +138,18 @@
             }
             
         }
+        ,{
+            "path" : "pages/proposal/proposal",
+            "style" :                                                                                    
+            {
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "投诉或建议",
+				"navigationBarBackgroundColor": "#FFF",
+				"backgroundColor": "#F8F8F8",
+				"navigationStyle": "default"
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

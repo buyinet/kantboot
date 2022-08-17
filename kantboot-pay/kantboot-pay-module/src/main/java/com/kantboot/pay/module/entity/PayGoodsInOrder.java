@@ -48,6 +48,12 @@ public class PayGoodsInOrder implements Serializable {
     private Integer status;
 
     /**
+     * 是否已经回调
+     */
+    @Column(name="is_call_back_pay_after",columnDefinition="0")
+    private Boolean callBackPayAfter;
+
+    /**
      * 商品统一管理的名称
      */
     @Column(name="pay_goods_parent_name")

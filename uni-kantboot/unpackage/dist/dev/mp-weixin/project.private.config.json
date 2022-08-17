@@ -78,6 +78,20 @@
           "query": "ranfaWorkId=107",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "收藏",
+          "pathName": "pages/user_self_collection/user_self_collection",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "投诉与建议",
+          "pathName": "pages/proposal/proposal",
+          "query": "ranfaWorkId=59",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

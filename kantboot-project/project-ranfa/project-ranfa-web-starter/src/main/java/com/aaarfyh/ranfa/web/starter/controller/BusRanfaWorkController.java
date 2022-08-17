@@ -4,6 +4,8 @@ import com.aaarfyh.ranfa.module.entity.BusRanfaBrand;
 import com.aaarfyh.ranfa.module.entity.BusRanfaWork;
 import com.aaarfyh.ranfa.module.repository.BusRanfaWorkRepository;
 import com.aaarfyh.ranfa.module.service.IBusRanfaWorkService;
+import com.google.common.collect.Interner;
+import com.google.common.collect.Interners;
 import com.kantboot.pay.module.entity.PayGoodsInOrder;
 import com.kantboot.pay.module.repository.PayGoodsInOrderRepository;
 import com.kantboot.pay.util.common.controller.BaseGoodsController;
@@ -15,10 +17,12 @@ import com.kantboot.system.user.module.service.ISysUserService;
 import com.kantboot.util.common.util.RestResult;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.annotation.Transient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/ranfa_work")
@@ -28,6 +32,19 @@ public class BusRanfaWorkController extends BaseGoodsController<BusRanfaWork, Lo
     @Resource
     IBusRanfaWorkService service;
 
+    private Interner<String> intern= Interners.<String>newStrongInterner();
+
+    @Override
+    @RequestMapping("/save")
+    public RestResult<?> save(@RequestBody BusRanfaWork entity) {
+        if(entity.getId()==null){
+            String timeStr = (new Date().getTime()-999999999)+"";
+            synchronized (intern.intern(timeStr)){
+                entity.setIden(timeStr);
+            }
+        }
+        return super.save(entity);
+    }
 
     /**
      * 切换作品
@@ -78,12 +95,20 @@ public class BusRanfaWorkController extends BaseGoodsController<BusRanfaWork, Lo
      * @return
      */
     @SneakyThrows
+    @Transient
     @PostMapping("/pay_after")
     public RestResult<PayAfterResult> payAfterResult(@RequestParam("goodsInOrderId") Long goodsInOrderId){
         System.out.println("goodsInOrderId = " + goodsInOrderId);
-        final PayGoodsInOrder payGoodsInOrder = payGoodsInOrderRepository.findById(goodsInOrderId).get();
-        final boolean bool = payGoodsInOrder.getPayGoodsParentName().equals("ranfa") &&
+        PayGoodsInOrder payGoodsInOrder = payGoodsInOrderRepository.findById(goodsInOrderId).get();
+        boolean bool = payGoodsInOrder.getPayGoodsParentName().equals("ranfa") &&
                 payGoodsInOrder.getStatus().equals(1);
+
+        Long id = payGoodsInOrder.getId();
+        String s = id + "";
+        //当碰到一样的订单id则锁住
+        synchronized (intern.intern(s)){
+            
+        }
         System.out.println(bool+"------");
 
         if (!bool) {
@@ -91,7 +116,15 @@ public class BusRanfaWorkController extends BaseGoodsController<BusRanfaWork, Lo
             return RestResult.success(new PayAfterResult().setIsSuccess(false),"获取成功");
         }
 
+        // 如果已经回调过，则到此为止
+        if(payGoodsInOrder.getCallBackPayAfter()){
+            return RestResult.success(new PayAfterResult().setIsSuccess(false),"获取成功");
+        }
+
         if (bool) {
+            payGoodsInOrder.setCallBackPayAfter(true);
+            payGoodsInOrderRepository.save(payGoodsInOrder);
+
             BusRanfaWork byId = repository.findById(Long.parseLong(payGoodsInOrder.getGoodsId())).get();
             Long userIdByUpload = byId.getUserIdByUpload();
             SysUser byId1 = sysUserService.findById(new SysUser().setId(userIdByUpload));
@@ -99,8 +132,8 @@ public class BusRanfaWorkController extends BaseGoodsController<BusRanfaWork, Lo
             System.out.println("userIdByUpload=" + userIdByUpload);
             //获取百分之60的利润给上传者
             Long price = byId.getPrice();
-            long l = new BigDecimal(price).multiply(new BigDecimal(0.6)).longValue();
-
+            System.out.println(price+"-----------------------==");
+            long l = new BigDecimal(price).multiply(new BigDecimal(0.6)).longValue()+1;
             sysUserService.addBalance(byId1.getId(), l);
         }
 

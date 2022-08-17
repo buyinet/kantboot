@@ -3,9 +3,9 @@
 		<image mode="aspectFill" class="back-image" src="../../static/4.png"></image>
 
 		<view class="cover_images">
-			<u-row customStyle="margin-bottom: 10px">
+			<u-row customStyle="margin-bottom: 0rpx">
 				<u-col span="1"></u-col>
-				<u-col span="5">
+				<u-col span="5.9">
 					<view class="cover_image_view">
 						
 						<image mode="aspectFill" class="cover_image cover_image_1"
@@ -18,7 +18,7 @@
  -->						
 						 <view class="cover_text">染发前</view>
 					</view>
-					<view style="height: 60rpx;"></view>
+					<view style="height: 20rpx;"></view>
 					<view class="cover_image_view">
 						<image mode="aspectFill" class="cover_image cover_image_2"
 							:src="bodyData.fileUrlByBackCoverImage">
@@ -35,8 +35,8 @@
 						<image @click="pay()" v-show="!bodyData.buy" class="btn_image" src="../../static/index_3.png"></image>
 						<image @click="toPlay(bodyData.id)" v-show="bodyData.buy" class="btn_image" src="../../static/index_03.png"></image>
 						<view style="height: 20rpx;"></view>
-						<image @click="collection()" class="btn_image" v-show="!bodyData.collection" src="../../static/index_2.png"></image>
-						<image @click="cancelCollection()" v-show="bodyData.collection" class="btn_image" src="../../static/index_2_1.png"></image>
+						<image @click="bodyData.collection=true;collection();" class="btn_image" v-show="!bodyData.collection" src="../../static/index_2.png"></image>
+						<image @click="bodyData.collection=false;cancelCollection()" v-show="bodyData.collection" class="btn_image" src="../../static/index_2_1.png"></image>
 					</view>
 				</u-col>
 				<u-col span="0.5"></u-col>
@@ -234,15 +234,15 @@
 		bottom: 0;
 		right: 50rpx;
 		.btn_image {
-			width: 200rpx;
-			height: 200rpx;
+			width: 170rpx;
+			height: 170rpx;
 
 		}
 
 		.btn_image:active {
-			width: 180rpx;
-			height: 180rpx;
-			margin: 11rpx;
+			width: 150rpx;
+			height: 150rpx;
+			margin: 12rpx;
 		}
 
 
@@ -255,7 +255,7 @@
 
 		.cover_image_view {
 			position: relative;
-			border: 20rpx solid #42a1e8;
+			border: 10rpx solid #42a1e8;
 			// box-sizing: border-box;
 			background-color: #42a1e8;
 			width: 100%;

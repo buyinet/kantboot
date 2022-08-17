@@ -1430,7 +1430,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"kantboot","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"kantboot","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -8518,7 +8518,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"kantboot","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_NAME":"kantboot","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8539,14 +8539,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"kantboot","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"kantboot","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"kantboot","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"kantboot","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8632,7 +8632,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"kantboot","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"kantboot","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -19961,7 +19961,15 @@ platform;exports.default = _default;
 /* 222 */,
 /* 223 */,
 /* 224 */,
-/* 225 */
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */
 /*!*********************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-popup/props.js ***!
   \*********************************************************************************/
@@ -20048,14 +20056,14 @@ platform;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 226 */,
-/* 227 */,
-/* 228 */,
-/* 229 */,
-/* 230 */,
-/* 231 */,
-/* 232 */,
-/* 233 */
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */
 /*!**********************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-tabbar/props.js ***!
   \**********************************************************************************/
@@ -20107,14 +20115,14 @@ platform;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 234 */,
-/* 235 */,
-/* 236 */,
-/* 237 */,
-/* 238 */,
-/* 239 */,
-/* 240 */,
-/* 241 */
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */
 /*!***************************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-tabbar-item/props.js ***!
   \***************************************************************************************/
@@ -20156,14 +20164,6 @@ platform;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 242 */,
-/* 243 */,
-/* 244 */,
-/* 245 */,
-/* 246 */,
-/* 247 */,
-/* 248 */,
-/* 249 */,
 /* 250 */,
 /* 251 */,
 /* 252 */,
@@ -20205,7 +20205,15 @@ platform;exports.default = _default;
 /* 288 */,
 /* 289 */,
 /* 290 */,
-/* 291 */
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */
 /*!**************************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-subsection/props.js ***!
   \**************************************************************************************/
@@ -20262,14 +20270,14 @@ platform;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 292 */,
-/* 293 */,
-/* 294 */,
-/* 295 */,
-/* 296 */,
-/* 297 */,
-/* 298 */,
-/* 299 */
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */
 /*!********************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-grid/props.js ***!
   \********************************************************************************/
@@ -20296,14 +20304,14 @@ platform;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 300 */,
-/* 301 */,
-/* 302 */,
-/* 303 */,
-/* 304 */,
-/* 305 */,
-/* 306 */,
-/* 307 */
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */
 /*!*************************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-grid-item/props.js ***!
   \*************************************************************************************/
@@ -20325,19 +20333,19 @@ platform;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 308 */,
-/* 309 */,
-/* 310 */,
-/* 311 */,
-/* 312 */,
-/* 313 */,
-/* 314 */,
-/* 315 */,
 /* 316 */,
 /* 317 */,
 /* 318 */,
 /* 319 */,
-/* 320 */
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */
 /*!*******************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-row/props.js ***!
   \*******************************************************************************/
@@ -20364,14 +20372,14 @@ platform;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 321 */,
-/* 322 */,
-/* 323 */,
-/* 324 */,
-/* 325 */,
-/* 326 */,
-/* 327 */,
-/* 328 */
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */
 /*!*******************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-col/props.js ***!
   \*******************************************************************************/
@@ -20408,14 +20416,14 @@ platform;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 329 */,
-/* 330 */,
-/* 331 */,
-/* 332 */,
-/* 333 */,
-/* 334 */,
-/* 335 */,
-/* 336 */
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */
 /*!**************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/libs/mixin/button.js ***!
   \**************************************************************************/
@@ -20436,7 +20444,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     openType: String } };exports.default = _default;
 
 /***/ }),
-/* 337 */
+/* 345 */
 /*!****************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/libs/mixin/openType.js ***!
   \****************************************************************************/
@@ -20469,7 +20477,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     } } };exports.default = _default;
 
 /***/ }),
-/* 338 */
+/* 346 */
 /*!**********************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-button/props.js ***!
   \**********************************************************************************/
@@ -20638,14 +20646,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 339 */,
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */
 /*!********************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-icon/icons.js ***!
   \********************************************************************************/
@@ -20868,7 +20876,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   'uicon-en': "\uE692" };exports.default = _default;
 
 /***/ }),
-/* 347 */
+/* 355 */
 /*!********************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-icon/props.js ***!
   \********************************************************************************/
@@ -20965,14 +20973,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 348 */,
-/* 349 */,
-/* 350 */,
-/* 351 */,
-/* 352 */,
-/* 353 */,
-/* 354 */,
-/* 355 */
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */
 /*!***********************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-overlay/props.js ***!
   \***********************************************************************************/
@@ -21004,14 +21012,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 356 */,
-/* 357 */,
-/* 358 */,
-/* 359 */,
-/* 360 */,
-/* 361 */,
-/* 362 */,
-/* 363 */
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */
 /*!**************************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-transition/props.js ***!
   \**************************************************************************************/
@@ -21043,7 +21051,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 364 */
+/* 372 */
 /*!*******************************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-transition/transition.js ***!
   \*******************************************************************************************/
@@ -21054,7 +21062,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 11));
 
 
-var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 365));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} // 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
+var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 373));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} // 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
 var nextTick = function nextTick() {return new Promise(function (resolve) {return setTimeout(resolve, 1000 / 50);});}; // nvue动画模块实现细节抽离在外部文件
 
 // 定义类名，通过给元素动态切换类名，赋予元素一定的css动画样式
@@ -21208,7 +21216,7 @@ var getClassNames = function getClassNames(name) {return {
     } } };exports.default = _default;
 
 /***/ }),
-/* 365 */
+/* 373 */
 /*!*********************************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
   \*********************************************************************************************/
@@ -21284,14 +21292,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     'leave-to': { opacity: 0, transform: 'scale(0.95)' } } };exports.default = _default;
 
 /***/ }),
-/* 366 */,
-/* 367 */,
-/* 368 */,
-/* 369 */,
-/* 370 */,
-/* 371 */,
-/* 372 */,
-/* 373 */
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */
 /*!**************************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-status-bar/props.js ***!
   \**************************************************************************************/
@@ -21307,14 +21315,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 374 */,
-/* 375 */,
-/* 376 */,
-/* 377 */,
-/* 378 */,
-/* 379 */,
-/* 380 */,
-/* 381 */
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */,
+/* 388 */,
+/* 389 */
 /*!***************************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-safe-bottom/props.js ***!
   \***************************************************************************************/
@@ -21326,14 +21334,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   props: {} };exports.default = _default;
 
 /***/ }),
-/* 382 */,
-/* 383 */,
-/* 384 */,
-/* 385 */,
-/* 386 */,
-/* 387 */,
-/* 388 */,
-/* 389 */
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */
 /*!*********************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-badge/props.js ***!
   \*********************************************************************************/
@@ -21413,14 +21421,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 390 */,
-/* 391 */,
-/* 392 */,
-/* 393 */,
-/* 394 */,
-/* 395 */,
-/* 396 */,
-/* 397 */
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */
 /*!****************************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-loading-icon/props.js ***!
   \****************************************************************************************/
@@ -21487,14 +21495,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 398 */,
-/* 399 */,
-/* 400 */,
-/* 401 */,
-/* 402 */,
-/* 403 */,
-/* 404 */,
-/* 405 */
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */
 /*!*******************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-gap/props.js ***!
   \*******************************************************************************/
@@ -21526,14 +21534,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 406 */,
-/* 407 */,
-/* 408 */,
-/* 409 */,
-/* 410 */,
-/* 411 */,
-/* 412 */,
-/* 413 */
+/* 414 */,
+/* 415 */,
+/* 416 */,
+/* 417 */,
+/* 418 */,
+/* 419 */,
+/* 420 */,
+/* 421 */
 /*!**********************************************************************************!*\
   !*** D:/kantboot/uni-kantboot/uni_modules/uview-ui/components/u-notify/props.js ***!
   \**********************************************************************************/

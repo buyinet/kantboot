@@ -6,8 +6,8 @@
 		display: inline-block;
 		font-weight: bold;
 		">
-		<view style="height: 300rpx;"></view>
-		<view style="
+			<view style="height: 300rpx;"></view>
+			<view style="
 		margin: 20rpx;
 		margin-top: 0rpx;
 		background-color: rgba(255,255,255,.3);
@@ -16,25 +16,25 @@
 		margin-left: 130rpx;
 		text-align: center;
 		display: inline-block;color: aliceblue;">
-			<image mode="aspectFill" style="
+				<image mode="aspectFill" style="
 			border-radius: 10rpx;
 			width: 200rpx;
 			height: 300rpx;" :src="bodyData.fileUrlByFrontCoverImage">
-			<view style="text-align: center;">染发前</view>
-		</view>
-		<view style="background-color: rgba(255,255,255,.3);
+					<view style="text-align: center;">染发前</view>
+			</view>
+			<view style="background-color: rgba(255,255,255,.3);
 		padding: 20rpx;
 		border-radius: 10rpx;
 		text-align: center;
 		display: inline-block;color: aliceblue;">
-			<image mode="aspectFill" style="
+				<image mode="aspectFill" style="
 			border-radius: 20rpx;
 			
 			width: 200rpx;
 			height: 300rpx;" :src="bodyData.fileUrlByBackCoverImage">
 				</image>
-			<view style="text-align: center;">染发后</view>
-		</view>	
+				<view style="text-align: center;">染发后</view>
+			</view>
 		</view>
 		<image mode="aspectFill" class="back-image" src="../../static/4.png"></image>
 
@@ -98,10 +98,21 @@
 				box-sizing: border-box;
 				bottom: 40rpx;
 				">
-			<u-button open-type='share' type="primary">
-				<u-icon :color="'#FFF'" name="weixin-fill"></u-icon>
-				分享给微信好友
-			</u-button>
+			<u-row>
+				<!-- <u-col :span="5.5"> -->
+					<u-button open-type='share' type="primary">
+						<u-icon :color="'#FFF'" name="weixin-fill"></u-icon>
+						分享给微信好友
+					</u-button>
+	<!-- 			</u-col>
+				<u-col :span="1"></u-col>
+				<u-col :span="5.5">
+					<u-button open-type='contact' type="primary">
+						<u-icon :color="'#FFF'" name="moments"></u-icon>
+						分享给朋友圈
+					</u-button>
+				</u-col> -->
+			</u-row>
 			<view style="height: 20rpx;"></view>
 			<u-button @click="toBack()" type="primary">
 				返回上一页
@@ -153,7 +164,7 @@
 					resolve("suc");
 				}, 500);
 			});
-			
+
 			if (res.from === 'button') {
 				// 来自页面内分享按钮
 				console.log(res.target);
@@ -162,7 +173,30 @@
 				this.show1 = false;
 			}, 2000);
 			return {
-				title: '您不会的染发技巧这里都有！！！', //标题
+				title: '超多染发技巧，尽在染发一号！', //标题
+				path: '/pages/indexByShare/indexByShare?ranfaWorkId=' + this.ranfaWorkId, //可以指定动态路径
+				// imageUrl: 'https://cdn.uviewui.com/uview/swiper/1.jpg', //分享图
+				desc: '染发一号'
+			};
+		},
+		async onShareTimeline(res) {
+			this.show1 = true;
+			await new Promise((resolve, reject) => {
+				setTimeout(() => {
+					console.log("ooooooooooooooooooo")
+					resolve("suc");
+				}, 500);
+			});
+		
+			if (res.from === 'button') {
+				// 来自页面内分享按钮
+				console.log(res.target);
+			}
+			setTimeout(() => {
+				this.show1 = false;
+			}, 2000);
+			return {
+				title: '超多染发技巧，尽在染发一号！', //标题
 				path: '/pages/indexByShare/indexByShare?ranfaWorkId=' + this.ranfaWorkId, //可以指定动态路径
 				// imageUrl: 'https://cdn.uviewui.com/uview/swiper/1.jpg', //分享图
 				desc: '染发一号'

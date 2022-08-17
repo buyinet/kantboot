@@ -52,10 +52,16 @@ public class TpUserOfWechatServiceImpl implements ITpUserOfWechatService {
         InfoService infoService=getInfoService();
         WechatAppletConfig wechatAppletConfig = infoService.getWechatAppletConfig();
         System.out.println("wechatAppletConfig = " + wechatAppletConfig);
-
         // 通过三个参数获取用户手机信息
         PhoneNumberInfo phoneNumberInfo = infoService.createPhoneNumberInfo(code, encryptedData, iv);
         TpUserOfWechat byUnionId = repository.findByUnionid(phoneNumberInfo.getUnionid());
+        if(byUnionId!=null&&byUnionId.getUser()!=null&&byUnionId.getUser().getUsername()==null){
+            SysUser user1 = byUnionId.getUser();
+            String username = sysUserService.createUsername();
+            SysUser sysUser = user1.setUsername(username);
+            sysUserRepository.save(sysUser);
+        }
+        
         if(byUnionId==null||byUnionId.getUser()==null){
             String timeMillis = System.currentTimeMillis() + "";
 

@@ -15,8 +15,8 @@
 					transform: translateX(-50%);
 				 "></image>
 			</view>
-			
-			<view class="brand" @click="brandToChange(null)" >
+
+			<view class="brand" @click="brandToChange(null)">
 				<text v-if="brandByChange.id!=null">全部</text>
 				<text v-if="brandByChange.id==null" style="opacity: .4;">全部</text>
 			</view>
@@ -26,29 +26,25 @@
 				<text v-if="item.id==brandByChange.id" style="opacity: .4;">{{item.name}}</text>
 			</view>
 		</u-popup>
-		
-		<u-popup :overlayOpacity=".7" :show="checkTypeShow" 
-		:customStyle="{overflowY: 'scroll'}" :safeAreaInsetTop="true"
-			@close="closeCheckType" @open="openCheckType" class="brand-box" mode="right">
+
+		<u-popup :overlayOpacity=".7" :show="checkTypeShow" :customStyle="{overflowY: 'scroll'}"
+			:safeAreaInsetTop="true" @close="closeCheckType" @open="openCheckType" class="brand-box" mode="right">
 			<view style="text-align: center;font-weight: bold;color: rgba(0,0,0,.2);">
 				分类选择
 			</view>
-			<view class="brand"
-			 @click="null" >
+			<view class="brand" @click="null">
 				全部
 			</view>
-			<view class="brand"
-			 v-for="(item,index) in ranfaTechniques"
-			 @click="
+			<view class="brand" v-for="(item,index) in ranfaTechniques" @click="
 			 paramData.pageNumber=1;
 			 ranfaTechniqueBySelected=item;
-			 paramData.data.and.eq[0].ranfaTechniques[0].id=item.id;this.closeCheck2();this.findCommon();" >
+			 paramData.data.and.eq[0].ranfaTechniques[0].id=item.id;this.closeCheck2();this.findCommon();">
 				<text v-if="item.id!=paramData.data.and.eq[0].ranfaTechniques[0].id">{{item.name}}</text>
-				<text v-if="item.id==paramData.data.and.eq[0].ranfaTechniques[0].id" style="opacity: .7;"
-				>{{item.name}}</text>
+				<text v-if="item.id==paramData.data.and.eq[0].ranfaTechniques[0].id"
+					style="opacity: .7;">{{item.name}}</text>
 			</view>
 		</u-popup>
-		
+
 
 		<view class="tabbar-view" :style="'bottom:'+tabBar.bottom+'rpx;'+'width:'+tabBar.width+'rpx'">
 
@@ -100,15 +96,32 @@
 			this.getRanfaBrands();
 			this.getBrandByChange();
 		},
+		async onShareAppMessage(res) {
+			return {
+				title: '超多染发技巧，尽在染发一号！', //标题
+				path: '/pages/static/static', //可以指定动态路径
+				imageUrl: 'https://ranfa.oss-cn-hangzhou.aliyuncs.com/watermark/2022/8/17/001.png', //分享图
+				desc: '染发一号'
+			};
+		},
+		//2.分享到朋友圈
+		onShareTimeline(res) {
+			return {
+				title: '超多染发技巧，尽在染发一号！', //标题
+				path: '/pages/static/static', //可以指定动态路径
+				imageUrl: 'https://ranfa.oss-cn-hangzhou.aliyuncs.com/watermark/2022/8/17/001.png', //分享图
+				desc: '染发一号'
+			};
+		},
 		data() {
 			return {
 				brandByChange: {},
 				ranfaBrands: [],
 				checkShow: false,
-				checkTypeShow:false,
+				checkTypeShow: false,
 				path: Api.path,
 				interval: null,
-				ranfaTechniques:[],
+				ranfaTechniques: [],
 				pageComponent: "pageIndex",
 				"tabBar": {
 					bottom: 30,
@@ -215,7 +228,7 @@
 						entity: {}
 					},
 					success: (res) => {
-						
+
 						this.ranfaTechniques = res.data.data;
 						// console.log(JSON.stringify(res));
 						this.$forceUpdate();
@@ -229,7 +242,7 @@
 						"ranfaBrandId": ranfaBrandId
 					},
 					success: (res) => {
-						
+
 						this.getBrandByChange();
 						this.$refs.uToast.show({
 							message: "点击切换后生效"

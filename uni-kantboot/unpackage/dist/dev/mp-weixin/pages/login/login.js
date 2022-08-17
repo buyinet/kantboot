@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var Backgroud = function Backgroud() {__webpack_require__.e(/*! require.ensure | pages/login/commpents/Backgroud */ "pages/login/commpents/Backgroud").then((function () {return resolve(__webpack_require__(/*! ./commpents/Backgroud.vue */ 272));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var Backgroud = function Backgroud() {__webpack_require__.e(/*! require.ensure | pages/login/commpents/Backgroud */ "pages/login/commpents/Backgroud").then((function () {return resolve(__webpack_require__(/*! ./commpents/Backgroud.vue */ 280));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 
@@ -162,7 +162,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Request = getApp().globalData.Request;
-var Api = getApp().globalData.Api;var ButtonByWechatAppletGetPhoneNumber = function ButtonByWechatAppletGetPhoneNumber() {__webpack_require__.e(/*! require.ensure | pages/login/commpents/ButtonByWechatAppletGetPhoneNumber */ "pages/login/commpents/ButtonByWechatAppletGetPhoneNumber").then((function () {return resolve(__webpack_require__(/*! ./commpents/ButtonByWechatAppletGetPhoneNumber.vue */ 279));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var Api = getApp().globalData.Api;var ButtonByWechatAppletGetPhoneNumber = function ButtonByWechatAppletGetPhoneNumber() {__webpack_require__.e(/*! require.ensure | pages/login/commpents/ButtonByWechatAppletGetPhoneNumber */ "pages/login/commpents/ButtonByWechatAppletGetPhoneNumber").then((function () {return resolve(__webpack_require__(/*! ./commpents/ButtonByWechatAppletGetPhoneNumber.vue */ 287));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 

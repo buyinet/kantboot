@@ -98,16 +98,16 @@ var components
 try {
   components = {
     uPopup: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 220))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 228))
     },
     uGrid: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-grid/u-grid */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-grid/u-grid")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-grid/u-grid.vue */ 294))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-grid/u-grid */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-grid/u-grid")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-grid/u-grid.vue */ 302))
     },
     uGridItem: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-grid-item/u-grid-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-grid-item/u-grid-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-grid-item/u-grid-item.vue */ 302))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-grid-item/u-grid-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-grid-item/u-grid-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-grid-item/u-grid-item.vue */ 310))
     },
     uIcon: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 341))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 349))
     }
   }
 } catch (e) {
@@ -408,14 +408,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 var Request = getApp().globalData.Request;
 var Api = getApp().globalData.Api;var _default =
@@ -439,12 +431,10 @@ var Api = getApp().globalData.Api;var _default =
         "sortField": "payGoodsBuy.gmtModified",
         "data": {
           "and": {
-            "eq": [
-            {
+            "eq": [{
               ranfaBrandId: null,
-              ranfaTechniques: [
-              { id: null }] }],
-
+              ranfaTechniques: [{
+                id: null }] }],
 
 
             "vague": [],
@@ -476,6 +466,26 @@ var Api = getApp().globalData.Api;var _default =
     this.getRanfaTechniques();
   },
   methods: {
+
+    copy: function copy(value) {
+      //提示模板
+      uni.showModal({
+        content: value, //模板中提示的内容
+        confirmText: '复制内容',
+        success: function success() {//点击复制内容的后调函数
+          //uni.setClipboardData方法就是讲内容复制到粘贴板
+          uni.setClipboardData({
+            data: value, //要被复制的内容
+            success: function success() {//复制成功的回调函数
+              uni.showToast({ //提示
+                title: '复制成功' });
+
+            } });
+
+        } });
+
+    },
+
     toPage: function toPage(page) {
       uni.navigateTo({
         url: page });

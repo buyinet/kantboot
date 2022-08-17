@@ -24,6 +24,17 @@
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.liferay/org.apache.commons.fileupload -->
+        <dependency>
+            <groupId>com.liferay</groupId>
+            <artifactId>org.apache.commons.fileupload</artifactId>
+            <version>1.2.2.LIFERAY-PATCHED-1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.8</version>
+        </dependency>
         <dependency>
             <groupId>com.kantboot</groupId>
             <artifactId>kantboot-application</artifactId>

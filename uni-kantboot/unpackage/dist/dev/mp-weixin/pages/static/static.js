@@ -98,16 +98,16 @@ var components
 try {
   components = {
     uPopup: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 220))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 228))
     },
     uTabbar: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-tabbar/u-tabbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-tabbar/u-tabbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-tabbar/u-tabbar.vue */ 228))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-tabbar/u-tabbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-tabbar/u-tabbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-tabbar/u-tabbar.vue */ 236))
     },
     uTabbarItem: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item.vue */ 236))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item.vue */ 244))
     },
     uToast: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uview-ui/components/u-toast/u-toast */ "uni_modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-toast/u-toast.vue */ 244))
+      return __webpack_require__.e(/*! import() | uni_modules/uview-ui/components/u-toast/u-toast */ "uni_modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-toast/u-toast.vue */ 252))
     }
   }
 } catch (e) {
@@ -181,11 +181,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var pageIndex = function pageIndex() {__webpack_require__.e(/*! require.ensure | commpents/pageIndex/pageIndex */ "commpents/pageIndex/pageIndex").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pageIndex/pageIndex.vue */ 251));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pageHome = function pageHome() {__webpack_require__.e(/*! require.ensure | commpents/pageHome/pageHome */ "commpents/pageHome/pageHome").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pageHome/pageHome.vue */ 258));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pagePlay = function pagePlay() {__webpack_require__.e(/*! require.ensure | commpents/pagePlay/pagePlay */ "commpents/pagePlay/pagePlay").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pagePlay/pagePlay.vue */ 265));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
-
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 11));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var pageIndex = function pageIndex() {__webpack_require__.e(/*! require.ensure | commpents/pageIndex/pageIndex */ "commpents/pageIndex/pageIndex").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pageIndex/pageIndex.vue */ 259));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pageHome = function pageHome() {__webpack_require__.e(/*! require.ensure | commpents/pageHome/pageHome */ "commpents/pageHome/pageHome").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pageHome/pageHome.vue */ 266));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pagePlay = function pagePlay() {__webpack_require__.e(/*! require.ensure | commpents/pagePlay/pagePlay */ "commpents/pagePlay/pagePlay").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pagePlay/pagePlay.vue */ 273));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 
@@ -282,6 +278,23 @@ var Api = getApp().globalData.Api;var _default =
     this.tabBarChange(this.tabBar.selectedIndex);
     this.getRanfaBrands();
     this.getBrandByChange();
+  },
+  onShareAppMessage: function onShareAppMessage(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:return _context.abrupt("return",
+              {
+                title: '超多染发技巧，尽在染发一号！', //标题
+                path: '/pages/static/static', //可以指定动态路径
+                imageUrl: 'https://ranfa.oss-cn-hangzhou.aliyuncs.com/watermark/2022/8/17/001.png', //分享图
+                desc: '染发一号' });case 1:case "end":return _context.stop();}}}, _callee);}))();
+
+  },
+  //2.分享到朋友圈
+  onShareTimeline: function onShareTimeline(res) {
+    return {
+      title: '超多染发技巧，尽在染发一号！', //标题
+      path: '/pages/static/static', //可以指定动态路径
+      imageUrl: 'https://ranfa.oss-cn-hangzhou.aliyuncs.com/watermark/2022/8/17/001.png', //分享图
+      desc: '染发一号' };
+
   },
   data: function data() {
     return {

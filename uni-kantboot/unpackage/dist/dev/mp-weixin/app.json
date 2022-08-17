@@ -11,7 +11,8 @@
     "pages/buy_success_work/buy_success_work",
     "pages/user_self_collection/user_self_collection",
     "pages/indexByShare/indexByShare",
-    "pages/indexToShare/indexToShare"
+    "pages/indexToShare/indexToShare",
+    "pages/proposal/proposal"
   ],
   "subPackages": [],
   "window": {

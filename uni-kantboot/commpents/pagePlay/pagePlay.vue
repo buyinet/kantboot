@@ -127,7 +127,9 @@
 			</view>
 
 		</view>
-		<view style="
+		<view
+		 v-if="bodyData.fileUrlsOfVideo.length!=0"
+		 style="
 		display: inline-block;
 		position: fixed;
 		bottom: 140rpx;

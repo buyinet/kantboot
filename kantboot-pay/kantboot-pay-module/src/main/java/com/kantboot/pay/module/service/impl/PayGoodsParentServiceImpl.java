@@ -151,6 +151,7 @@ public class PayGoodsParentServiceImpl
                         .setBody(payResult.getBody())
                         .setNotifyUrl(payNotifyService.getDefaultUse().getUrl())
                         .setOpenid(tpUserOfWechatService.getUserInfo().getOpenid())
+//                        .setOpenid(tpUserOfWechatService.getUserInfo().getUnionid())
                         .setTotalFee(payResult.getTotalFee());
         PayingParam payingParam = tpWechatAppletParamService.getDefaultUse().getWechatPayConfig().createPayingParam(payUnifiedOrder);
         return payingParam;

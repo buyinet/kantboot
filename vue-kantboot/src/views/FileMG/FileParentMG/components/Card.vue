@@ -46,6 +46,17 @@
           </div>
         </template>
       </el-table-column>
+            <el-table-column prop="useWatermark" label="是否开启水印" width="150">
+        <template #default="scope">
+          <div v-if="scope.row.useWatermark">
+            <div>是</div>
+            <div>[ {{scope.row.fileUrlByWatermark}} ]</div>
+          </div>
+          <div v-if="!scope.row.useWatermark">
+            <div>否</div>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="content" label="描述" width="200" />
       <el-table-column prop="gmtCreate" label="创建时间" width="200" />
 

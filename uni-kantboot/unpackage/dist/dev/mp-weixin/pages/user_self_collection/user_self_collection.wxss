@@ -89,7 +89,7 @@ page {
 }
 .box .right .bottom {
   position: absolute;
-  top: 200rpx;
+  top: 220rpx;
 }
 .box .right .bottom .left2 {
   font-size: 24rpx;
@@ -109,6 +109,17 @@ page {
   left: 180rpx;
 }
 .box .right .bottom .edit_text:active {
+  opacity: .2;
+}
+.edit_text1 {
+  position: absolute;
+  color: #4EC1FF;
+  opacity: .9;
+  width: 140rpx;
+  font-size: 20rpx;
+  position: absolute;
+}
+.edit_text1:active {
   opacity: .2;
 }
 .grid-text {

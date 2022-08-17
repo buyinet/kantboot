@@ -52,6 +52,11 @@
           <el-radio v-model="paramData.authorizeVisit" :label="false">否</el-radio>
         </el-form-item>
 
+        <el-form-item label="是否开启水印">
+          <el-radio v-model="paramData.useWatermark" :label="true">是</el-radio>
+          <el-radio v-model="paramData.useWatermark" :label="false">否</el-radio>
+        </el-form-item>
+        
         <el-form-item label="设置授权回调地址" v-if="paramData.authorizeVisit">
           <el-input v-model="paramData.authorizeVisitCallbackUrl" />
         </el-form-item>
@@ -93,7 +98,8 @@ export default {
         "fileOssId": null,
         "filePathId": null,
         authorizeVisit: false,
-        authorizeVisitCallbackUrl:null
+        authorizeVisitCallbackUrl:null,
+        useWatermark:false
       },
       fileOssList: [],
       filePathList: []

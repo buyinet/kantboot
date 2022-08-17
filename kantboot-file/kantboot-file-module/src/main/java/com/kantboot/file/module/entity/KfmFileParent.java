@@ -1,6 +1,8 @@
 package com.kantboot.file.module.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kantboot.system.user.module.entity.SysSetting;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -66,7 +68,40 @@ public class KfmFileParent {
 
     @Column(name = "authorize_visit_notify_url")
     private String authorizeVisitCallbackUrl;
+    @JsonIgnore
+    @Column(name = "setting_id", columnDefinition = "1")
+    private Long settingId;
 
+    @JsonIgnore
+    @OneToOne(targetEntity = SysSetting.class)
+    @JoinColumn(name = "setting_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private SysSetting setting;
+
+    /**
+     * 是否使用水印
+     */
+    @Column(name = "is_use_watermark",columnDefinition="0")
+    private Boolean useWatermark;
+
+
+    /**
+     * 水印对应的文件
+     */
+    @Column(name = "file_id_by_watermark")
+    private String fileIdByWatermark;
+
+    /**
+     * 水印对应的url
+     */
+    @org.springframework.data.annotation.Transient
+    private String fileUrlByWatermark;
+
+    public String getFileUrlByWatermark() {
+        if(getSetting()==null||getSetting().getFileVisitUrl()==null){
+            return null;
+        }
+        return getSetting().getFileVisitUrl()+getFileIdByWatermark();
+    }
 
     @OneToOne(targetEntity = KfmFileOss.class)
     @JoinColumn(name = "file_oss_id", referencedColumnName = "id", insertable = false, updatable = false)
