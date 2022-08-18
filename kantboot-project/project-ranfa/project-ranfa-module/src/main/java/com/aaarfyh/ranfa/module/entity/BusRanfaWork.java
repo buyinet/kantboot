@@ -61,7 +61,7 @@ public class BusRanfaWork implements BaseGoodsEntity,Serializable {
     @Column(name="ranfa_technique_id")
     private Long ranfaTechniqueId;
 
-    @Column(name="price")
+    @Column(name="price",columnDefinition="100")
     private Long price;
 
     /**

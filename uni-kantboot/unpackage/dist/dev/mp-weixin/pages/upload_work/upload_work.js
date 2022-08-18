@@ -104,13 +104,16 @@ try {
       return Promise.all(/*! import() | uni_modules/uview-ui/components/u-col/u-col */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-col/u-col")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-col/u-col.vue */ 337))
     },
     uUpload: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-upload/u-upload.vue */ 463))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-upload/u-upload.vue */ 364))
     },
     uIcon: function() {
       return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 355))
     },
     uButton: function() {
       return Promise.all(/*! import() | uni_modules/uview-ui/components/u-button/u-button */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-button/u-button")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-button/u-button.vue */ 345))
+    },
+    uPopup: function() {
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 234))
     }
   }
 } catch (e) {
@@ -161,18 +164,37 @@ var render = function() {
         }
       : null
   var a4 = {
-    width: "300rpx"
+    width: "500rpx",
+    borderRadius: "100rpx"
   }
 
   if (!_vm._isMounted) {
-    _vm.e0 = function($event, item) {
+    _vm.e0 = function($event, item, index) {
       var _temp = arguments[arguments.length - 1].currentTarget.dataset,
         _temp2 = _temp.eventParams || _temp["event-params"],
-        item = _temp2.item
+        item = _temp2.item,
+        index = _temp2.index
 
       var _temp, _temp2
 
       _vm.videoByPlay = item
+      _vm.videoByPlayIndex = index
+    }
+
+    _vm.e1 = function($event) {
+      _vm.videoByPlay = null
+    }
+
+    _vm.e2 = function($event, item) {
+      var _temp3 = arguments[arguments.length - 1].currentTarget.dataset,
+        _temp4 = _temp3.eventParams || _temp3["event-params"],
+        item = _temp4.item
+
+      var _temp3, _temp4
+
+      _vm.paramData.ranfaBrandId = item.id
+      _vm.brandBySelected = item
+      _vm.closeCheck()
     }
   }
 
@@ -317,6 +339,127 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var Request = getApp().globalData.Request;
 var Api = getApp().globalData.Api;var _default =
 {
@@ -325,24 +468,80 @@ var Api = getApp().globalData.Api;var _default =
 
   data: function data() {
     return {
+      paramData: {
+        fileIdByFrontCoverImage: null,
+        fileIdByBackCoverImage: null,
+        ranfaBrandId: null,
+        process: null },
+
       coverFrontImageList: [],
       coverFrontImage: null,
       coverBackImageList: [],
       coverBackImage: null,
       videoList: [],
       videos: [],
-      videoByPlay: null };
+      videoByPlay: null,
+      videoByPlayIndex: 0,
+      ranfaBrands: [],
+      checkShow: false,
+      brandBySelected: {
+        id: null,
+        name: null },
+
+      videoUploadProgress: 40,
+      isVideoUploadProgressShow: false };
 
   },
+  mounted: function mounted() {
+    this.getRanfaBrands();
+    // setInterval(()=>{
+    // 	this.videoUploadProgress++;
+    // },10);
+  },
   methods: {
-    uploadCover: function uploadCover(res) {var _this = this;
+    toPage: function toPage(page) {
+      uni.navigateTo({
+        url: page });
+
+    },
+    toSubmit: function toSubmit() {
+      // 	Request.request({
+      // 		url:
+      // 	});
+    },
+    closeCheck: function closeCheck() {
+      this.checkShow = false;
+    },
+    openCheck: function openCheck() {
+      this.checkShow = true;
+    },
+    getRanfaBrands: function getRanfaBrands() {var _this = this;
+      Request.request({
+        url: Api.ranfaBrand.findCommonList,
+        data: {
+          entity: {} },
+
+        success: function success(res) {
+
+          _this.ranfaBrands = res.data.data;
+          // console.log(JSON.stringify(res));
+          _this.$forceUpdate();
+        } });
+
+    },
+    deleteVideo: function deleteVideo(index) {
+      this.videos.splice(index, 1);
+      this.videoByPlay = null;
+    },
+    uploadCover: function uploadCover(res) {var _this2 = this;
       uni.uploadFile({
         url: Api.path + "kantboot-file/file/upload/ranfa/teachCover",
         filePath: res.file[0].url,
         name: 'file',
         success: function success(resp) {
           var json = JSON.parse(resp.data);
-          _this.coverFrontImage = json.data.visitUrlById;
+          _this2.coverFrontImage = json.data.visitUrlById;
+          _this2.paramData.fileIdByFrontCoverImage = json.data.id;
         },
 
         fail: function fail(resp) {//失败
@@ -352,14 +551,15 @@ var Api = getApp().globalData.Api;var _default =
         } });
 
     },
-    uploadCoverBack: function uploadCoverBack(res) {var _this2 = this;
+    uploadCoverBack: function uploadCoverBack(res) {var _this3 = this;
       uni.uploadFile({
         url: Api.path + "kantboot-file/file/upload/ranfa/teachCover",
         filePath: res.file[0].url,
         name: 'file',
         success: function success(resp) {
           var json = JSON.parse(resp.data);
-          _this2.coverBackImage = json.data.visitUrlById;
+          _this3.coverBackImage = json.data.visitUrlById;
+          _this3.paramData.fileIdByBackCoverImage = json.data.id;
         },
 
         fail: function fail(resp) {//失败
@@ -368,15 +568,21 @@ var Api = getApp().globalData.Api;var _default =
         complete: function complete() {//不论成功、失败都执行		
         } });
 
+
     },
-    uploadVideo: function uploadVideo(res) {var _this3 = this;
-      uni.uploadFile({
+    uploadVideo: function uploadVideo(res) {var _this4 = this;
+      this.isVideoUploadProgressShow = true;
+      var uploadTask = uni.uploadFile({
         url: Api.path + "kantboot-file/file/upload/ranfa/teachVideo",
         filePath: res.file[0].url,
         name: 'file',
         success: function success(resp) {
           var json = JSON.parse(resp.data);
-          _this3.videos.push(json.data.visitUrlById);
+          // this.videoUploadProgress=100;
+          // this.isVideoUploadProgressShow=false;
+          _this4.videos.push(json.data.visitUrlById);
+          _this4.videoUploadProgress = 100;
+          _this4.isVideoUploadProgressShow = false;
         },
 
         fail: function fail(resp) {//失败
@@ -385,6 +591,14 @@ var Api = getApp().globalData.Api;var _default =
         complete: function complete() {//不论成功、失败都执行		
         } });
 
+      uploadTask.onProgressUpdate(function (res) {
+        _this4.videoUploadProgress = res.progress;
+        if (_this4.videoUploadProgress >= 98) {
+          _this4.videoUploadProgress = 98;
+          _this4.isVideoUploadProgressShow = false;
+        }
+        console.log('上传进度' + res.progress);
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

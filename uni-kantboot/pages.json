@@ -150,6 +150,18 @@
             }
             
         }
+        ,{
+            "path" : "pages/shangchuanshuoming/shangchuanshuoming",
+            "style" :                                                                                    
+            {
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "上传说明",
+				"navigationBarBackgroundColor": "#FFF",
+				"backgroundColor": "#F8F8F8",
+				"navigationStyle": "default"
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

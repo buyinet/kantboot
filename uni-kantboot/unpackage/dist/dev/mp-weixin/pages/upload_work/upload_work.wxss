@@ -24,8 +24,43 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.to_s.data-v-fbf8a5b4:active {
+  opacity: .6;
+}
+.p-box.data-v-fbf8a5b4 {
+  position: absolute;
+  border-radius: 55%;
+  height: 400rpx;
+  width: 400rpx;
+  background: rgba(94, 178, 243, 0.3);
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.p-box .p.data-v-fbf8a5b4 {
+  position: absolute;
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 55%;
+  top: 50%;
+  left: 50%;
+  background: rgba(94, 178, 243, 0.5);
+  box-shadow: 20rpx 20rpx 60rpx #5097cf, -20rpx -20rpx 60rpx #6ccdff;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.brand.data-v-fbf8a5b4 {
+  padding: 15rpx;
+  text-align: center;
+  color: gray;
+  font-size: 30rpx;
+}
+.brand.data-v-fbf8a5b4:active {
+  color: rgba(118, 118, 118, 0.5);
+}
 .page.data-v-fbf8a5b4 {
-  padding: 40rpx;
+  padding: 60rpx;
   font-size: 40rpx;
   box-sizing: border-box;
 }
@@ -47,7 +82,7 @@
           transform: translateX(-50%);
 }
 .progress-text.data-v-fbf8a5b4 {
-  min-height: 100rpx;
+  min-height: 150rpx;
   border: 1rpx solid #767676;
   width: calc(100% - 40rpx);
   border-radius: 5rpx;

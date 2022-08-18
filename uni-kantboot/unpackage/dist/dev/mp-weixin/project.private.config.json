@@ -99,6 +99,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "上传说明",
+          "pathName": "pages/shangchuanshuoming/shangchuanshuoming",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

@@ -12,7 +12,8 @@
     "pages/user_self_collection/user_self_collection",
     "pages/indexByShare/indexByShare",
     "pages/indexToShare/indexToShare",
-    "pages/proposal/proposal"
+    "pages/proposal/proposal",
+    "pages/shangchuanshuoming/shangchuanshuoming"
   ],
   "subPackages": [],
   "window": {
