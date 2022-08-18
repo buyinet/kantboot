@@ -1,6 +1,7 @@
 package com.aaarfyh.ranfa.module.service;
 
 import com.aaarfyh.ranfa.module.entity.BusRanfaBrand;
+import com.aaarfyh.ranfa.module.entity.BusRanfaTechnique;
 import com.aaarfyh.ranfa.module.entity.BusRanfaWork;
 import com.kantboot.pay.util.common.service.IBaseGoodsService;
 import com.kantboot.pay.util.common.util.GoodsPayParam;
@@ -28,6 +29,9 @@ public interface IBusRanfaWorkService extends IBaseGoodsService<BusRanfaWork,Lon
     BusRanfaWork techniqueToChange(Long ranfaTechniqueId);
 
     BusRanfaBrand brandByChange();
+
+    BusRanfaTechnique techniqueByChange();
+
     /**
      * 支付前回调
      * @param param

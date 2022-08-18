@@ -25,9 +25,33 @@
 /* 透明度 */
 /* 文章场景相关 */
 .page.data-v-fbf8a5b4 {
-  padding: 30rpx 60rpx 0 60rpx;
+  padding: 40rpx;
   font-size: 40rpx;
   box-sizing: border-box;
-  font-family: 'aa';
+}
+.ee.data-v-fbf8a5b4 {
+  margin: 15rpx;
+  display: inline-block;
+  text-align: center;
+}
+.ee.data-v-fbf8a5b4:active {
+  opacity: .6;
+}
+.ti.data-v-fbf8a5b4 {
+  font-weight: lighter;
+  font-size: 30rpx;
+}
+.upload-file.data-v-fbf8a5b4 {
+  margin-left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+.progress-text.data-v-fbf8a5b4 {
+  min-height: 100rpx;
+  border: 1rpx solid #767676;
+  width: calc(100% - 40rpx);
+  border-radius: 5rpx;
+  padding: 20rpx;
+  font-size: 25rpx;
 }
 

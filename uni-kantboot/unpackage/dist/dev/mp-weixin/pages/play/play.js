@@ -98,13 +98,13 @@ var components
 try {
   components = {
     uSubsection: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-subsection/u-subsection */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-subsection/u-subsection")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-subsection/u-subsection.vue */ 294))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-subsection/u-subsection */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-subsection/u-subsection")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-subsection/u-subsection.vue */ 300))
     },
     uGrid: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-grid/u-grid */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-grid/u-grid")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-grid/u-grid.vue */ 302))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-grid/u-grid */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-grid/u-grid")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-grid/u-grid.vue */ 308))
     },
     uGridItem: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-grid-item/u-grid-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-grid-item/u-grid-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-grid-item/u-grid-item.vue */ 310))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-grid-item/u-grid-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-grid-item/u-grid-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-grid-item/u-grid-item.vue */ 316))
     }
   }
 } catch (e) {
@@ -170,7 +170,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var ktVideo = function ktVideo() {__webpack_require__.e(/*! require.ensure | commpents/kt/ktFile/ktVideo */ "commpents/kt/ktFile/ktVideo").then((function () {return resolve(__webpack_require__(/*! ../../commpents/kt/ktFile/ktVideo.vue */ 318));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var ktVideo = function ktVideo() {__webpack_require__.e(/*! require.ensure | commpents/kt/ktFile/ktVideo */ "commpents/kt/ktFile/ktVideo").then((function () {return resolve(__webpack_require__(/*! ../../commpents/kt/ktFile/ktVideo.vue */ 324));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 
@@ -321,8 +321,11 @@ var Api = getApp().globalData.Api;var _default =
   mounted: function mounted() {
     this.flush();
   },
-  onShow: function onShow() {},
-  methods: {
+  onShow: function onShow() {
+    var routes = getCurrentPages();
+    var route = routes[routes.length - 1].route;
+    uni.setStorageSync("routeTo", '/' + route);
+  }, methods: {
     videoSelect: function videoSelect(index) {
       this.fileUrlsOfVideoIndex = index;
       console.log(

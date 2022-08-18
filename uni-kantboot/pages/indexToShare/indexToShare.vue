@@ -141,9 +141,9 @@
 		onShow() {},
 		onLoad(option) {
 			console.log(option.ranfaWorkId);
-			var routes = getCurrentPages();
-			var route = routes[routes.length - 1].route + "?ranfaWorkId=" + option.ranfaWorkId;
-			uni.setStorageSync("routeTo", '/' + route);
+			// var routes = getCurrentPages();
+			// var route = routes[routes.length - 1].route + "?ranfaWorkId=" + option.ranfaWorkId;
+			// uni.setStorageSync("routeTo", '/' + route);
 			Request.request({
 				url: Api.ranfaWork.findById,
 				data: {

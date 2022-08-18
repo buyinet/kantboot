@@ -24,6 +24,15 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.text3 {
+  font-weight: bold;
+  color: #F0F0F0;
+  font-size: 25rpx;
+  border: 1rpx solid #F0F0F0;
+  padding: 10rpx;
+  border-radius: 10rpx;
+  text-shadow: 0 10rpx 10rpx rgba(118, 118, 118, 0.3);
+}
 .back-image {
   position: fixed;
   z-index: -1;
@@ -39,25 +48,25 @@
   right: 50rpx;
 }
 .btn_images .btn_image {
-  width: 170rpx;
-  height: 170rpx;
+  width: 120rpx;
+  height: 120rpx;
 }
 .btn_images .btn_image:active {
-  width: 150rpx;
-  height: 150rpx;
+  width: 110rpx;
+  height: 110rpx;
   margin: 12rpx;
 }
 .cover_images {
   position: fixed;
   width: 100%;
-  bottom: 200rpx;
+  bottom: 180rpx;
 }
 .cover_images .cover_image_view {
   position: relative;
-  border: 10rpx solid #42a1e8;
+  border: 5rpx solid #42a1e8;
   background-color: #42a1e8;
   width: 100%;
-  height: calc(50vh - 110px);
+  height: calc(50vh - 80px);
   box-shadow: 0 0rpx 40rpx rgba(118, 118, 118, 0.4), 0 20rpx 40rpx rgba(0, 0, 0, 0.4) inset;
   box-shadow: 20rpx 20rpx 60rpx #3889c5, -20rpx -20rpx 60rpx #4cb9ff;
   border-radius: 20rpx;
@@ -75,11 +84,12 @@
   font-weight: 400;
   display: inline;
   z-index: 100;
-  font-size: 25rpx;
+  font-size: 35rpx;
+  font-weight: lighter;
   bottom: 0rpx;
   right: 0rpx;
   background-color: #42a1e8;
-  padding: 5rpx 10rpx 2rpx 20rpx;
-  border-radius: 20rpx 0 0rpx 0;
+  padding: 5rpx 20rpx 5rpx 20rpx;
+  border-radius: 20rpx 0 20rpx 0;
 }
 

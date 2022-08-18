@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="系统管理" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="系统" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" />
     <module name="kantboot-system-web-starter" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.kantboot.system.web.starter.KantbootSystemWebStarterApplication" />

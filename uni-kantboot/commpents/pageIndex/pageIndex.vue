@@ -5,7 +5,7 @@
 		<view class="cover_images">
 			<u-row customStyle="margin-bottom: 0rpx">
 				<u-col span="1"></u-col>
-				<u-col span="5.9">
+				<u-col span="7.5">
 					<view class="cover_image_view">
 						
 						<image mode="aspectFill" class="cover_image cover_image_1"
@@ -18,7 +18,7 @@
  -->						
 						 <view class="cover_text">染发前</view>
 					</view>
-					<view style="height: 20rpx;"></view>
+					<view style="height: 10rpx;"></view>
 					<view class="cover_image_view">
 						<image mode="aspectFill" class="cover_image cover_image_2"
 							:src="bodyData.fileUrlByBackCoverImage">
@@ -29,6 +29,14 @@
 				</u-col>
 				<u-col span="1"></u-col>
 				<u-col span="4.5">
+					<view style="position: absolute;top:50rpx;
+					right: 20rpx;">
+						<view class="text3" 
+						@click="toPage('/pages/guanyuwomen/guanyuwomen')">
+						{{">"}}平台说明{{"<"}}</view>
+						<view style="height: 30rpx;"></view>
+						<!-- <view class="text3">{{">"}}品牌选择{{"<"}}</view> -->
+					</view>
 					<view class="btn_images">
 						<image @click="change()" class="btn_image" src="../../static/index_1.png"></image>
 						<view style="height: 20rpx;"></view>
@@ -64,16 +72,20 @@
 			return {
 				aa: null,
 				src: "",
+				payBtnClick:true,
 				bodyData: {
 
 				}
 			}
 		},
 		onShow() {
+			var routes = getCurrentPages();
+			var route = routes[routes.length - 1].route+"?pageComponent=pageIndex";
+			uni.setStorageSync("routeTo", '/' + route);
 
-			// this.change();
 		},
 		mounted() {
+			
 			this.change();
 			// const fs = uni.getFileSystemManager() // 文件管理器API
 			// uni.request({
@@ -94,7 +106,84 @@
 			// });
 		},
 		methods: {
+			getTechniqueByChange() {
+				Request.request({
+					url: Api.ranfaWork.techniqueByChange,
+					success: (res) => {
+						this.techniqueByChange = res.data.data;
+						this.$store.state.techniqueByChange = this.techniqueByChange;
+					}
+				});
+			},
+			techniqueToChange(techniqueId){
+				if(this.techniqueId!=null){
+					this.brandToChange(null);
+					this.brandByChange={id:null};
+					
+				}
+				Request.request({
+					url: Api.ranfaWork.techniqueToChange,
+					data: {
+						"ranfaTechniqueId": techniqueId
+					},
+					success: (res) => {
+				
+						this.getTechniqueByChange();
+		
+						this.closeCheckType();
+					}
+				});
+			},
+			getRanfaTechniques() {
+				Request.request({
+					url: Api.ranfaTechnique.findCommonList,
+					data: {
+						entity: {}
+					},
+					success: (res) => {
+			
+						this.ranfaTechniques = res.data.data;
+						// console.log(JSON.stringify(res));
+						this.$forceUpdate();
+					}
+				});
+			},
+			brandToChange(ranfaBrandId) {
+				if(ranfaBrandId!=null){
+					this.techniqueToChange(null);
+					this.techniqueByChange={id:null};
+				}
+				Request.request({
+					url: Api.ranfaWork.brandToChange,
+					data: {
+						"ranfaBrandId": ranfaBrandId
+					},
+					success: (res) => {
+						this.getBrandByChange();
+						this.closeCheck();
+					}
+				});
+			},
+			getBrandByChange() {
+				Request.request({
+					url: Api.ranfaWork.brandByChange,
+					success: (res) => {
+						this.brandByChange = res.data.data;
+						console.log(JSON.stringify(this.brandByChange));
+						this.$store.state.brandByChange = this.brandByChange;
+					}
+				});
+			},
+			
+			toPage(page) {
+				uni.navigateTo({
+					url: page
+				})
+			},
 			change() {
+				if(!this.payBtnClick){
+					return false;
+				}
 				Request.request({
 					url: Api.ranfaWork.change,
 					success: (res) => {
@@ -170,6 +259,10 @@
 				});
 			},
 			pay() {
+				if(!this.payBtnClick){
+					return false;
+				}
+				
 				Request.requestSync({
 					url: Api.authPayGoods.createPayingParam,
 					data: {
@@ -184,6 +277,10 @@
 						}]
 					},
 					success: (res) => {
+						this.payBtnClick=false;
+						setTimeout(()=>{
+							this.payBtnClick=true;
+						});
 						uni.requestPayment({
 							provider: 'wxpay', // 服务提提供商
 							...res.data.data, // 签名
@@ -198,6 +295,7 @@
 										this.bodyData = res.data.data
 										if(this.bodyData.buy){
 											this.toPlay(this.bodyData.id);
+											this.payBtnClick=true;
 										}
 										this.$forceUpdate();
 									}
@@ -219,6 +317,15 @@
 </script>
 
 <style lang="scss">
+	.text3{
+		font-weight: bold;
+		color:#F0F0F0;
+		font-size: 25rpx;
+		border:1rpx solid #F0F0F0;
+		padding: 10rpx;
+		border-radius: 10rpx;
+		text-shadow: 0 10rpx 10rpx rgba(118,118,118,.3);
+	}
 	.back-image {
 		position: fixed;
 		z-index: -1;
@@ -234,14 +341,14 @@
 		bottom: 0;
 		right: 50rpx;
 		.btn_image {
-			width: 170rpx;
-			height: 170rpx;
+			width: 120rpx;
+			height: 120rpx;
 
 		}
 
 		.btn_image:active {
-			width: 150rpx;
-			height: 150rpx;
+			width: 110rpx;
+			height: 110rpx;
 			margin: 12rpx;
 		}
 
@@ -251,15 +358,15 @@
 	.cover_images {
 		position: fixed;
 		width: 100%;
-		bottom: 200rpx;
+		bottom: 180rpx;
 
 		.cover_image_view {
 			position: relative;
-			border: 10rpx solid #42a1e8;
+			border: 5rpx solid #42a1e8;
 			// box-sizing: border-box;
 			background-color: #42a1e8;
 			width: 100%;
-			height: calc(50vh - 110px);
+			height: calc(50vh - 80px);
 			box-shadow: 0 0rpx 40rpx rgba(118, 118, 118, .4), 
 				0 20rpx 40rpx rgba(0, 0, 0, .4) inset;
 			box-shadow:  20rpx 20rpx 60rpx #3889c5,
@@ -280,12 +387,15 @@
 				font-weight: 400;
 				display: inline;
 				z-index: 100;
-				font-size: 25rpx;
+				font-size: 35rpx;
+				// font-weight: bold;
+				font-weight: lighter;
 				bottom:0rpx;
 				right: 0rpx;
-				background-color: #42a1e8;
-				padding: 5rpx 10rpx 2rpx 20rpx;
-				border-radius: 20rpx 0 0rpx 0;
+				// text-shadow: 0 0 10rpx gray;
+				background-color: rgba(66,161,232,1);
+				padding: 5rpx 20rpx 5rpx 20rpx;
+				border-radius: 20rpx 0 20rpx 0;
 			}
 		}
 

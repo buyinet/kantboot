@@ -4,5 +4,12 @@
   "navigationBarBackgroundColor": "#FFF",
   "backgroundColor": "#F8F8F8",
   "navigationStyle": "default",
-  "usingComponents": {}
+  "usingComponents": {
+    "u-row": "/uni_modules/uview-ui/components/u-row/u-row",
+    "u-col": "/uni_modules/uview-ui/components/u-col/u-col",
+    "u-upload": "/uni_modules/uview-ui/components/u-upload/u-upload",
+    "u-icon": "/uni_modules/uview-ui/components/u-icon/u-icon",
+    "u-button": "/uni_modules/uview-ui/components/u-button/u-button",
+    "kt-video": "/commpents/kt/ktFile/ktVideo"
+  }
 }

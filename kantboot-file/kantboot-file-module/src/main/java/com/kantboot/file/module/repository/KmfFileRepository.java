@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface CesFileRepository extends
+public interface KmfFileRepository extends
         CrudRepository<KfmFile, Long>,
         Repository<KfmFile, Long> {
 

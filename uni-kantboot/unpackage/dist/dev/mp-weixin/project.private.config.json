@@ -12,7 +12,7 @@
         {
           "name": "首页",
           "pathName": "pages/static/static",
-          "query": "pageComponent=pagePlay",
+          "query": "pageComponent=pageHome",
           "launchMode": "default",
           "scene": null
         },
@@ -90,6 +90,13 @@
           "name": "投诉与建议",
           "pathName": "pages/proposal/proposal",
           "query": "ranfaWorkId=59",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/upload_work/upload_work",
+          "query": "",
           "launchMode": "default",
           "scene": null
         }

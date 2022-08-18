@@ -37,7 +37,7 @@ public class SessionKeyInfo extends BaseInfo implements Serializable {
     public PhoneNumberInfo createPhoneNumberInfo(String encryptedData,String iv){
         return JSON.parseObject(
                     AesCbcUtil
-                        .decrypt(encryptedData,this.sessionKey,iv),
+                                .decrypt(encryptedData,this.sessionKey,iv),
                 PhoneNumberInfo.class)
                 .setOpenid(this.getOpenid())
                 .setUnionid(this.getUnionid());

@@ -4,6 +4,7 @@ import com.aaarfyh.ranfa.module.entity.BusRanfaBrand;
 import com.aaarfyh.ranfa.module.entity.BusRanfaTechnique;
 import com.aaarfyh.ranfa.module.entity.BusRanfaWork;
 import com.aaarfyh.ranfa.module.repository.BusRanfaBrandRepository;
+import com.aaarfyh.ranfa.module.repository.BusRanfaTechniqueRepository;
 import com.aaarfyh.ranfa.module.repository.BusRanfaWorkRepository;
 import com.aaarfyh.ranfa.module.service.IBusRanfaWorkService;
 import com.aaarfyh.ranfa.module.util.RanfaWorkChangeUtil;
@@ -44,6 +45,9 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
 
     @Resource
     BusRanfaWorkRepository repository;
+
+    @Resource
+    BusRanfaTechniqueRepository techniqueRepository;
 
     @Resource
     TokenManage tokenManage;
@@ -282,6 +286,23 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
             throw new BaseException(3000,"该分类下暂没有课程视频");
         }
         return commonByPage.getContent().get(0);
+    }
+
+    @Override
+    public BusRanfaTechnique techniqueByChange() {
+        Long userId = userService.getUserInfo().getId();
+        String redisKey = "user_id:" + userId + ":ranfa_work_change_util";
+        String utilStr = redisUtil.get(redisKey);
+        if(utilStr==null){
+            return null;
+        }
+        RanfaWorkChangeUtil ranfaWorkChangeUtil = JSON.parseObject(utilStr, RanfaWorkChangeUtil.class);
+        Long ranfaTechniqueId = ranfaWorkChangeUtil.getRanfaTechniqueId();
+        if(ranfaTechniqueId==null||ranfaTechniqueId==0){
+            return new BusRanfaTechnique().setId(null);
+        }
+        BusRanfaTechnique busRanfaTechnique = techniqueRepository.findById(ranfaTechniqueId).get();
+        return busRanfaTechnique;
     }
 
     @Resource

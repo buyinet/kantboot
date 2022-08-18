@@ -98,16 +98,16 @@ var components
 try {
   components = {
     uPopup: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 228))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 234))
     },
     uTabbar: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-tabbar/u-tabbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-tabbar/u-tabbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-tabbar/u-tabbar.vue */ 236))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-tabbar/u-tabbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-tabbar/u-tabbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-tabbar/u-tabbar.vue */ 242))
     },
     uTabbarItem: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item.vue */ 244))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-tabbar-item/u-tabbar-item.vue */ 250))
     },
     uToast: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uview-ui/components/u-toast/u-toast */ "uni_modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-toast/u-toast.vue */ 252))
+      return __webpack_require__.e(/*! import() | uni_modules/uview-ui/components/u-toast/u-toast */ "uni_modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-toast/u-toast.vue */ 258))
     }
   }
 } catch (e) {
@@ -131,23 +131,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = null
-
-    _vm.e1 = function($event, item) {
-      var _temp = arguments[arguments.length - 1].currentTarget.dataset,
-        _temp2 = _temp.eventParams || _temp["event-params"],
-        item = _temp2.item
-
-      var _temp, _temp2
-
-      _vm.paramData.pageNumber = 1
-      _vm.ranfaTechniqueBySelected = item
-      _vm.paramData.data.and.eq[0].ranfaTechniques[0].id = item.id
-      this.closeCheck2()
-      this.findCommon()
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -181,7 +164,24 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 11));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var pageIndex = function pageIndex() {__webpack_require__.e(/*! require.ensure | commpents/pageIndex/pageIndex */ "commpents/pageIndex/pageIndex").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pageIndex/pageIndex.vue */ 259));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pageHome = function pageHome() {__webpack_require__.e(/*! require.ensure | commpents/pageHome/pageHome */ "commpents/pageHome/pageHome").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pageHome/pageHome.vue */ 266));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pagePlay = function pagePlay() {__webpack_require__.e(/*! require.ensure | commpents/pagePlay/pagePlay */ "commpents/pagePlay/pagePlay").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pagePlay/pagePlay.vue */ 273));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 11));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var pageIndex = function pageIndex() {__webpack_require__.e(/*! require.ensure | commpents/pageIndex/pageIndex */ "commpents/pageIndex/pageIndex").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pageIndex/pageIndex.vue */ 265));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pageHome = function pageHome() {__webpack_require__.e(/*! require.ensure | commpents/pageHome/pageHome */ "commpents/pageHome/pageHome").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pageHome/pageHome.vue */ 272));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pagePlay = function pagePlay() {__webpack_require__.e(/*! require.ensure | commpents/pagePlay/pagePlay */ "commpents/pagePlay/pagePlay").then((function () {return resolve(__webpack_require__(/*! ../../commpents/pagePlay/pagePlay.vue */ 279));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -298,6 +298,7 @@ var Api = getApp().globalData.Api;var _default =
   },
   data: function data() {
     return {
+      techniqueByChange: {},
       brandByChange: {},
       ranfaBrands: [],
       checkShow: false,
@@ -360,9 +361,19 @@ var Api = getApp().globalData.Api;var _default =
         "selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/mine_selected" }],
 
 
-      "listByIndex": [{
+      "listByIndex": [
+      {
+        "pagePath": null,
+        "text": "分类",
+        "method": "openCheckType",
+        component: null,
+        "iconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/check_selected",
+        "selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/check_selected" },
+
+      {
         "pagePath": "pages/index/index",
         "text": "首页",
+        selectedIndex: 1,
         component: "pageIndex",
         "iconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/index",
         "selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/index_selected" },
@@ -370,6 +381,8 @@ var Api = getApp().globalData.Api;var _default =
       {
         "pagePath": "pages/play/play",
         "text": "正在播放",
+        selectedIndex: 1,
+
         component: "pagePlay",
         "iconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/video",
         "selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/video_selected" },
@@ -377,9 +390,11 @@ var Api = getApp().globalData.Api;var _default =
       {
         "pagePath": "pages/home/home",
         "text": "我的",
+        selectedIndex: 2,
+
         component: "pageHome",
         "iconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/mine",
-        "selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/mine_selected" },
+        "selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/mine_selected" }
 
       // {
       // 	"pagePath": null,
@@ -389,22 +404,46 @@ var Api = getApp().globalData.Api;var _default =
       // 	"iconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/check_selected",
       // 	"selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/check_selected"
       // },
-      {
-        "pagePath": null,
-        "text": "分类",
-        "method": "openCheckType",
-        component: null,
-        "iconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/check_selected",
-        "selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/check_selected" }] };
-
-
+      ] };
 
   },
   mounted: function mounted() {
     this.getRanfaTechniques();
   },
+
   methods: {
-    getRanfaTechniques: function getRanfaTechniques() {var _this = this;
+    getTechniqueByChange: function getTechniqueByChange() {var _this = this;
+      Request.request({
+        url: Api.ranfaWork.techniqueByChange,
+        success: function success(res) {
+          _this.techniqueByChange = res.data.data;
+          _this.$store.state.techniqueByChange = _this.techniqueByChange;
+        } });
+
+    },
+    techniqueToChange: function techniqueToChange(techniqueId) {var _this2 = this;
+      if (this.techniqueId != null) {
+        this.brandToChange(null);
+        this.brandByChange = { id: null };
+
+      }
+      Request.request({
+        url: Api.ranfaWork.techniqueToChange,
+        data: {
+          "ranfaTechniqueId": techniqueId },
+
+        success: function success(res) {
+
+          _this2.getTechniqueByChange();
+          _this2.$refs.uToast.show({
+            message: "点击切换后生效" });
+
+
+          _this2.closeCheckType();
+        } });
+
+    },
+    getRanfaTechniques: function getRanfaTechniques() {var _this3 = this;
       Request.request({
         url: Api.ranfaTechnique.findCommonList,
         data: {
@@ -412,42 +451,44 @@ var Api = getApp().globalData.Api;var _default =
 
         success: function success(res) {
 
-          _this.ranfaTechniques = res.data.data;
+          _this3.ranfaTechniques = res.data.data;
           // console.log(JSON.stringify(res));
-          _this.$forceUpdate();
+          _this3.$forceUpdate();
         } });
 
     },
-    brandToChange: function brandToChange(ranfaBrandId) {var _this2 = this;
+    brandToChange: function brandToChange(ranfaBrandId) {var _this4 = this;
+      if (ranfaBrandId != null) {
+        this.techniqueToChange(null);
+        this.techniqueByChange = { id: null };
+      }
       Request.request({
         url: Api.ranfaWork.brandToChange,
         data: {
           "ranfaBrandId": ranfaBrandId },
 
         success: function success(res) {
-
-          _this2.getBrandByChange();
-          _this2.$refs.uToast.show({
+          _this4.getBrandByChange();
+          _this4.$refs.uToast.show({
             message: "点击切换后生效" });
 
-          _this2.closeCheck();
+          _this4.closeCheck();
         } });
 
     },
-    getBrandByChange: function getBrandByChange() {var _this3 = this;
+    getBrandByChange: function getBrandByChange() {var _this5 = this;
       Request.request({
         url: Api.ranfaWork.brandByChange,
         success: function success(res) {
-          _this3.brandByChange = res.data.data;
-          _this3.$store.state.brandByChange = _this3.brandByChange;
-          console.log(
-          JSON.stringify(_this3.$store.state.brandByChange));
-
+          _this5.brandByChange = res.data.data;
+          console.log(JSON.stringify(_this5.brandByChange));
+          _this5.$store.state.brandByChange = _this5.brandByChange;
         } });
 
     },
     closeCheck: function closeCheck() {
       this.checkShow = false;
+      this.checkTypeShow = false;
     },
     openCheck: function openCheck() {
       this.checkShow = true;
@@ -458,7 +499,7 @@ var Api = getApp().globalData.Api;var _default =
     openCheckType: function openCheckType() {
       this.checkTypeShow = true;
     },
-    getRanfaBrands: function getRanfaBrands() {var _this4 = this;
+    getRanfaBrands: function getRanfaBrands() {var _this6 = this;
       Request.request({
         url: Api.ranfaBrand.findCommonList,
         data: {
@@ -466,20 +507,22 @@ var Api = getApp().globalData.Api;var _default =
 
         success: function success(res) {
 
-          _this4.ranfaBrands = res.data.data;
+          _this6.ranfaBrands = res.data.data;
           // console.log(JSON.stringify(res));
-          _this4.$forceUpdate();
+          _this6.$forceUpdate();
         } });
 
     },
     toCheck: function toCheck() {
 
     },
-    tabBarChange: function tabBarChange(index) {
+    tabBarChange: function tabBarChange(index) {var _this7 = this;
       var tabBarList = this.tabBar.list[index];
+
       if (this.tabBar.list[index].component == null) {
         if (tabBarList.method == "openCheckType") {
           this.openCheckType();
+          this.openCheck();
         }
       }
 
@@ -493,53 +536,117 @@ var Api = getApp().globalData.Api;var _default =
       }
 
       if (this.pageComponent != "pageIndex") {
-        this.tabBar.bottom = 0;
-        this.tabBar.width = 750;
+        if (this.pageComponent == "pagePlay") {
+          this.tabBar.selectedIndex = 1;
+        }
+        if (this.pageComponent == "pageHome") {
+          this.tabBar.selectedIndex = 2;
+        }
+        // this.tabBar.selectedIndex=tabBarList.selectedIndex;
+        // this.tabBar.bottom = 0;
+        // this.tabBar.width = 750;
         this.tabBar.list = this.listByNoIndex;
         this.$forceUpdate();
-        // this.interval=setInterval(()=>{
-        // 	if(this.tabBar.bottom>0){
-        // 		this.tabBar.bottom-=3;
-        // 	}
-        // 	if(this.tabBar.width<750){
-        // 		this.tabBar.width+=3;
-        // 	}
-        // 	if(this.tabBar.width>=750&&this.tabBar.bottom<=0){
-        // 		clearInterval(this.interval);
-        // 	}
-        // },13);
+        this.interval = setInterval(function () {
+          if (_this7.tabBar.bottom > 0) {
+            _this7.tabBar.bottom -= 3;
+          }
+          if (_this7.tabBar.width < 750) {
+            _this7.tabBar.width += 3;
+          }
+          if (_this7.tabBar.width >= 750 && _this7.tabBar.bottom <= 0) {
+            clearInterval(_this7.interval);
+          }
+        }, 13);
       } else {
-        this.tabBar.width = 700;
-        this.tabBar.bottom = 40;
+        // this.tabBar.width = 700;
+        // this.tabBar.bottom = 40;
+        this.tabBar.selectedIndex = 1;
         this.tabBar.list = this.listByIndex;
         this.$forceUpdate();
-        // 	this.interval=setInterval(()=>{
-        // 		if(this.tabBar.bottom<40){
-        // 			this.tabBar.bottom+=3;
-        // 		}
-        // 		if(this.tabBar.width>700){
-        // 			this.tabBar.width-=3;
-        // 		}
-        // 		if(this.tabBar.width<=700&&this.tabBar.bottom>=40){
-        // 			clearInterval(this.interval);
-        // 		}
-        // 	},13);
+        this.interval = setInterval(function () {
+          if (_this7.tabBar.bottom < 40) {
+            _this7.tabBar.bottom += 3;
+          }
+          if (_this7.tabBar.width > 700) {
+            _this7.tabBar.width -= 3;
+          }
+          if (_this7.tabBar.width <= 700 && _this7.tabBar.bottom >= 40) {
+            clearInterval(_this7.interval);
+          }
+        }, 13);
       }
     } },
 
   watch: {
-    // "brandByChange": {
-    // 	handler(newVal, oldVal) {
-    // 		if(this.brandByChange.id==null||this.brandByChange.id==0){
-    // 			this.listByIndex[3].text="品牌";
-    // 			return false;
-    // 		}
-    // 		this.listByIndex[3].text="品牌:"+this.brandByChange.name;
-    // 	},
-    // 	deep: true,
-    // 	immediate: true
-    // }
-  } };exports.default = _default;
+    "pageComponent": {
+      handler: function handler(newVal, oldVal) {
+        console.log("切换了");
+        this.brandToChange(null);
+        this.techniqueToChange(null);
+      },
+      deep: true,
+      immediate: true },
+
+    "brandByChange": {
+      handler: function handler(newVal, oldVal) {
+        console.log(JSON.stringify(this.techniqueByChange) + "-------");
+        var te = null;
+        var bd = null;
+        if ((this.techniqueByChange.id == null || this.techniqueByChange.id == 0) && (
+
+        this.brandByChange.id == null || this.brandByChange.id == 0))
+        {
+          this.listByIndex[0].text = "分类";
+          return false;
+        }
+        if (this.techniqueByChange.id == null || this.techniqueByChange.id == 0) {
+          // te="全部";
+        }
+        if (this.techniqueByChange.id != null && this.techniqueByChange.id != 0) {
+          te = this.techniqueByChange.name;
+        }
+        if (this.brandByChange.id == null || this.brandByChange.id == 0) {
+          // bd="全部";
+        }
+        if (this.brandByChange.id != null && this.brandByChange.id != 0) {
+          bd = this.brandByChange.name;
+        }
+        this.listByIndex[0].text = bd;
+        // this.listByIndex[0].text="分类:"+this.techniqueByChange.name;
+      },
+      deep: true,
+      immediate: true },
+
+    "techniqueByChange": {
+      handler: function handler(newVal, oldVal) {
+        console.log(JSON.stringify(this.techniqueByChange) + "-------");
+        var te = null;
+        var bd = null;
+        if ((this.techniqueByChange.id == null || this.techniqueByChange.id == 0) && (
+
+        this.brandByChange.id == null || this.brandByChange.id == 0))
+        {
+          this.listByIndex[0].text = "分类";
+          return false;
+        }
+        if (this.techniqueByChange.id == null || this.techniqueByChange.id == 0) {
+          // te="全部";
+        }
+        if (this.techniqueByChange.id != null && this.techniqueByChange.id != 0) {
+          te = this.techniqueByChange.name;
+        }
+        if (this.brandByChange.id == null || this.brandByChange.id == 0) {
+          // bd="全部";
+        }
+        if (this.brandByChange.id != null && this.brandByChange.id != 0) {
+          bd = this.brandByChange.name;
+        }
+        this.listByIndex[0].text = te;
+        // this.listByIndex[0].text="分类:"+this.techniqueByChange.name;
+      },
+      deep: true,
+      immediate: true } } };exports.default = _default;
 
 /***/ }),
 

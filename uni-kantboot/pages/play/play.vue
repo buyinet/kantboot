@@ -149,8 +149,11 @@
 		mounted() {
 			this.flush();
 		},
-		onShow() {},
-		methods: {
+		onShow() {
+			var routes = getCurrentPages();
+			var route = routes[routes.length - 1].route;
+			uni.setStorageSync("routeTo", '/' + route);
+		},methods: {
 			videoSelect(index){
 				this.fileUrlsOfVideoIndex=index;
 				console.log(

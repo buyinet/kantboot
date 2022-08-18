@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -166,7 +166,13 @@ var _default =
       "不同染膏品牌，不同发质，不同温度，不同涂抹方法和不同涂抹量可能出现相应的色差，操作方法仅供参考，学习，探讨，欢迎各位同行多上传作品，让更多的实际操作数据，来达到更完美准确的美丽效果。" };
 
   },
+  onShow: function onShow() {
+    var routes = getCurrentPages();
+    var route = routes[routes.length - 1].route;
+    uni.setStorageSync("routeTo", '/' + route);
+  },
   methods: {} };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

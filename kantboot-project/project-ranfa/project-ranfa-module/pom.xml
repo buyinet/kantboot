@@ -21,6 +21,10 @@
     <dependencies>
         <dependency>
             <groupId>com.kantboot</groupId>
+            <artifactId>kantboot-file-module</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kantboot</groupId>
             <artifactId>kantboot-system-module</artifactId>
         </dependency>
 

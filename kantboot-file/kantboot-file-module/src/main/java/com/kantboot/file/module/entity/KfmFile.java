@@ -95,12 +95,10 @@ public class KfmFile {
     @Column(name = "gmt_modified", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date gmtModified;
 
-    @org.springframework.data.annotation.Transient
     @JsonIgnore
     @Column(name = "setting_id", columnDefinition = "1")
     private Long settingId;
 
-    @org.springframework.data.annotation.Transient
     @JsonIgnore
     @OneToOne(targetEntity = SysSetting.class)
     @JoinColumn(name = "setting_id", referencedColumnName = "id", insertable = false, updatable = false)

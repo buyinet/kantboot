@@ -7,40 +7,57 @@
 
 		<u-popup :overlayOpacity=".7" :show="checkShow" :customStyle="{overflowY: 'scroll'}" :safeAreaInsetTop="true"
 			@close="closeCheck" @open="openCheck" class="brand-box" mode="right">
-			<view>
+<!-- 			<view>
 				<image src="../../static/logo2.png" mode="widthFix" style="
 				 margin-top: 50rpx;
 					width: 100rpx;
 					margin-left: 50%;
 					transform: translateX(-50%);
 				 "></image>
+			</view> -->
+			<view style="height: 30rpx;"></view>
+			<view style="margin-top: 50rpx;text-align: center;font-weight: bold;color: rgba(0,0,0,.2);">
+				品牌选择
 			</view>
-
-			<view class="brand" @click="brandToChange(null)">
+			<view class="brand" @click="brandToChange(null);closeCheck()">
 				<text v-if="brandByChange.id!=null">全部</text>
 				<text v-if="brandByChange.id==null" style="opacity: .4;">全部</text>
 			</view>
-			<view class="brand" @click="brandToChange(item.id)" v-for="(item,index) in ranfaBrands">
+			<view class="brand" @click="brandToChange(item.id);closeCheck()" v-for="(item,index) in ranfaBrands">
 				<text v-if="item.id!=brandByChange.id">
 					{{item.name}}</text>
 				<text v-if="item.id==brandByChange.id" style="opacity: .4;">{{item.name}}</text>
 			</view>
 		</u-popup>
 
-		<u-popup :overlayOpacity=".7" :show="checkTypeShow" :customStyle="{overflowY: 'scroll'}"
-			:safeAreaInsetTop="true" @close="closeCheckType" @open="openCheckType" class="brand-box" mode="right">
-			<view style="text-align: center;font-weight: bold;color: rgba(0,0,0,.2);">
+		<u-popup :overlayOpacity=".7" :show="checkShow" :customStyle="{overflowY: 'scroll'}"
+			:safeAreaInsetTop="true" @close="closeCheck" @open="openCheck" class="brand-box" mode="left">
+	<!-- 		<view>
+				<image src="../../static/logo2.png" mode="widthFix" style="
+				 margin-top: 50rpx;
+					width: 100rpx;
+					margin-left: 50%;
+					transform: translateX(-50%);
+				 "></image>
+			</view> -->
+			<view style="margin-top:30rpx;text-align: center;font-weight: bold;color: rgba(0,0,0,.2);">
 				分类选择
 			</view>
-			<view class="brand" @click="null">
+			<view class="brand" @click="techniqueToChange(null);closeCheck()"
+			v-if="null!=techniqueByChange.id"
+			>
 				全部
 			</view>
-			<view class="brand" v-for="(item,index) in ranfaTechniques" @click="
-			 paramData.pageNumber=1;
-			 ranfaTechniqueBySelected=item;
-			 paramData.data.and.eq[0].ranfaTechniques[0].id=item.id;this.closeCheck2();this.findCommon();">
-				<text v-if="item.id!=paramData.data.and.eq[0].ranfaTechniques[0].id">{{item.name}}</text>
-				<text v-if="item.id==paramData.data.and.eq[0].ranfaTechniques[0].id"
+			<view class="brand" 
+			v-if="null==techniqueByChange.id"
+			>
+				全部
+			</view>
+			<view class="brand" v-for="(item,index) in ranfaTechniques"
+			@click="techniqueToChange(item.id);closeCheck()"
+			>
+				<text v-if="item.id!=techniqueByChange.id">{{item.name}}</text>
+				<text v-if="item.id==techniqueByChange.id"
 					style="opacity: .7;">{{item.name}}</text>
 			</view>
 		</u-popup>
@@ -115,6 +132,7 @@
 		},
 		data() {
 			return {
+				techniqueByChange:{},
 				brandByChange: {},
 				ranfaBrands: [],
 				checkShow: false,
@@ -177,9 +195,19 @@
 						"selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/mine_selected"
 					}
 				],
-				"listByIndex": [{
+				"listByIndex": [
+					{
+						"pagePath": null,
+						"text": "分类",
+						"method": "openCheckType",
+						component: null,
+						"iconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/check_selected",
+						"selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/check_selected"
+					},
+					{
 						"pagePath": "pages/index/index",
 						"text": "首页",
+						selectedIndex:1,
 						component: "pageIndex",
 						"iconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/index",
 						"selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/index_selected"
@@ -187,6 +215,8 @@
 					{
 						"pagePath": "pages/play/play",
 						"text": "正在播放",
+						selectedIndex:1,
+						
 						component: "pagePlay",
 						"iconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/video",
 						"selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/video_selected"
@@ -194,6 +224,8 @@
 					{
 						"pagePath": "pages/home/home",
 						"text": "我的",
+						selectedIndex:2,
+						
 						component: "pageHome",
 						"iconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/mine",
 						"selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/mine_selected"
@@ -206,21 +238,45 @@
 					// 	"iconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/check_selected",
 					// 	"selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/check_selected"
 					// },
-					{
-						"pagePath": null,
-						"text": "分类",
-						"method": "openCheckType",
-						component: null,
-						"iconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/check_selected",
-						"selectedIconPath": Api.path + "kantboot-file/file/visit/tabbar/icon/check_selected"
-					}
 				],
 			}
 		},
 		mounted() {
 			this.getRanfaTechniques();
 		},
+		
 		methods: {
+			getTechniqueByChange() {
+				Request.request({
+					url: Api.ranfaWork.techniqueByChange,
+					success: (res) => {
+						this.techniqueByChange = res.data.data;
+						this.$store.state.techniqueByChange = this.techniqueByChange;
+					}
+				});
+			},
+			techniqueToChange(techniqueId){
+				if(this.techniqueId!=null){
+					this.brandToChange(null);
+					this.brandByChange={id:null};
+					
+				}
+				Request.request({
+					url: Api.ranfaWork.techniqueToChange,
+					data: {
+						"ranfaTechniqueId": techniqueId
+					},
+					success: (res) => {
+				
+						this.getTechniqueByChange();
+						this.$refs.uToast.show({
+							message: "点击切换后生效"
+						});
+
+						this.closeCheckType();
+					}
+				});
+			},
 			getRanfaTechniques() {
 				Request.request({
 					url: Api.ranfaTechnique.findCommonList,
@@ -236,13 +292,16 @@
 				});
 			},
 			brandToChange(ranfaBrandId) {
+				if(ranfaBrandId!=null){
+					this.techniqueToChange(null);
+					this.techniqueByChange={id:null};
+				}
 				Request.request({
 					url: Api.ranfaWork.brandToChange,
 					data: {
 						"ranfaBrandId": ranfaBrandId
 					},
 					success: (res) => {
-
 						this.getBrandByChange();
 						this.$refs.uToast.show({
 							message: "点击切换后生效"
@@ -256,15 +315,14 @@
 					url: Api.ranfaWork.brandByChange,
 					success: (res) => {
 						this.brandByChange = res.data.data;
+						console.log(JSON.stringify(this.brandByChange));
 						this.$store.state.brandByChange = this.brandByChange;
-						console.log(
-							JSON.stringify(this.$store.state.brandByChange)
-						);
 					}
 				});
 			},
 			closeCheck() {
-				this.checkShow = false
+				this.checkShow = false;
+				this.checkTypeShow = false;
 			},
 			openCheck() {
 				this.checkShow = true;
@@ -294,12 +352,14 @@
 			},
 			tabBarChange(index) {
 				var tabBarList = this.tabBar.list[index];
+				
 				if (this.tabBar.list[index].component == null) {
 					if (tabBarList.method == "openCheckType") {
 						this.openCheckType();
+						this.openCheck();
 					}
 				}
-
+				
 				if (this.tabBar.list[index].component != null) {
 					this.tabBar.selectedIndex = index;
 					this.pageComponent = this.tabBar.list[index].component;
@@ -310,52 +370,118 @@
 				}
 
 				if (this.pageComponent != "pageIndex") {
-					this.tabBar.bottom = 0;
-					this.tabBar.width = 750;
+					if(this.pageComponent == "pagePlay"){
+						this.tabBar.selectedIndex=1;
+					}
+					if(this.pageComponent == "pageHome"){
+						this.tabBar.selectedIndex=2;
+					}
+					// this.tabBar.selectedIndex=tabBarList.selectedIndex;
+					// this.tabBar.bottom = 0;
+					// this.tabBar.width = 750;
 					this.tabBar.list = this.listByNoIndex;
 					this.$forceUpdate();
-					// this.interval=setInterval(()=>{
-					// 	if(this.tabBar.bottom>0){
-					// 		this.tabBar.bottom-=3;
-					// 	}
-					// 	if(this.tabBar.width<750){
-					// 		this.tabBar.width+=3;
-					// 	}
-					// 	if(this.tabBar.width>=750&&this.tabBar.bottom<=0){
-					// 		clearInterval(this.interval);
-					// 	}
-					// },13);
+					this.interval=setInterval(()=>{
+						if(this.tabBar.bottom>0){
+							this.tabBar.bottom-=3;
+						}
+						if(this.tabBar.width<750){
+							this.tabBar.width+=3;
+						}
+						if(this.tabBar.width>=750&&this.tabBar.bottom<=0){
+							clearInterval(this.interval);
+						}
+					},13);
 				} else {
-					this.tabBar.width = 700;
-					this.tabBar.bottom = 40;
+					// this.tabBar.width = 700;
+					// this.tabBar.bottom = 40;
+					this.tabBar.selectedIndex=1;
 					this.tabBar.list = this.listByIndex;
 					this.$forceUpdate();
-					// 	this.interval=setInterval(()=>{
-					// 		if(this.tabBar.bottom<40){
-					// 			this.tabBar.bottom+=3;
-					// 		}
-					// 		if(this.tabBar.width>700){
-					// 			this.tabBar.width-=3;
-					// 		}
-					// 		if(this.tabBar.width<=700&&this.tabBar.bottom>=40){
-					// 			clearInterval(this.interval);
-					// 		}
-					// 	},13);
+						this.interval=setInterval(()=>{
+							if(this.tabBar.bottom<40){
+								this.tabBar.bottom+=3;
+							}
+							if(this.tabBar.width>700){
+								this.tabBar.width-=3;
+							}
+							if(this.tabBar.width<=700&&this.tabBar.bottom>=40){
+								clearInterval(this.interval);
+							}
+						},13);
 				}
 			}
 		},
 		watch: {
-			// "brandByChange": {
-			// 	handler(newVal, oldVal) {
-			// 		if(this.brandByChange.id==null||this.brandByChange.id==0){
-			// 			this.listByIndex[3].text="品牌";
-			// 			return false;
-			// 		}
-			// 		this.listByIndex[3].text="品牌:"+this.brandByChange.name;
-			// 	},
-			// 	deep: true,
-			// 	immediate: true
-			// }
+			"pageComponent":{
+				handler(newVal, oldVal) {
+					console.log("切换了");
+					this.brandToChange(null);
+					this.techniqueToChange(null);
+				},
+				deep: true,
+				immediate: true
+			},
+			"brandByChange":{
+				handler(newVal, oldVal) {
+						console.log(JSON.stringify(this.techniqueByChange)+"-------");
+						var te=null;
+						var bd=null;
+						if((this.techniqueByChange.id==null||this.techniqueByChange.id==0)
+						&&
+						(this.brandByChange.id==null||this.brandByChange.id==0))
+						{
+							this.listByIndex[0].text="分类";
+							return false;
+						}
+						if((this.techniqueByChange.id==null||this.techniqueByChange.id==0)){
+							// te="全部";
+						}
+						if((this.techniqueByChange.id!=null&&this.techniqueByChange.id!=0)){
+							te=this.techniqueByChange.name;
+						}
+						if((this.brandByChange.id==null||this.brandByChange.id==0)){
+							// bd="全部";
+						}
+						if((this.brandByChange.id!=null&&this.brandByChange.id!=0)){
+							bd=this.brandByChange.name;
+						}
+						this.listByIndex[0].text=bd;
+						// this.listByIndex[0].text="分类:"+this.techniqueByChange.name;
+					},
+					deep: true,
+					immediate: true
+				},
+			"techniqueByChange": {
+				handler(newVal, oldVal) {
+					console.log(JSON.stringify(this.techniqueByChange)+"-------");
+					var te=null;
+					var bd=null;
+					if((this.techniqueByChange.id==null||this.techniqueByChange.id==0)
+					&&
+					(this.brandByChange.id==null||this.brandByChange.id==0))
+					{
+						this.listByIndex[0].text="分类";
+						return false;
+					}
+					if((this.techniqueByChange.id==null||this.techniqueByChange.id==0)){
+						// te="全部";
+					}
+					if((this.techniqueByChange.id!=null&&this.techniqueByChange.id!=0)){
+						te=this.techniqueByChange.name;
+					}
+					if((this.brandByChange.id==null||this.brandByChange.id==0)){
+						// bd="全部";
+					}
+					if((this.brandByChange.id!=null&&this.brandByChange.id!=0)){
+						bd=this.brandByChange.name;
+					}
+					this.listByIndex[0].text=te;
+					// this.listByIndex[0].text="分类:"+this.techniqueByChange.name;
+				},
+				deep: true,
+				immediate: true
+			}
 		}
 	}
 </script>

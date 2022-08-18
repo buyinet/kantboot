@@ -95,10 +95,99 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    uRow: function() {
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-row/u-row */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-row/u-row")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-row/u-row.vue */ 329))
+    },
+    uCol: function() {
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-col/u-col */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-col/u-col")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-col/u-col.vue */ 337))
+    },
+    uUpload: function() {
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-upload/u-upload.vue */ 463))
+    },
+    uIcon: function() {
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 355))
+    },
+    uButton: function() {
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-button/u-button */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-button/u-button")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-button/u-button.vue */ 345))
+    }
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var a0 = {
+    position: "relative"
+  }
+  var a1 =
+    _vm.coverFrontImage == null
+      ? {
+          position: "absolute",
+          "z-index": "100",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%,-50%)"
+        }
+      : null
+  var a2 = {
+    position: "relative"
+  }
+  var a3 =
+    _vm.coverBackImage == null
+      ? {
+          position: "absolute",
+          "z-index": "100",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%,-50%)"
+        }
+      : null
+  var a4 = {
+    width: "300rpx"
+  }
+
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event, item) {
+      var _temp = arguments[arguments.length - 1].currentTarget.dataset,
+        _temp2 = _temp.eventParams || _temp["event-params"],
+        item = _temp2.item
+
+      var _temp, _temp2
+
+      _vm.videoByPlay = item
+    }
+  }
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        a0: a0,
+        a1: a1,
+        a2: a2,
+        a3: a3,
+        a4: a4
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -132,19 +221,172 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var ktVideo = function ktVideo() {__webpack_require__.e(/*! require.ensure | commpents/kt/ktFile/ktVideo */ "commpents/kt/ktFile/ktVideo").then((function () {return resolve(__webpack_require__(/*! ../../commpents/kt/ktFile/ktVideo.vue */ 324));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var Request = getApp().globalData.Request;
+var Api = getApp().globalData.Api;var _default =
 {
-  data: function data() {
-    return {};
+  components: {
+    ktVideo: ktVideo },
 
-  } };exports.default = _default;
+  data: function data() {
+    return {
+      coverFrontImageList: [],
+      coverFrontImage: null,
+      coverBackImageList: [],
+      coverBackImage: null,
+      videoList: [],
+      videos: [],
+      videoByPlay: null };
+
+  },
+  methods: {
+    uploadCover: function uploadCover(res) {var _this = this;
+      uni.uploadFile({
+        url: Api.path + "kantboot-file/file/upload/ranfa/teachCover",
+        filePath: res.file[0].url,
+        name: 'file',
+        success: function success(resp) {
+          var json = JSON.parse(resp.data);
+          _this.coverFrontImage = json.data.visitUrlById;
+        },
+
+        fail: function fail(resp) {//失败
+        },
+
+        complete: function complete() {//不论成功、失败都执行		
+        } });
+
+    },
+    uploadCoverBack: function uploadCoverBack(res) {var _this2 = this;
+      uni.uploadFile({
+        url: Api.path + "kantboot-file/file/upload/ranfa/teachCover",
+        filePath: res.file[0].url,
+        name: 'file',
+        success: function success(resp) {
+          var json = JSON.parse(resp.data);
+          _this2.coverBackImage = json.data.visitUrlById;
+        },
+
+        fail: function fail(resp) {//失败
+        },
+
+        complete: function complete() {//不论成功、失败都执行		
+        } });
+
+    },
+    uploadVideo: function uploadVideo(res) {var _this3 = this;
+      uni.uploadFile({
+        url: Api.path + "kantboot-file/file/upload/ranfa/teachVideo",
+        filePath: res.file[0].url,
+        name: 'file',
+        success: function success(resp) {
+          var json = JSON.parse(resp.data);
+          _this3.videos.push(json.data.visitUrlById);
+        },
+
+        fail: function fail(resp) {//失败
+        },
+
+        complete: function complete() {//不论成功、失败都执行		
+        } });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

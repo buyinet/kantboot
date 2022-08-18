@@ -167,7 +167,11 @@
 		mounted() {
 			this.flush();
 		},
-		onShow() {},
+		onShow() {
+			var routes = getCurrentPages();
+			var route = routes[routes.length - 1].route+"?pageComponent=pagePlay";
+			uni.setStorageSync("routeTo", '/' + route);
+		},
 		methods: {
 			toPage(page) {
 				uni.navigateTo({

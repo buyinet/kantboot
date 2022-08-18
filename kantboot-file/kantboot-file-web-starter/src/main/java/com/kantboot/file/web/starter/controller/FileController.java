@@ -9,7 +9,7 @@ import com.kantboot.file.module.entity.KfmFile;
 import com.kantboot.file.module.entity.KfmFileOss;
 import com.kantboot.file.module.entity.KfmFileParent;
 import com.kantboot.file.module.repository.CesFileParentRepository;
-import com.kantboot.file.module.repository.CesFileRepository;
+import com.kantboot.file.module.repository.KmfFileRepository;
 import com.kantboot.system.user.module.service.ISysSettingService;
 import com.kantboot.util.common.exception.BaseException;
 import com.kantboot.util.common.util.RedisUtil;
@@ -43,24 +43,13 @@ public class FileController extends BaseController<KfmFile, Long> {
 
 
 
-    @SneakyThrows
-    public static void main(String[] args) {
-        String srcImgPath = "http://localhost/kantboot-file/file/visit/10409";
-
-        System.out.println("ImageIO.read(new URL(srcImgPath)) = " + ImageIO.read(new URL(srcImgPath)));
-        String iconPath = "https://aaahair.top/kantboot-file/file/visit/102";
-        String targerPath = "C:\\Users\\Administrator\\Desktop\\abc.png";
-        BufferedImage bufferedImage = Thumbnails.of(ImageIO.read(new URL(srcImgPath))).scale(1f)
-                .watermark(Positions.CENTER, ImageIO.read(new URL(iconPath)), 1f)
-                .asBufferedImage();
-    }
 
 
     @Resource
     CesFileParentRepository cesFileParentRepository;
 
     @Resource
-    CesFileRepository cesFileRepository;
+    KmfFileRepository cesFileRepository;
 
     @Resource
     ISysSettingService sysSettingService;
@@ -178,6 +167,7 @@ public class FileController extends BaseController<KfmFile, Long> {
         InputStream inputStream1=null;
         if (byBodyNameAndBodyField.getUseWatermark()) {
             inputStream1=file.getInputStream();
+            System.out.println("byBodyNameAndBodyField.getFileUrlByWatermark()="+byBodyNameAndBodyField.getFileUrlByWatermark());
             BufferedImage bufferedImage = Thumbnails.of(ImageIO.read(m2f(file)))
                     .scale(1f)
                     .watermark(Positions.CENTER, ImageIO.read(new URL(byBodyNameAndBodyField.getFileUrlByWatermark())), 1f)
@@ -231,8 +221,12 @@ public class FileController extends BaseController<KfmFile, Long> {
             sysFileStore.setStorageType(byBodyNameAndBodyField.getStorageType());
             sysFileStore.setFileParentId(byBodyNameAndBodyField.getId());
 
-            cesFileRepository.save(sysFileStore);
-            return RestResult.success(sysFileStore, "上传成功");
+            KfmFile save = cesFileRepository.save(sysFileStore);
+            KfmFile kfmFile = cesFileRepository.findById(save.getId()).get();
+            HashMap hashMap = JSON.parseObject(JSON.toJSONString(kfmFile), HashMap.class);
+            String visitUrlById = sysSettingService.getSetting().getFileVisitUrl() + kfmFile.getId();
+            hashMap.put("visitUrlById",visitUrlById);
+            return RestResult.success(hashMap, "上传成功");
         }
 
         if (byBodyNameAndBodyField.getStorageType().equals("oss")) {
@@ -302,8 +296,13 @@ public class FileController extends BaseController<KfmFile, Long> {
 
             sysFileStore.setStorageType(byBodyNameAndBodyField.getStorageType());
             sysFileStore.setFileParentId(byBodyNameAndBodyField.getId());
-            cesFileRepository.save(sysFileStore);
-            return RestResult.success(sysFileStore, "上传成功");
+            System.out.println("JSON.toJSONString(sysFileStore) = " + JSON.toJSONString(sysFileStore));
+            KfmFile save = cesFileRepository.save(sysFileStore);
+            KfmFile kfmFile = cesFileRepository.findById(save.getId()).get();
+            HashMap hashMap = JSON.parseObject(JSON.toJSONString(kfmFile), HashMap.class);
+            String visitUrlById = sysSettingService.getSetting().getFileVisitUrl() + kfmFile.getId();
+            hashMap.put("visitUrlById",visitUrlById);
+            return RestResult.success(hashMap, "上传成功");
         }
 
         return RestResult.error("上传错误");

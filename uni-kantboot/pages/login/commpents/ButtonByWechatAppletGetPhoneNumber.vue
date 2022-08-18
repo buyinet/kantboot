@@ -1,9 +1,10 @@
 <template>
 	<button :class="'login-btn'" 
+	:disabled="btnDisabled"
 	open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
 		<u-notify ref="uNotify" message="Hi uView" :show="true"></u-notify>
 		<image class="icon" src="@/static/icon/wechat_sun.svg"></image>
-		点击登录
+		{{btnVal}}
 	</button>
 </template>
 
@@ -14,13 +15,56 @@
 	export default {
 		data() {
 			return {
-
+				btnDisabled:false,
+				btnVal:"点击登录"
 			}
 		},
-		onShow() {},
+		onShow() {
+			console.log("123")
+		},
+		mounted() {
+
+		},
 		created() {},
 		methods: {
-
+			
+			loginRequest(json){
+				Request.requestSync({
+					url: Api.cesAuthUserByWechat.loginByApplet,
+					data: json,
+					success: (res2) => {
+						if (Request.isSuccess(res2)) {
+							uni.setStorageSync("token", res2.data.data.token);
+							this.$refs.uNotify.primary('登录成功');
+							console.log("==="+uni.getStorageSync("routeTo"));
+							console.log("(uni.getStorageSync('routeTo')==null)="+(uni.getStorageSync("routeTo")==null));
+							console.log("(uni.getStorageSync('routeTo')=='')="+(uni.getStorageSync("routeTo")==""));
+							
+							if(uni.getStorageSync("routeTo")==null||uni.getStorageSync("routeTo")==""){
+								uni.reLaunch({
+									url:"/pages/static/static"
+								});										
+							}else{
+								uni.reLaunch({
+									url:uni.getStorageSync("routeTo")
+								});
+									uni.setStorageSync("routeTo",null)
+							}
+							return false;
+						}
+						this.btnDisabled=false;
+					},
+					faild(res2) {
+						console.log("123");
+						this.btnVal="出现了失误，再次点击";
+						setTimeout(()=>{
+							this.btnVal="点击登录";
+						},1000);
+						this.btnDisabled=true;
+					}
+					
+				});
+			},
 			getPhoneNumber(res) {
 				uni.login({
 					provider: "weixin",
@@ -30,29 +74,12 @@
 							"encryptedData": res.detail.encryptedData,
 							"iv": res.detail.iv
 						};
-						Request.requestSync({
-							url: Api.cesAuthUserByWechat.loginByApplet,
-							data: json,
-							success: (res2) => {
-								if (Request.isSuccess(res2)) {
-									uni.setStorageSync("token", res2.data.data.token);
-									this.$refs.uNotify.primary('登录成功');
-									console.log("==="+uni.getStorageSync("routeTo"));
-									if(uni.getStorageSync("routeTo")==null){
-										uni.reLaunch({
-											url:"/pages/static/static"
-										});										
-									}else{
-										uni.reLaunch({
-											url:uni.getStorageSync("routeTo")
-										});
-											uni.setStorageSync("routeTo",null)
-									}
-								}
-							}
-						});
+						this.btnDisabled=true;
+						setTimeout(()=>{
+							this.loginRequest(json);
+						},800);
 					}
-				})
+				});
 			}
 		}
 	}

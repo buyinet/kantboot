@@ -1,6 +1,7 @@
 package com.aaarfyh.ranfa.web.starter.controller;
 
 import com.aaarfyh.ranfa.module.entity.BusRanfaBrand;
+import com.aaarfyh.ranfa.module.entity.BusRanfaTechnique;
 import com.aaarfyh.ranfa.module.entity.BusRanfaWork;
 import com.aaarfyh.ranfa.module.repository.BusRanfaWorkRepository;
 import com.aaarfyh.ranfa.module.service.IBusRanfaWorkService;
@@ -60,7 +61,8 @@ public class BusRanfaWorkController extends BaseGoodsController<BusRanfaWork, Lo
         return RestResult.success(service.brandToChange(ranfaBrandId), "获取成功");
     }
     @PostMapping("/technique_to_change")
-    public RestResult<BusRanfaWork> techniquesToChange(@RequestParam("techniqueId") Long ranfaTechniqueId) {
+    public RestResult<BusRanfaWork> techniquesToChange(@RequestParam("ranfaTechniqueId") Long ranfaTechniqueId) {
+        System.err.println(ranfaTechniqueId);
         return RestResult.success(service.techniqueToChange(ranfaTechniqueId), "获取成功");
     }
 //    techniquesToChange
@@ -68,6 +70,10 @@ public class BusRanfaWorkController extends BaseGoodsController<BusRanfaWork, Lo
     @PostMapping("/brand_by_change")
     public RestResult<BusRanfaBrand> brandByChange(){
         return RestResult.success(service.brandByChange(), "获取成功");
+    }
+    @PostMapping("/technique_by_change")
+    public RestResult<BusRanfaTechnique> technique_by_change(){
+        return RestResult.success(service.techniqueByChange(), "获取成功");
     }
 
     /**
@@ -112,7 +118,6 @@ public class BusRanfaWorkController extends BaseGoodsController<BusRanfaWork, Lo
         System.out.println(bool+"------");
 
         if (!bool) {
-            log.info("等待3秒后重新执行");
             return RestResult.success(new PayAfterResult().setIsSuccess(false),"获取成功");
         }
 

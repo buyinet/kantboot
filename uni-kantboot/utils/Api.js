@@ -1,5 +1,5 @@
-// var path = "http://localhost/";
-var path = "https://aaahair.top/";
+var path = "http://localhost/";
+// var path = "https://aaahair.top/";
 // var path="https://project.ranfa.kantboot.com/";
 
 var url = {
@@ -164,7 +164,8 @@ var url = {
 		findCommonList:path + "project-ranfa/ranfa_work/find_common_list",
 		findCommonPageByBuySuccess:path+"project-ranfa/ranfa_work/find_common_page_by_user_self_buy",
 		findCommonPageByUserSelfCollection:path+"project-ranfa/ranfa_work/find_common_page_by_user_self_collection",
-		
+		techniqueByChange:path+'project-ranfa/ranfa_work/technique_by_change',
+		techniqueToChange:path+'project-ranfa/ranfa_work/technique_to_change',
 		findById:path+"project-ranfa/ranfa_work/find_by_id",
 		findCommonGoodsPage:path+"project-ranfa/ranfa_work/find_common_goods_page",
 		brandToChange:path+"project-ranfa/ranfa_work/brand_to_change",
