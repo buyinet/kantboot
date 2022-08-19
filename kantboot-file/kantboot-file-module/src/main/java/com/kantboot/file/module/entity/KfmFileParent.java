@@ -114,7 +114,6 @@ public class KfmFileParent {
     /**
      * 创建时间
      */
-    @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "gmt_create", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date gmtCreate;
@@ -122,7 +121,6 @@ public class KfmFileParent {
     /**
      * 最后一次修改时间
      */
-    @ApiModelProperty(value = "最后一次修改时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "gmt_modified", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date gmtModified;

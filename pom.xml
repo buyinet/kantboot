@@ -78,6 +78,11 @@
         <dependencies>
             <dependency>
                 <groupId>com.kantboot</groupId>
+                <artifactId>kantboot-system-client</artifactId>
+                <version>${kantboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kantboot</groupId>
                 <artifactId>kantboot-third-party-wechat-applet</artifactId>
                 <version>${kantboot.version}</version>
             </dependency>
@@ -137,6 +142,7 @@
                 <artifactId>kantboot-pay-util-core</artifactId>
                 <version>${kantboot.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
@@ -175,7 +181,11 @@
                 <artifactId>spring-cloud-starter-gateway</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.kantboot.project</groupId>
                 <artifactId>kantboot-security</artifactId>

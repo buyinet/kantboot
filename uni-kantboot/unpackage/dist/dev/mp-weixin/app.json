@@ -13,7 +13,8 @@
     "pages/indexByShare/indexByShare",
     "pages/indexToShare/indexToShare",
     "pages/proposal/proposal",
-    "pages/shangchuanshuoming/shangchuanshuoming"
+    "pages/shangchuanshuoming/shangchuanshuoming",
+    "pages/my_work/my_work"
   ],
   "subPackages": [],
   "window": {

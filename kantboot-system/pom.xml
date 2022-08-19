@@ -16,6 +16,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>kantboot-system-module</module>
+        <module>kantboot-system-client</module>
         <module>kantboot-system-web-starter</module>
     </modules>
     <properties>

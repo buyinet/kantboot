@@ -32,5 +32,5 @@ public interface IBaseService<T,ID> {
      */
     void remove(T entity);
 
-    void save(T entity);
+    T save(T entity);
 }

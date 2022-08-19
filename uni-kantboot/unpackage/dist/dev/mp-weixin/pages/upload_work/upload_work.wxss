@@ -50,6 +50,16 @@
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
+.p-box .p-text.data-v-fbf8a5b4 {
+  position: absolute;
+  font-size: 100rpx;
+  bottom: -120rpx;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  color: rgba(94, 178, 243, 0.8);
+  font-weight: bold;
+}
 .brand.data-v-fbf8a5b4 {
   padding: 15rpx;
   text-align: center;

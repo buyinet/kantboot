@@ -106,6 +106,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "我的作品",
+          "pathName": "pages/my_work/my_work",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

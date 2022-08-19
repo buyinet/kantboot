@@ -1,4 +1,4 @@
-package com.kantboot.application.config;//package com.kantboot.file.module.config;
+package com.kantboot.util.core.config;//package com.kantboot.file.module.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

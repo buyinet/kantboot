@@ -6,14 +6,25 @@ import com.aaarfyh.ranfa.module.entity.BusRanfaWork;
 import com.kantboot.pay.util.common.service.IBaseGoodsService;
 import com.kantboot.pay.util.common.util.GoodsPayParam;
 import com.kantboot.pay.util.common.util.PayResult;
+import com.kantboot.util.core.entity.CommonEntityPageParam;
+import org.springframework.data.domain.Page;
 
 public interface IBusRanfaWorkService extends IBaseGoodsService<BusRanfaWork,Long> {
+
+    /**
+     * 提交
+     * @param busRanfaWork
+     * @return
+     */
+    void submit(BusRanfaWork busRanfaWork);
 
     /**
      * 随机切换视频
      * @return 返回随机切换的视频
      */
     BusRanfaWork change();
+
+    Page<BusRanfaWork> findByUploadSelf(CommonEntityPageParam<BusRanfaWork> pageParam);
 
     /**
      * 将品牌放进切换中
@@ -23,7 +34,6 @@ public interface IBusRanfaWorkService extends IBaseGoodsService<BusRanfaWork,Lon
 
     /**
      * 将分类放进切换中
-     * @param ranfaBrandId
      * @return
      */
     BusRanfaWork techniqueToChange(Long ranfaTechniqueId);

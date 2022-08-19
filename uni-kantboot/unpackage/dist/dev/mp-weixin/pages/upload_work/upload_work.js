@@ -98,22 +98,25 @@ var components
 try {
   components = {
     uRow: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-row/u-row */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-row/u-row")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-row/u-row.vue */ 329))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-row/u-row */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-row/u-row")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-row/u-row.vue */ 335))
     },
     uCol: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-col/u-col */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-col/u-col")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-col/u-col.vue */ 337))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-col/u-col */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-col/u-col")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-col/u-col.vue */ 343))
     },
     uUpload: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-upload/u-upload.vue */ 364))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-upload/u-upload.vue */ 370))
     },
     uIcon: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 355))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 361))
     },
     uButton: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-button/u-button */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-button/u-button")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-button/u-button.vue */ 345))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-button/u-button */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-button/u-button")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-button/u-button.vue */ 351))
     },
     uPopup: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 234))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 240))
+    },
+    uToast: function() {
+      return __webpack_require__.e(/*! import() | uni_modules/uview-ui/components/u-toast/u-toast */ "uni_modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-toast/u-toast.vue */ 264))
     }
   }
 } catch (e) {
@@ -177,7 +180,7 @@ var render = function() {
 
       var _temp, _temp2
 
-      _vm.videoByPlay = item
+      _vm.videoByPlay = item.visitUrlById
       _vm.videoByPlayIndex = index
     }
 
@@ -243,7 +246,42 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var ktVideo = function ktVideo() {__webpack_require__.e(/*! require.ensure | commpents/kt/ktFile/ktVideo */ "commpents/kt/ktFile/ktVideo").then((function () {return resolve(__webpack_require__(/*! ../../commpents/kt/ktFile/ktVideo.vue */ 324));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var ktVideo = function ktVideo() {__webpack_require__.e(/*! require.ensure | commpents/kt/ktFile/ktVideo */ "commpents/kt/ktFile/ktVideo").then((function () {return resolve(__webpack_require__(/*! ../../commpents/kt/ktFile/ktVideo.vue */ 330));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -468,11 +506,13 @@ var Api = getApp().globalData.Api;var _default =
 
   data: function data() {
     return {
+      isSubmit: false,
       paramData: {
         fileIdByFrontCoverImage: null,
         fileIdByBackCoverImage: null,
         ranfaBrandId: null,
-        process: null },
+        process: null,
+        ranfaWorkVideos: [] },
 
       coverFrontImageList: [],
       coverFrontImage: null,
@@ -494,9 +534,10 @@ var Api = getApp().globalData.Api;var _default =
   },
   mounted: function mounted() {
     this.getRanfaBrands();
-    // setInterval(()=>{
-    // 	this.videoUploadProgress++;
-    // },10);
+    // 	setInterval(()=>{
+    // 		// console.log(JSON.stringify(this.paramData))
+    // 		// this.videoUploadProgress++;
+    // 	},3000);
   },
   methods: {
     toPage: function toPage(page) {
@@ -505,9 +546,53 @@ var Api = getApp().globalData.Api;var _default =
 
     },
     toSubmit: function toSubmit() {
-      // 	Request.request({
-      // 		url:
-      // 	});
+      if (this.paramData.fileIdByFrontCoverImage == null) {
+        this.$refs.uToast.show({
+          message: "请选择染发前图片" });
+
+        return false;
+      }
+      if (this.paramData.fileIdByBackCoverImage == null) {
+        this.$refs.uToast.show({
+          message: "请选择染发后图片" });
+
+        return false;
+      }
+      if (this.paramData.ranfaWorkVideos.length == 0) {
+        this.$refs.uToast.show({
+          message: "请上传视频" });
+
+        return false;
+      }
+
+      if (this.paramData.ranfaBrandId == null) {
+        this.$refs.uToast.show({
+          message: "请选择品牌" });
+
+        return false;
+      }
+
+
+      if (this.paramData.process == null || this.paramData.process == "") {
+        this.$refs.uToast.show({
+          message: "请填写操作流程" });
+
+        return false;
+      }
+
+      console.log(Api.ranfaWork.submit);
+      this.isSubmit = true;
+      Request.request({
+        url: Api.ranfaWork.submit,
+        data: this.paramData,
+        success: function success(res) {
+          // this.isSubmit=false;
+          uni.navigateBack({
+            delta: 1 });
+
+          //console.log(JSON.stringify(res));
+        } });
+
     },
     closeCheck: function closeCheck() {
       this.checkShow = false;
@@ -580,9 +665,16 @@ var Api = getApp().globalData.Api;var _default =
           var json = JSON.parse(resp.data);
           // this.videoUploadProgress=100;
           // this.isVideoUploadProgressShow=false;
-          _this4.videos.push(json.data.visitUrlById);
+          _this4.videos.push(json.data);
+          _this4.paramData.ranfaWorkVideos = [];
+          for (var i = 0; i < _this4.videos.length; i++) {
+            _this4.paramData.ranfaWorkVideos.push({
+              "fileIdOfVideo": _this4.videos[i].id,
+              "episode": i + 1 });
+
+          }
           _this4.videoUploadProgress = 100;
-          _this4.isVideoUploadProgressShow = false;
+          // this.isVideoUploadProgressShow=false;
         },
 
         fail: function fail(resp) {//失败
@@ -593,8 +685,8 @@ var Api = getApp().globalData.Api;var _default =
 
       uploadTask.onProgressUpdate(function (res) {
         _this4.videoUploadProgress = res.progress;
-        if (_this4.videoUploadProgress >= 98) {
-          _this4.videoUploadProgress = 98;
+        if (res.progress >= 100) {
+          _this4.videoUploadProgress = 100;
           _this4.isVideoUploadProgressShow = false;
         }
         console.log('上传进度' + res.progress);

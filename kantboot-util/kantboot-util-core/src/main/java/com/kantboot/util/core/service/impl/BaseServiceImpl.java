@@ -7,6 +7,7 @@ import com.kantboot.util.core.entity.CommonEntity;
 import com.kantboot.util.core.entity.CommonEntityPageParam;
 import com.kantboot.util.core.exception.UpdateException;
 import com.kantboot.util.core.service.IBaseService;
+import com.kantboot.util.core.util.FindCommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
@@ -912,10 +913,12 @@ public class BaseServiceImpl<T,ID> implements IBaseService<T,ID> {
         entityManager.close();
     }
 
+    @Resource
+    FindCommonUtil<T> findCommonUtil;
     @Override
-    public void save(T entity) {
+    public T save(T entity) {
         //判断是否为添加，true为添加，false为修改
-        boolean isInsert = getId(entity) == null;
+        boolean isInsert = findCommonUtil.getId(entity) == null;
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -924,20 +927,31 @@ public class BaseServiceImpl<T,ID> implements IBaseService<T,ID> {
 
         if (!isInsert) {
             try {
-                Optional<T> byId = jpaRepository.findById((ID) getId(entity));
+                Optional<T> byId = jpaRepository.findById((ID) findCommonUtil.getId(entity));
                 T entityByInsert = byId.get();
-//                log.info("entityByInsert = " + JSON.toJSONString(entityByInsert));
-                BeanUtils.copyProperties(entity, entityByInsert, getNullPropertyNames(entity));
+                BeanUtils.copyProperties(entity, entityByInsert, findCommonUtil.getNullPropertyNames(entity));
                 jpaRepository.save(entityByInsert);
+                return entityByInsert;
             } catch (Exception e) {
                 e.printStackTrace();
                 entityManager.close();
                 throw new UpdateException().setMessage("修改失败");
-            } finally {
+            }finally {
                 transaction.commit();
                 entityManager.close();
             }
+        }
 
+        try {
+            T save = jpaRepository.save(entity);
+            return save;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UpdateException().setMessage("添加失败");
+        }finally {
+            transaction.commit();
+            entityManager.close();
         }
     }
 

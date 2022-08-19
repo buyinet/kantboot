@@ -27,6 +27,16 @@ import java.util.*;
 @Component
 public class FindCommonUtil<T> {
 
+//    /**
+//     * 获取泛型T的class
+//     * @return
+//     */
+//    public Class getEntityClass(){
+//        ParameterizedType type = (ParameterizedType)this.getClass().getGenericSuperclass();
+//        //返回表示此类型实际类型参数的 Type 对象的数组(),赋值给this.classt
+//        Class clazz = (Class)type.getActualTypeArguments()[0];//<T>
+//        return clazz;
+//    }
     /**
      * 用来通用查询的方法
      *

@@ -1,0 +1,24 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        prefix: ${spring.application.name}
+        server-addr: 127.0.0.1:8848
+        connectTimeoutInMills: 3000
+        namespace: prod
+        extension-configs[0]:
+          data-id: database.yaml
+          group: DEFAULT_GROUP
+          refresh: true
+        extension-configs[1]:
+          data-id: swagger.yaml
+          group: DEFAULT_GROUP
+          refresh: true
+        extension-configs[2]:
+          data-id: gateway.yaml
+          group: DEFAULT_GROUP
+          refresh: true
+      discovery:
+        server-addr: 127.0.0.1:8848
+      server-addr: 127.0.0.1:8848

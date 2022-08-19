@@ -14,12 +14,14 @@ import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +70,7 @@ public abstract class BaseController<T, ID> {
      */
     @PostMapping("/find_common_page")
     public RestResult<Page<T>> findCommonByPage(@RequestBody CommonEntityPageParam<T> pageParam) {
+
         CommonEntity<T> commonEntity = pageParam.getData();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -78,6 +81,7 @@ public abstract class BaseController<T, ID> {
             Page<T> all = jpaRepository.findAll(specification, pageParam.getPageable());
             transaction.commit();
             entityManager.close();
+            long endDate = System.currentTimeMillis();
             return RestResult.success(all, "查询成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,13 +123,33 @@ public abstract class BaseController<T, ID> {
      * @param entity
      * @return
      */
-    @PostMapping("/find_by_id")
-    public RestResult<T> findById(@RequestBody T entity) {
+    @PostMapping("/find_by_id_by_entity")
+    public RestResult<T> findByIdByEntity(@RequestBody T entity) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         SimpleJpaRepository<T, ID> jpaRepository = new SimpleJpaRepository<T, ID>((Class<T>) entity.getClass(), entityManager);
         Optional<T> byId = jpaRepository.findById((ID) findCommonUtil.getId(entity));
         entityManager.close();
         return RestResult.success(byId.get(), "获取成功");
+    }
+
+    @PostMapping("/find_by_id")
+    public RestResult<T> findById(@RequestParam("id") ID id) {
+//        Class entityClass = findCommonUtil.getEntityClass();
+        EntityManager entityManager=null;
+        T result=null;
+        try{
+            ParameterizedType type = (ParameterizedType)this.getClass().getGenericSuperclass();
+            //返回表示此类型实际类型参数的 Type 对象的数组(),赋值给this.classt
+            Class entityClass = (Class)type.getActualTypeArguments()[0];//<T>
+            entityManager = entityManagerFactory.createEntityManager();
+            SimpleJpaRepository<T, ID> jpaRepository = new SimpleJpaRepository<T, ID>(entityClass, entityManager);
+            result = jpaRepository.findById((ID) id).get();
+        }catch (Exception e){
+
+        }finally {
+            entityManager.close();
+        }
+        return RestResult.success(result, "获取成功");
     }
 
     /**

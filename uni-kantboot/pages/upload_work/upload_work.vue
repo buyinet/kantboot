@@ -43,7 +43,8 @@
 				<u-col :span="5">
 					<view class="ti">染发后图片：</view>
 					<view style="height: 10rpx;position: relative;"></view>
-					<u-upload :fileList="coverBackImageList" @afterRead="uploadCoverBack" class="upload-file"
+					<u-upload 
+					:fileList="coverBackImageList" @afterRead="uploadCoverBack" class="upload-file"
 						width="300rpx" height="440rpx" :customStyle="{
 							'position':'relative'
 						}" :previewFullImage="true" name="1" multiple :maxCount="1">
@@ -70,12 +71,15 @@
 			<view style="height: 10rpx;"></view>
 			<view class="ee-box">
 				<view>
-					<view class="ee" v-for="(item,index) in videos" @click="videoByPlay=item;videoByPlayIndex=index">
+					<view class="ee" v-for="(item,index) in videos" @click="videoByPlay=item.visitUrlById;videoByPlayIndex=index">
 						<view style="color: rgba(0,0,0,.7);">第{{index+1}}集</view>
 						<view style="font-size: 25rpx;color: rgba(0,0,0,.3);font-weight: lighter;">点击查看</view>
 					</view>
 				</view>
-				<u-upload :fileList="videoList" @afterRead="uploadVideo" class="upload-file" width="312.5rpx"
+				<u-upload 
+				accept="video"
+				
+				:fileList="videoList" @afterRead="uploadVideo" class="upload-file" width="312.5rpx"
 					height="440rpx" :previewFullImage="true" name="1" multiple :maxCount="1">
 					
 					<view class="ee">
@@ -115,7 +119,9 @@
 			 :autoHeight="true" placeholder="请输入操作流程"></textarea>
 		</view>
 		<view style="height: 30rpx;"></view>
+		
 		<u-button 
+		:disabled="isSubmit"
 		@click="toSubmit()"
 		:customStyle="{'width':'500rpx','borderRadius':'100rpx'}" type="primary">提交</u-button>
 
@@ -210,6 +216,35 @@
 			</view>
 			
 		</view>
+		
+		<view
+		v-if="isSubmit"
+		 style="
+		width:100%;
+		height:100%;
+		position: fixed;
+		top:0;
+		left:0;
+		z-index: 100;
+		background-color: rgba(255,255,255,.8);">
+			<view
+				style="
+				position: absolute;
+				font-weight: bold;
+				top: 50%;
+				left:50%;
+				transform: translate(-50%,-50%);
+				text-align: center;"
+			>
+			
+			<view>请 勿 离 开 页 面，
+			<view></view>
+			正 在 提 交 中 . . .</view>
+			
+			
+			</view>
+		</view>
+		<u-toast ref="uToast"></u-toast>
 	</view>
 </template>
 
@@ -223,11 +258,13 @@
 		},
 		data() {
 			return {
+				isSubmit:false,
 				paramData:{
 					fileIdByFrontCoverImage:null,
 					fileIdByBackCoverImage:null,
 					ranfaBrandId:null,
-					process:null
+					process:null,
+					ranfaWorkVideos:[]
 				},
 				coverFrontImageList: [],
 				coverFrontImage: null,
@@ -249,9 +286,10 @@
 		},
 		mounted() {
 			this.getRanfaBrands();
-			// setInterval(()=>{
-			// 	this.videoUploadProgress++;
-			// },10);
+		// 	setInterval(()=>{
+		// 		// console.log(JSON.stringify(this.paramData))
+		// 		// this.videoUploadProgress++;
+		// 	},3000);
 		},
 		methods: {
 			toPage(page) {
@@ -260,9 +298,53 @@
 				})
 			},
 			toSubmit(){
-			// 	Request.request({
-			// 		url:
-			// 	});
+				if(this.paramData.fileIdByFrontCoverImage==null){
+					this.$refs.uToast.show({
+						message: "请选择染发前图片",
+					});
+					return false;
+				}
+				if(this.paramData.fileIdByBackCoverImage==null){
+					this.$refs.uToast.show({
+						message: "请选择染发后图片",
+					});
+					return false;
+				}
+				if(this.paramData.ranfaWorkVideos.length==0){
+					this.$refs.uToast.show({
+						message: "请上传视频",
+					});
+					return false;
+				}
+
+				if(this.paramData.ranfaBrandId==null){
+					this.$refs.uToast.show({
+						message: "请选择品牌",
+					});
+					return false;
+				}
+				
+				
+				if(this.paramData.process==null||this.paramData.process==""){
+					this.$refs.uToast.show({
+						message: "请填写操作流程",
+					});
+					return false;
+				}
+
+				console.log(Api.ranfaWork.submit);
+				this.isSubmit=true;
+				Request.request({
+					url:Api.ranfaWork.submit,
+					data:this.paramData,
+					success:(res)=>{
+						// this.isSubmit=false;
+						uni.navigateBack({
+							delta:1
+						});
+						//console.log(JSON.stringify(res));
+					}
+				});
 			},
 			closeCheck() {
 				this.checkShow = false;
@@ -335,9 +417,16 @@
 						var json = JSON.parse(resp.data);
 						// this.videoUploadProgress=100;
 						// this.isVideoUploadProgressShow=false;
-						this.videos.push(json.data.visitUrlById);
+						this.videos.push(json.data);
+						this.paramData.ranfaWorkVideos=[];
+						for(var i=0;i<this.videos.length;i++){
+							this.paramData.ranfaWorkVideos.push({
+								"fileIdOfVideo": this.videos[i].id,
+								"episode": i+1
+							})
+						}
 						this.videoUploadProgress=100;
-						this.isVideoUploadProgressShow=false;
+						// this.isVideoUploadProgressShow=false;
 					},
 
 					fail: (resp) => { //失败
@@ -348,8 +437,8 @@
 				});
 				uploadTask.onProgressUpdate((res) => {
 					this.videoUploadProgress=res.progress;
-					if(this.videoUploadProgress>=98){
-						this.videoUploadProgress=98
+					if(res.progress>=100){
+						this.videoUploadProgress=100
 						this.isVideoUploadProgressShow=false;
 					}
 				    console.log('上传进度' + res.progress);  
@@ -390,7 +479,13 @@
 			transform: translate(-50%,-50%);
 		}
 		.p-text{
-			
+			position: absolute;
+			font-size: 100rpx;
+			bottom: -120rpx;
+			left:50%;
+			transform: translateX(-50%);
+			color:rgba(94,178,243,.8);
+			font-weight: bold;
 		}
 	}
 	.brand {

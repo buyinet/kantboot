@@ -164,6 +164,7 @@ public class SesUserServiceImpl
 
     @Override
     public SysUser getUserInfo() {
+//        System.out.println("tokenManage.getToken() = " + tokenManage.getToken());
         //用户名
         String userName = null;
         synchronized (interner.intern(tokenManage.getToken())){

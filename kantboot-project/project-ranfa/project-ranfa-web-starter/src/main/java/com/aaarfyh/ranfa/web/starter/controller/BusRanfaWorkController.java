@@ -16,9 +16,11 @@ import com.kantboot.pay.util.common.util.PayResult;
 import com.kantboot.system.user.module.entity.SysUser;
 import com.kantboot.system.user.module.service.ISysUserService;
 import com.kantboot.util.common.util.RestResult;
+import com.kantboot.util.core.entity.CommonEntityPageParam;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -34,6 +36,13 @@ public class BusRanfaWorkController extends BaseGoodsController<BusRanfaWork, Lo
     IBusRanfaWorkService service;
 
     private Interner<String> intern= Interners.<String>newStrongInterner();
+
+    @RequestMapping("/submit")
+    public RestResult<?> submit(@RequestBody BusRanfaWork entity) {
+
+        service.submit(entity);
+        return RestResult.success("提交成功","提交成功");
+    }
 
     @Override
     @RequestMapping("/save")
@@ -76,6 +85,12 @@ public class BusRanfaWorkController extends BaseGoodsController<BusRanfaWork, Lo
         return RestResult.success(service.techniqueByChange(), "获取成功");
     }
 
+    @PostMapping("/find_by_upload_self")
+    public RestResult<Page<BusRanfaWork>> findByUploadSelf(
+            @RequestBody CommonEntityPageParam<BusRanfaWork> pageParam
+    ){
+        return RestResult.success(service.findByUploadSelf(pageParam),"查看成功");
+    }
     /**
      * 接收支付前的回调
      * @param param
@@ -113,7 +128,7 @@ public class BusRanfaWorkController extends BaseGoodsController<BusRanfaWork, Lo
         String s = id + "";
         //当碰到一样的订单id则锁住
         synchronized (intern.intern(s)){
-            
+
         }
         System.out.println(bool+"------");
 

@@ -5,8 +5,6 @@ import com.aaarfyh.ranfa.module.entity.BusRanfaWorkVideo;
 import com.aaarfyh.ranfa.module.repository.BusRanfaWorkVideoRepository;
 import com.aaarfyh.ranfa.module.service.IBusRanfaWorkService;
 import com.alibaba.fastjson.JSON;
-import com.kantboot.file.module.entity.KfmFile;
-import com.kantboot.file.module.repository.KmfFileRepository;
 import com.kantboot.system.user.module.entity.SysRole;
 import com.kantboot.system.user.module.entity.SysUser;
 import com.kantboot.system.user.module.service.ISysUserService;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -29,8 +26,8 @@ public class BusRanfaWorkVideoController extends BaseController<BusRanfaWorkVide
     IBusRanfaWorkService busRanfaWorkService;
     @Resource
     BusRanfaWorkVideoRepository busRanfaWorkVideoRepository;
-    @Resource
-    KmfFileRepository fileRepository;
+//    @Resource
+//    KmfFileRepository fileRepository;
 
     @Resource
     ISysUserService sysUserService;
@@ -39,11 +36,14 @@ public class BusRanfaWorkVideoController extends BaseController<BusRanfaWorkVide
     public RestResult<Boolean> visit(@RequestParam("fileId") Long fileId) {
 //        System.out.println("======================"+ fileId);
 //        return RestResult.success(true, "可查看");
-        KfmFile kfmFile = fileRepository.findById(fileId).get();
-        if(kfmFile.getGmtCreate().getTime()<(new Date().getTime()+(1000*60*60*1))){
+//        KfmFile kfmFile = fileRepository.findById(fileId).get();
+//        if(kfmFile.getGmtCreate().getTime()<(new Date().getTime()+(1000*60*60*1))){
+//            return RestResult.success(true, "可查看");
+//        }
+        BusRanfaWorkVideo byId = busRanfaWorkVideoRepository.findByFileIdOfVideo(fileId);
+        if(byId==null){
             return RestResult.success(true, "可查看");
         }
-        BusRanfaWorkVideo byId = busRanfaWorkVideoRepository.findByFileIdOfVideo(fileId);
         System.out.println(JSON.toJSONString(byId)+"===");
 
         //        System.out.println("JSON.toJSONString(byId) = " + JSON.toJSONString(byId));

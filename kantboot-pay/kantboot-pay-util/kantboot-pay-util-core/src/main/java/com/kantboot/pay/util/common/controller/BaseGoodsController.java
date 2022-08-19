@@ -1,10 +1,9 @@
 package com.kantboot.pay.util.common.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.kantboot.pay.module.entity.PayGoodsBuy;
 import com.kantboot.pay.module.entity.PayGoodsCollection;
-import com.kantboot.pay.module.repository.PayGoodsCollectionRepository;
 import com.kantboot.pay.module.repository.PayGoodsBuyRepository;
+import com.kantboot.pay.module.repository.PayGoodsCollectionRepository;
 import com.kantboot.pay.util.common.annotation.GoodsEntityAnnotation;
 import com.kantboot.pay.util.common.entity.BaseGoodsEntity;
 import com.kantboot.system.user.module.entity.SysUser;
@@ -20,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -76,7 +76,7 @@ public class BaseGoodsController<T extends BaseGoodsEntity, ID> extends BaseCont
         List<T> content = commonByPage.getData().getContent();
         for (int i = 0; i < content.size(); i++) {
             T datum = content.get(i);
-            RestResult<T> byId = findById(datum);
+            RestResult<T> byId = findByIdByEntity(datum);
             content.get(i).setBuy( byId.getData().getBuy());
             content.get(i).setCollection( byId.getData().getCollection());
         }
@@ -85,10 +85,38 @@ public class BaseGoodsController<T extends BaseGoodsEntity, ID> extends BaseCont
         return commonByPage;
     }
 
+    @Override
     @PostMapping("/find_by_id")
-    public RestResult<T> findById(@RequestBody T entity) {
+    public RestResult<T> findById(@RequestParam("id") ID id) {
         Long userId = userService.getUserInfo().getId();
-        RestResult<T> byId = super.findById(entity);
+        RestResult<T> byId = super.findById(id);
+        T data = byId.getData();
+        PayGoodsBuy payGoods = payGoodsRepository.findByGoodsIdAndUserIdAndPayGoodsParentName(id + "", userId,
+                getParentName(data));
+        PayGoodsCollection payGoodsCollection = payGoodsCollectionRepository.findByGoodsIdAndUserIdAndPayGoodsParentName(
+                id + "",
+                userId,
+                getParentName(data));
+        if (payGoods == null) {
+            data.setBuy(false);
+        } else if (payGoods != null) {
+            data.setBuy(true);
+        }
+
+        if (payGoodsCollection == null) {
+            data.setCollection(false);
+        } else if (payGoodsCollection != null) {
+            data.setCollection(true);
+        }
+
+        return RestResult.success(data, "获取成功");
+    }
+
+    @Override
+    @PostMapping("/find_by_id_by_entity")
+    public RestResult<T> findByIdByEntity(@RequestBody T entity) {
+        Long userId = userService.getUserInfo().getId();
+        RestResult<T> byId = super.findByIdByEntity(entity);
         T data = byId.getData();
         PayGoodsBuy payGoods = payGoodsRepository.findByGoodsIdAndUserIdAndPayGoodsParentName(findCommonUtil.getId(entity) + "", userId,
                 getParentName(data));
@@ -96,7 +124,6 @@ public class BaseGoodsController<T extends BaseGoodsEntity, ID> extends BaseCont
                 findCommonUtil.getId(entity) + "",
                 userId,
                 getParentName(data));
-        System.out.println(JSON.toJSONString(payGoods));
         if (payGoods == null) {
             data.setBuy(false);
         } else if (payGoods != null) {
@@ -127,7 +154,7 @@ public class BaseGoodsController<T extends BaseGoodsEntity, ID> extends BaseCont
         List<T> data = commonByList.getData();
         List<T> result = new LinkedList<>();
         for (T datum : data) {
-            RestResult<T> byId = findById(datum);
+            RestResult<T> byId = findByIdByEntity(datum);
             result.add(byId.getData());
         }
         return RestResult.success(result, "获取成功");
@@ -139,7 +166,7 @@ public class BaseGoodsController<T extends BaseGoodsEntity, ID> extends BaseCont
         List<T> content = commonByPage.getData().getContent();
         for (int i = 0; i < content.size(); i++) {
             T datum = content.get(i);
-            RestResult<T> byId = findById(datum);
+            RestResult<T> byId = findByIdByEntity(datum);
             content.get(i).setBuy( byId.getData().getBuy());
             content.get(i).setCollection( byId.getData().getCollection());
         }

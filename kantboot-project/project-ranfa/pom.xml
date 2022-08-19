@@ -17,14 +17,16 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
     </properties>
 <modules>
     <module>project-ranfa-module</module>
     <module>project-ranfa-web-starter</module>
 </modules>
     <dependencies>
-
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>kantboot-system-client</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -41,10 +43,10 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.kantboot</groupId>
-            <artifactId>kantboot-system-module</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.kantboot</groupId>-->
+<!--            <artifactId>kantboot-system-module</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.kantboot</groupId>

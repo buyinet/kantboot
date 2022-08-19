@@ -77,6 +77,9 @@ public class BusRanfaWorkVideo {
      * @return
      */
     public String getFileUrlOfVideo() {
+        if(getSetting()==null){
+            return null;
+        }
         return getSetting().getFileVisitUrl() + fileIdOfVideo;
     }
 

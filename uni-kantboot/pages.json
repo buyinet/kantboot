@@ -162,6 +162,18 @@
             }
             
         }
+        ,{
+            "path" : "pages/my_work/my_work",
+            "style" :                                                                                    
+            {
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "我的作品",
+				"navigationBarBackgroundColor": "#FFF",
+				"backgroundColor": "#F8F8F8",
+				"navigationStyle": "default"
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

@@ -3,9 +3,11 @@ package com.aaarfyh.ranfa.module.service.impl;
 import com.aaarfyh.ranfa.module.entity.BusRanfaBrand;
 import com.aaarfyh.ranfa.module.entity.BusRanfaTechnique;
 import com.aaarfyh.ranfa.module.entity.BusRanfaWork;
+import com.aaarfyh.ranfa.module.entity.BusRanfaWorkVideo;
 import com.aaarfyh.ranfa.module.repository.BusRanfaBrandRepository;
 import com.aaarfyh.ranfa.module.repository.BusRanfaTechniqueRepository;
 import com.aaarfyh.ranfa.module.repository.BusRanfaWorkRepository;
+import com.aaarfyh.ranfa.module.repository.BusRanfaWorkVideoRepository;
 import com.aaarfyh.ranfa.module.service.IBusRanfaWorkService;
 import com.aaarfyh.ranfa.module.util.RanfaWorkChangeUtil;
 import com.alibaba.fastjson.JSON;
@@ -29,10 +31,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -47,19 +46,48 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
     BusRanfaWorkRepository repository;
 
     @Resource
+    BusRanfaWorkVideoRepository ranfaWorkVideoRepository;
+
+
+    @Resource
     BusRanfaTechniqueRepository techniqueRepository;
 
     @Resource
     TokenManage tokenManage;
+
     @Resource
     HttpServletRequest request;
 
     Interner<String> pool = Interners.newWeakInterner();
 
+    @Override
+    public void submit(BusRanfaWork entity) {
+        entity.setId(null);
+        String timeStr = (new Date().getTime() - 999999999) + "";
+        synchronized (pool.intern(timeStr)) {
+            entity.setIden(timeStr);
+        }
+
+        List<BusRanfaWorkVideo> ranfaWorkVideos =
+                JSON.parseArray(
+                        JSON.toJSONString(entity.getRanfaWorkVideos()),BusRanfaWorkVideo.class);
+        entity.setGmtCreate(new Date());
+        entity.setRanfaWorkVideos(null);
+        entity.setAuditStatus(0);
+        entity.setUserIdByUpload(userService.getUserInfo().getId());
+        BusRanfaWork save = super.save(entity);
+
+        for (BusRanfaWorkVideo ranfaWorkVideo : ranfaWorkVideos) {
+            ranfaWorkVideo.setId(null);
+            ranfaWorkVideo.setRanfaWorkId(save.getId());
+            ranfaWorkVideoRepository.save(ranfaWorkVideo);
+        }
+    }
+
     @SneakyThrows
     @Override
     public BusRanfaWork change() {
-        synchronized (pool.intern(request.getHeader("token"))){
+        synchronized (pool.intern(request.getHeader("token"))) {
         }
 
         SysUser userInfo = userService.getUserInfo();
@@ -81,7 +109,7 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
             pageParam.setPageNumber(1);
 
             //start: 只查询审核状态为已审核
-            CommonEntity<BusRanfaWork> busRanfaWorkCommonEntity=new CommonEntity<>();
+            CommonEntity<BusRanfaWork> busRanfaWorkCommonEntity = new CommonEntity<>();
             OperatorEntity<BusRanfaWork> busRanfaWorkOperatorEntity = new OperatorEntity<>();
             ArrayList<BusRanfaWork> busRanfaWorks = new ArrayList<>();
             busRanfaWorks.add(new BusRanfaWork().setAuditStatus(1));
@@ -117,8 +145,8 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
 
         if (redisData != null) {
             RanfaWorkChangeUtil ranfaWorkChangeUtil = JSON.parseObject(redisData, RanfaWorkChangeUtil.class);
-            Integer index = ranfaWorkChangeUtil.getIndex()+1;
-            if(index>ranfaWorkChangeUtil.getBlockIds().size()-1){
+            Integer index = ranfaWorkChangeUtil.getIndex() + 1;
+            if (index > ranfaWorkChangeUtil.getBlockIds().size() - 1) {
 
                 //start:用来做比较的查询
                 CommonEntityPageParam<BusRanfaWork> pageParam1 = new CommonEntityPageParam<BusRanfaWork>();
@@ -126,7 +154,7 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
                 pageParam1.setSortField("gmtCreate");
                 pageParam1.setSortType("DESC");
                 //start: 只查询审核状态为已审核
-                CommonEntity<BusRanfaWork> busRanfaWorkCommonEntity1=new CommonEntity<>();
+                CommonEntity<BusRanfaWork> busRanfaWorkCommonEntity1 = new CommonEntity<>();
                 OperatorEntity<BusRanfaWork> busRanfaWorkOperatorEntity1 = new OperatorEntity<>();
                 ArrayList<BusRanfaWork> busRanfaWorks1 = new ArrayList<>();
                 busRanfaWorks1.add(new BusRanfaWork().setAuditStatus(1));
@@ -135,15 +163,15 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
                 pageParam1.setData(busRanfaWorkCommonEntity1.setEntity(new BusRanfaWork()));
                 //end: 只查询审核状态为已审核
 
-                Integer page1=ranfaWorkChangeUtil.getPage()+1;
+                Integer page1 = ranfaWorkChangeUtil.getPage() + 1;
                 pageParam1.setPageNumber(1);
                 pageParam1.setPageSize(20);
                 //如果redis中存储的ranfaBrandId（品牌id）不为空，则根据ranfaBrandId（品牌id）查询
-                if(ranfaWorkChangeUtil.getRanfaBrandId()!=null&&ranfaWorkChangeUtil.getRanfaBrandId()!=0){
+                if (ranfaWorkChangeUtil.getRanfaBrandId() != null && ranfaWorkChangeUtil.getRanfaBrandId() != 0) {
                     List<BusRanfaWork> eq = pageParam1.getData().getAnd().getEq();
                     eq.add(new BusRanfaWork().setRanfaBrandId(ranfaWorkChangeUtil.getRanfaBrandId()));
                 }
-                if(ranfaWorkChangeUtil.getRanfaTechniqueId()!=null&&ranfaWorkChangeUtil.getRanfaTechniqueId()!=0){
+                if (ranfaWorkChangeUtil.getRanfaTechniqueId() != null && ranfaWorkChangeUtil.getRanfaTechniqueId() != 0) {
                     List<BusRanfaWork> eq = pageParam1.getData().getAnd().getEq();
                     HashSet<BusRanfaTechnique> busRanfaTechniques = new HashSet<>();
                     busRanfaTechniques.add(new BusRanfaTechnique().setId(ranfaWorkChangeUtil.getRanfaTechniqueId()));
@@ -158,7 +186,7 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
                 pageParam.setSortField("gmtCreate");
                 pageParam.setSortType("DESC");
                 //start: 只查询审核状态为已审核
-                CommonEntity<BusRanfaWork> busRanfaWorkCommonEntity=new CommonEntity<>();
+                CommonEntity<BusRanfaWork> busRanfaWorkCommonEntity = new CommonEntity<>();
                 OperatorEntity<BusRanfaWork> busRanfaWorkOperatorEntity = new OperatorEntity<>();
                 ArrayList<BusRanfaWork> busRanfaWorks = new ArrayList<>();
                 busRanfaWorks.add(new BusRanfaWork().setAuditStatus(1));
@@ -167,22 +195,22 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
                 pageParam.setData(busRanfaWorkCommonEntity.setEntity(new BusRanfaWork()));
                 //end: 只查询审核状态为已审核
 
-                Integer page=ranfaWorkChangeUtil.getPage()+1;
-                if(page>commonByPage1.getTotalPages()){
-                    page=1;
+                Integer page = ranfaWorkChangeUtil.getPage() + 1;
+                if (page > commonByPage1.getTotalPages()) {
+                    page = 1;
                 }
                 //如果redis中存储的ranfaBrandId（品牌id）不为空，则根据ranfaBrandId（品牌id）查询
-                if(ranfaWorkChangeUtil.getRanfaBrandId()!=null&&ranfaWorkChangeUtil.getRanfaBrandId()!=0){
+                if (ranfaWorkChangeUtil.getRanfaBrandId() != null && ranfaWorkChangeUtil.getRanfaBrandId() != 0) {
                     List<BusRanfaWork> eq = pageParam.getData().getAnd().getEq();
                     eq.add(new BusRanfaWork().setRanfaBrandId(ranfaWorkChangeUtil.getRanfaBrandId()));
                 }
-                if(ranfaWorkChangeUtil.getRanfaTechniqueId()!=null&&ranfaWorkChangeUtil.getRanfaTechniqueId()!=0){
+                if (ranfaWorkChangeUtil.getRanfaTechniqueId() != null && ranfaWorkChangeUtil.getRanfaTechniqueId() != 0) {
                     List<BusRanfaWork> eq = pageParam.getData().getAnd().getEq();
                     HashSet<BusRanfaTechnique> busRanfaTechniques = new HashSet<>();
                     busRanfaTechniques.add(new BusRanfaTechnique().setId(ranfaWorkChangeUtil.getRanfaTechniqueId()));
                     eq.add(new BusRanfaWork().setRanfaTechniques(busRanfaTechniques));
                 }
-                pageParam.setPageNumber(1*page);
+                pageParam.setPageNumber(1 * page);
                 pageParam.setPageSize(20);
                 Page<BusRanfaWork> commonByPage = findCommonByPage(pageParam);
                 List<BusRanfaWork> common = commonByPage.getContent();
@@ -193,7 +221,7 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
                 Collections.shuffle(blockIds);
                 ranfaWorkChangeUtil.setPage(page);
                 ranfaWorkChangeUtil.setBlockIds(blockIds);
-                index=0;
+                index = 0;
             }
             ranfaWorkChangeUtil.setIndex(index);
             ranfaWorkChangeUtil.setId(ranfaWorkChangeUtil.getBlockIds().get(index));
@@ -208,6 +236,34 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
         }
 
         return null;
+    }
+    
+
+    /**
+     * 查看用户自己上传的作品
+     * @return
+     */
+    @Override
+    public Page<BusRanfaWork> findByUploadSelf(
+            CommonEntityPageParam<BusRanfaWork> pageParam) {
+        Long userId = userService.getUserInfo().getId();
+        if(pageParam.getData().getAnd()==null){
+            ArrayList<BusRanfaWork> busRanfaWorks = new ArrayList<>();
+            busRanfaWorks.add(new BusRanfaWork().setUserIdByUpload(userId));
+            pageParam.getData().setAnd(new OperatorEntity<BusRanfaWork>().setEq(busRanfaWorks));
+            
+        }else if(pageParam.getData().getAnd().getEq()==null){
+            ArrayList<BusRanfaWork> busRanfaWorks = new ArrayList<>();
+            busRanfaWorks.add(new BusRanfaWork().setUserIdByUpload(userId));
+            pageParam.getData().getAnd().setEq(busRanfaWorks);
+        }else{
+            ArrayList<BusRanfaWork> busRanfaWorks = new ArrayList<>();
+            busRanfaWorks.add(new BusRanfaWork().setUserIdByUpload(userId));
+            pageParam.getData().getAnd().getEq().addAll(busRanfaWorks);
+        }
+        System.out.println(JSON.toJSONString(pageParam));
+
+        return super.findCommonByPage(pageParam);
     }
 
     @Override
@@ -239,10 +295,10 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
         Long aLong = ranfaWorkChangeUtil.getBlockIds().get(0);
         redisUtil.setEx(redisKey, JSON.toJSONString(ranfaWorkChangeUtil), 7, TimeUnit.DAYS);
 
-        try{
+        try {
             BusRanfaWork busRanfaWork = commonByPage.getContent().get(0);
-        }catch (IndexOutOfBoundsException e){
-            throw new BaseException(3000,"该品牌下暂没有课程视频");
+        } catch (IndexOutOfBoundsException e) {
+            throw new BaseException(3000, "该品牌下暂没有课程视频");
         }
         return commonByPage.getContent().get(0);
     }
@@ -280,10 +336,10 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
         System.out.println("JSON.toJSONString(ranfaWorkChangeUtil) = " + JSON.toJSONString(ranfaWorkChangeUtil));
         redisUtil.setEx(redisKey, JSON.toJSONString(ranfaWorkChangeUtil), 7, TimeUnit.DAYS);
 
-        try{
+        try {
             BusRanfaWork busRanfaWork = commonByPage.getContent().get(0);
-        }catch (IndexOutOfBoundsException e){
-            throw new BaseException(3000,"该分类下暂没有课程视频");
+        } catch (IndexOutOfBoundsException e) {
+            throw new BaseException(3000, "该分类下暂没有课程视频");
         }
         return commonByPage.getContent().get(0);
     }
@@ -293,12 +349,12 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
         Long userId = userService.getUserInfo().getId();
         String redisKey = "user_id:" + userId + ":ranfa_work_change_util";
         String utilStr = redisUtil.get(redisKey);
-        if(utilStr==null){
+        if (utilStr == null) {
             return null;
         }
         RanfaWorkChangeUtil ranfaWorkChangeUtil = JSON.parseObject(utilStr, RanfaWorkChangeUtil.class);
         Long ranfaTechniqueId = ranfaWorkChangeUtil.getRanfaTechniqueId();
-        if(ranfaTechniqueId==null||ranfaTechniqueId==0){
+        if (ranfaTechniqueId == null || ranfaTechniqueId == 0) {
             return new BusRanfaTechnique().setId(null);
         }
         BusRanfaTechnique busRanfaTechnique = techniqueRepository.findById(ranfaTechniqueId).get();
@@ -307,18 +363,18 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
 
     @Resource
     BusRanfaBrandRepository ranfaBrandRepository;
-    
+
     @Override
     public BusRanfaBrand brandByChange() {
         Long userId = userService.getUserInfo().getId();
         String redisKey = "user_id:" + userId + ":ranfa_work_change_util";
         String utilStr = redisUtil.get(redisKey);
-        if(utilStr==null){
+        if (utilStr == null) {
             return null;
         }
         RanfaWorkChangeUtil ranfaWorkChangeUtil = JSON.parseObject(utilStr, RanfaWorkChangeUtil.class);
         Long ranfaBrandId = ranfaWorkChangeUtil.getRanfaBrandId();
-        if(ranfaBrandId==null||ranfaBrandId==0){
+        if (ranfaBrandId == null || ranfaBrandId == 0) {
             return new BusRanfaBrand().setId(null);
         }
         BusRanfaBrand busRanfaBrand = ranfaBrandRepository.findById(ranfaBrandId).get();
@@ -333,10 +389,10 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
         payPramItem.setTitle("染发一号-教学视频");
 //        param.setPayParams(payParams);
         BusRanfaWork cesRanfaWork = repository.findById(Long.valueOf(payPramItem.getGoodsId())).get();
-        String body="染发一号-教学视频";
+        String body = "染发一号-教学视频";
 
-        if(cesRanfaWork.getTitle()!=null){
-            body+="-"+cesRanfaWork.getTitle();
+        if (cesRanfaWork.getTitle() != null) {
+            body += "-" + cesRanfaWork.getTitle();
         }
 
         PayResult result = new PayResult();
