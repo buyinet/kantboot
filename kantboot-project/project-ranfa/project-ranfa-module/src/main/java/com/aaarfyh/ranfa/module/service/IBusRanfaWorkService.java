@@ -19,6 +19,11 @@ public interface IBusRanfaWorkService extends IBaseGoodsService<BusRanfaWork,Lon
     void submit(BusRanfaWork busRanfaWork);
 
     /**
+     * 提交修改
+     * @param busRanfaWork
+     */
+    void submitEdit(BusRanfaWork busRanfaWork);
+    /**
      * 随机切换视频
      * @return 返回随机切换的视频
      */
@@ -48,4 +53,6 @@ public interface IBusRanfaWorkService extends IBaseGoodsService<BusRanfaWork,Lon
      * @return
      */
     PayResult payBefore(GoodsPayParam param);
+
+    void toExamine(BusRanfaWork entity);
 }

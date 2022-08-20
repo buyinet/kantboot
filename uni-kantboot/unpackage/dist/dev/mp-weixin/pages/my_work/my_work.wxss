@@ -52,7 +52,7 @@ page {
   position: relative;
   box-shadow: 0 5rpx 5rpx rgba(118, 118, 118, 0.1);
   width: 730rpx;
-  height: 227rpx;
+  height: 270rpx;
   padding: 20rpx;
 }
 .box .left {
@@ -61,7 +61,7 @@ page {
 }
 .box .left image {
   width: 177rpx;
-  height: 227rpx;
+  height: 270rpx;
 }
 .box .left .left_img {
   border-radius: 20rpx 0 0 20rpx;
@@ -89,7 +89,7 @@ page {
 }
 .box .right .bottom {
   position: absolute;
-  top: 220rpx;
+  top: 250rpx;
 }
 .box .right .bottom .left2 {
   font-size: 24rpx;

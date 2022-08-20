@@ -1,0 +1,17 @@
+{
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "修改作品",
+  "navigationBarBackgroundColor": "#FFF",
+  "backgroundColor": "#F8F8F8",
+  "navigationStyle": "default",
+  "usingComponents": {
+    "u-row": "/uni_modules/uview-ui/components/u-row/u-row",
+    "u-col": "/uni_modules/uview-ui/components/u-col/u-col",
+    "u-upload": "/uni_modules/uview-ui/components/u-upload/u-upload",
+    "u-icon": "/uni_modules/uview-ui/components/u-icon/u-icon",
+    "u-button": "/uni_modules/uview-ui/components/u-button/u-button",
+    "u-popup": "/uni_modules/uview-ui/components/u-popup/u-popup",
+    "u-toast": "/uni_modules/uview-ui/components/u-toast/u-toast",
+    "kt-video": "/commpents/kt/ktFile/ktVideo"
+  }
+}

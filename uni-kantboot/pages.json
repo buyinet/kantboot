@@ -61,6 +61,19 @@
             }
             
         }
+		,{
+		    "path" : "pages/play2/play2",
+		    "style" :                                                                                    
+		    {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "正在播放",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"enablePullDownRefresh": false,
+				"navigationBarTextStyle": "black",
+				"navigationStyle": "default"
+		    }
+		    
+		}
         ,{
             "path" : "pages/guanyuwomen/guanyuwomen",
             "style" :                                                                                    
@@ -168,6 +181,30 @@
             {
 				"navigationBarTextStyle": "black",
 				"navigationBarTitleText": "我的作品",
+				"navigationBarBackgroundColor": "#FFF",
+				"backgroundColor": "#F8F8F8",
+				"navigationStyle": "default"
+            }
+            
+        }
+        ,{
+            "path" : "pages/ranfaWordRemove/ranfaWordRemove",
+            "style" :                                                                                    
+            {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "删除作品",
+				"navigationBarBackgroundColor": "#FF0000",
+				"backgroundColor": "#FF0000",
+				"navigationStyle": "default"
+            }
+            
+        }
+        ,{
+            "path" : "pages/edit_work/edit_work",
+            "style" :                                                                                    
+            {
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "修改作品",
 				"navigationBarBackgroundColor": "#FFF",
 				"backgroundColor": "#F8F8F8",
 				"navigationStyle": "default"

@@ -8,69 +8,58 @@
 		z-index: 100;
 		box-sizing: border-box;
 		padding: 10rpx 30rpx 10rpx 30rpx">
-			<u-subsection
-			 fontSize="25"
-			 @change="subCurrChange"
-			 :list="['审核已通过','未审核','审核不通过','全部']" :current="subCurr">
+			<u-subsection fontSize="25" @change="subCurrChange" :list="['审核已通过','未审核','审核不通过','全部']" :current="subCurr">
 			</u-subsection>
 		</view>
-		<view style="height: 60rpx;"></view>
+		<view style="height: 80rpx;"></view>
+		
 		<u-popup :overlayOpacity=".7" :show="checkShow" :customStyle="{overflowY: 'scroll'}" :safeAreaInsetTop="true"
 			@close="closeCheck" @open="openCheck" class="brand-box" mode="right">
 			<view style="text-align: center;font-weight: bold;color: rgba(0,0,0,.2);">
 				品牌选择
 			</view>
-			<view class="brand"
-			 @click="
+			<view class="brand" @click="
 			 paramData.pageNumber=1;
 			 ranfaBrandBySelected={id:null};
-			 paramData.data.and.eq[0].ranfaBrandId=null;this.closeCheck();this.findCommon();" >
+			 paramData.data.and.eq[0].ranfaBrandId=null;this.closeCheck();this.findCommon();">
 				<text v-if="null!=paramData.data.and.eq[0].ranfaBrandId">全部</text>
-				<text v-if="null==paramData.data.and.eq[0].ranfaBrandId" style="opacity: .7;"
-				>全部</text>
+				<text v-if="null==paramData.data.and.eq[0].ranfaBrandId" style="opacity: .7;">全部</text>
 			</view>
-			<view class="brand"
-			 v-for="(item,index) in ranfaBrands"
-			 @click="
+			<view class="brand" v-for="(item,index) in ranfaBrands" @click="
 			 paramData.pageNumber=1;
 			 ranfaBrandBySelected=item;
-			 paramData.data.and.eq[0].ranfaBrandId=item.id;this.closeCheck();this.findCommon();" >
+			 paramData.data.and.eq[0].ranfaBrandId=item.id;this.closeCheck();this.findCommon();">
 				<text v-if="item.id!=paramData.data.and.eq[0].ranfaBrandId">{{item.name}}</text>
-				<text v-if="item.id==paramData.data.and.eq[0].ranfaBrandId" style="opacity: .7;"
-				>{{item.name}}</text>
+				<text v-if="item.id==paramData.data.and.eq[0].ranfaBrandId" style="opacity: .7;">{{item.name}}</text>
 			</view>
 		</u-popup>
-		
+
 		<u-popup :overlayOpacity=".7" :show="checkShow2" :customStyle="{overflowY: 'scroll'}" :safeAreaInsetTop="true"
 			@close="closeCheck2" @open="openCheck2" class="brand-box" mode="right">
 			<view style="text-align: center;font-weight: bold;color: rgba(0,0,0,.2);">
 				分类选择
 			</view>
-			<view class="brand"
-			 @click="
+			<view class="brand" @click="
 			 paramData.pageNumber=1;
 			 ranfaTechniqueBySelected={id:null};
-			 paramData.data.and.eq[0].ranfaTechniques[0].id=null;this.closeCheck2();this.findCommon();" >
+			 paramData.data.and.eq[0].ranfaTechniques[0].id=null;this.closeCheck2();this.findCommon();">
 				<text v-if="null!=paramData.data.and.eq[0].ranfaTechniques[0].id">全部</text>
-				<text v-if="null==paramData.data.and.eq[0].ranfaTechniques[0].id" style="opacity: .7;"
-				>全部</text>
+				<text v-if="null==paramData.data.and.eq[0].ranfaTechniques[0].id" style="opacity: .7;">全部</text>
 			</view>
-			<view class="brand"
-			 v-for="(item,index) in ranfaTechniques"
-			 @click="
+			<view class="brand" v-for="(item,index) in ranfaTechniques" @click="
 			 paramData.pageNumber=1;
 			 ranfaTechniqueBySelected=item;
-			 paramData.data.and.eq[0].ranfaTechniques[0].id=item.id;this.closeCheck2();this.findCommon();" >
+			 paramData.data.and.eq[0].ranfaTechniques[0].id=item.id;this.closeCheck2();this.findCommon();">
 				<text v-if="item.id!=paramData.data.and.eq[0].ranfaTechniques[0].id">{{item.name}}</text>
-				<text v-if="item.id==paramData.data.and.eq[0].ranfaTechniques[0].id" style="opacity: .7;"
-				>{{item.name}}</text>
+				<text v-if="item.id==paramData.data.and.eq[0].ranfaTechniques[0].id"
+					style="opacity: .7;">{{item.name}}</text>
 			</view>
 		</u-popup>
 
 		<view>
 			<view v-if="bodyData.content.length==0" class="not-to">
 				<image mode="widthFix" src="../../static/5.png"></image>
-				<view>暂无收藏视频</view>
+				<view>无视频</view>
 			</view>
 			<view>
 				<view style="height: 20rpx;"></view>
@@ -94,7 +83,7 @@
 								background-color: rgba(118,118,118,.7);
 								border-radius: 20rpx 0 20rpx 0;
 								bottom: 19rpx;
-								left: 280rpx
+								left: 285rpx
 								">染发后</text>
 						<image class="right_img" mode="aspectFill" :src="item.fileUrlByBackCoverImage"></image>
 					</view>
@@ -107,14 +96,41 @@
 							<view style="height: 20rpx;"></view>
 							<view style="color: gray;">品牌：{{item.ranfaBrand.name}}</view>
 							<view style="height: 20rpx;"></view>
+							<view style="color: gray;">状态：
+							<text v-if="item.auditStatus==0">
+								未审核
+							</text>
+							<text v-if="item.auditStatus==1">
+								已通过
+							</text>
+							<text v-if="item.auditStatus==2">
+								审核不通过
+							</text>
+
+							</view>
+							
+							<view style="height: 20rpx;"></view>
 							<view style="color: gray;">分类:
-								<view v-for="item1 in item.ranfaTechniques" style="
+								<view v-for="item1 in item.ranfaTechniques"
+								 v-if="item.ranfaTechniques.length>0"
+								 style="
 								display: inline-block;
 								margin-left: 10rpx;
 								padding: 3rpx 10rpx 3rpx 10rpx;
 								border-radius: 10rpx;
 								box-shadow: 0 5rpx 10rpx rgba(118,118,118,.3);">
 									{{item1.name}}
+								</view>
+								
+								<view
+								 v-if="item.ranfaTechniques.length==0"
+								 style="
+								display: inline-block;
+								margin-left: 10rpx;
+								padding: 3rpx 10rpx 3rpx 10rpx;
+								border-radius: 10rpx;
+								">
+									未分类
 								</view>
 							</view>
 
@@ -124,14 +140,51 @@
 							<view class="left2">
 								价格：<text>{{item.price/100}}元</text>
 							</view>
-							<view v-if="item.auditStatus==1&&item.buy" @click="toPlay(item.id)" class="edit_text">
+<!-- 							<view v-if="item.auditStatus==1&&!item.buy" @click="pay(item.id)" class="edit_text">
+								购买
+							</view> -->
+							<view
+							 v-if="item.auditStatus==1"
+							 style="
+							display: inline;
+							width:60rpx;
+							margin-left: 60rpx;
+							" class="edit_text"
+								@click="toPage('/pages/indexToShare/indexToShare?ranfaWorkId='+item.id)">
+								分享
+							</view>
+							<view
+							 v-if="item.auditStatus!=1"
+							 style="
+							display: inline;
+							width:60rpx;
+							color: rgba(255,0,0,.6);
+							margin-left: 60rpx;
+							"
+							 @click="
+							 toPage('/pages/ranfaWordRemove/ranfaWordRemove?ranfaWorkId='+item.id)"
+							 class="edit_text">
+								删除
+							</view>
+							<view style="
+							position: absolute;
+							left: 175rpx;
+							display: inline;width:60rpx;" 
+							@click="toPage('/pages/play2/play2?ranfaWorkId='+item.id)"
+							class="edit_text"
+								>
 								查看
 							</view>
-							<view v-if="item.auditStatus==1&&!item.buy" @click="pay(item.id)" class="edit_text">
-								购买
-							</view>
-							<view style="display: inline;margin-left: 60rpx;" class="edit_text" @click="toPage('/pages/indexToShare/indexToShare?ranfaWorkId='+item.id)">
-								分享
+							<view 
+							 v-if="item.auditStatus!=1"
+							 @click="toPage('/pages/edit_work/edit_work?ranfaWorkId='+item.id)"
+							style="
+							position: absolute;
+							display: inline;width:60rpx;
+							left: 120rpx;
+							" class="edit_text"
+								>
+								修改
 							</view>
 						</view>
 					</view>
@@ -153,41 +206,33 @@
 			width: 680rpx;">
 			<u-grid :border="true" col="5">
 				<u-grid-item>
-					<text 
-					@click="openCheck()"
-					v-if="ranfaBrandBySelected.id==null"
-					class="grid-text" style="font-weight: bold;color: gray;">选择品牌</text>
-					<text
-					@click="openCheck()"
-					v-if="ranfaBrandBySelected.id!=null"
-					class="grid-text" style="font-weight: bold;
+					<text @click="openCheck()" v-if="ranfaBrandBySelected.id==null" class="grid-text"
+						style="font-weight: bold;color: gray;">选择品牌</text>
+					<text @click="openCheck()" v-if="ranfaBrandBySelected.id!=null" class="grid-text" style="font-weight: bold;
 					font-size: 25rpx;
 					color: gray;">
-					<text style="font-size: 15rpx;">品牌：</text>
-					<text v-if="ranfaBrandBySelected.name.length<4">{{ranfaBrandBySelected.name}}</text>
-					<text v-if="ranfaBrandBySelected.name.length>=4"
-					style="font-size: 20rpx;"
-					>{{ranfaBrandBySelected.name}}</text>
-					
+						<text style="font-size: 15rpx;">品牌：</text>
+						<text v-if="ranfaBrandBySelected.name.length<4">{{ranfaBrandBySelected.name}}</text>
+						<text v-if="ranfaBrandBySelected.name.length>=4"
+							style="font-size: 20rpx;">{{ranfaBrandBySelected.name}}</text>
+
 					</text>
 				</u-grid-item>
 				<u-grid-item>
-				<text 
-					@click="openCheck2()"
-					v-if="ranfaTechniqueBySelected.id==null"
-					class="grid-text" style="font-weight: bold;color: gray;">选择分类</text>
-					<text
-					@click="openCheck2()"
-					v-if="ranfaTechniqueBySelected.id!=null"
-					class="grid-text" style="font-weight: bold;
+					<text @click="openCheck2()" v-if="ranfaTechniqueBySelected.id==null" class="grid-text"
+						style="font-weight: bold;color: gray;">选择分类</text>
+					<text @click="openCheck2()" v-if="ranfaTechniqueBySelected.id!=null" class="grid-text" style="font-weight: bold;
 					font-size: 25rpx;
 					color: gray;">
-					<text style="font-size: 15rpx;">分类：</text>
-					<text v-if="ranfaTechniqueBySelected.name.length<4">{{ranfaTechniqueBySelected.name}}</text>
-					<text v-if="ranfaTechniqueBySelected.name.length>=4"
-					style="font-size: 20rpx;"
-					>{{ranfaTechniqueBySelected.name}}</text>
-					
+						<text style="font-size: 15rpx;">分类：</text>
+						<text v-if="ranfaTechniqueBySelected.name.length<4">
+						{{ranfaTechniqueBySelected.name}}
+						</text>
+						<text v-if="ranfaTechniqueBySelected.name.length>=4"
+							style="font-size: 20rpx;">
+						{{ranfaTechniqueBySelected.name}}
+						</text>
+
 					</text>
 				</u-grid-item>
 
@@ -217,15 +262,15 @@
 	export default {
 		data() {
 			return {
-				subCurr:0,
-				ranfaBrandBySelected:{
-					id:null
+				subCurr: 1,
+				ranfaBrandBySelected: {
+					id: null
 				},
-				ranfaTechniqueBySelected:{
-					
+				ranfaTechniqueBySelected: {
+
 				},
-				ranfaTechniques:[],
-				ranfaBrands:[],
+				ranfaTechniques: [],
+				ranfaBrands: [],
 				checkShow: false,
 				checkShow2: false,
 				paramData: {
@@ -235,15 +280,13 @@
 					"sortField": "gmtModified",
 					"data": {
 						"and": {
-							"eq": [
-								{
-									auditStatus:0,
-									ranfaBrandId:null,
-									ranfaTechniques:[
-										{id:null}
-									]
-								},
-							],
+							"eq": [{
+								auditStatus: 1,
+								ranfaBrandId: null,
+								ranfaTechniques: [{
+									id: null
+								}]
+							}, ],
 							"vague": [],
 							"like": [],
 							"gt": [],
@@ -267,32 +310,44 @@
 				bodyData: {}
 			}
 		},
+		onShow() {
+			this.findCommon();
+		},
 		mounted() {
 			this.findCommon();
 			this.getRanfaBrands();
 			this.getRanfaTechniques();
 		},
 		methods: {
-			subCurrChange(res){
-				this.subCurr=res;
-				if(res==0){
+			subCurrChange(res) {
+				this.bodyData.content=[];
+				this.subCurr = res;
+				if(this.subCurr==0){
 					this.paramData.data.and.eq[0].auditStatus="1";
+					this.findCommon();
+					return false;
 				}
-				else if(res==1){
+				if(this.subCurr==1){
 					this.paramData.data.and.eq[0].auditStatus="0";
+					this.findCommon();
+					return false;
+				
 				}
-				else if(res==2){
+				if(this.subCurr==2){
 					this.paramData.data.and.eq[0].auditStatus="2";
+					this.findCommon();
+					return false;
+				
 				}
-				else if(res==3){
+				if(this.subCurr==3){
 					this.paramData.data.and.eq[0].auditStatus=null;
+					this.findCommon();
+					return false;
 				}
-				console.log(this.paramData)
-				this.findCommon();
 			},
-			toPage(page){
+			toPage(page) {
 				uni.navigateTo({
-					url:page
+					url: page
 				})
 			},
 			pay(id) {
@@ -305,7 +360,7 @@
 							number: 1, //数量，选填
 							coupons: [], //优惠券,选填
 							otherParam: [{ //其它参数
-			
+
 							}]
 						}]
 					},
@@ -313,22 +368,22 @@
 						uni.requestPayment({
 							provider: 'wxpay', // 服务提提供商
 							...res.data.data, // 签名
-							success: (res1)=> {
+							success: (res1) => {
 								this.findCommon();
 								//支付成功后，对此id的商品重新获取，主要判断是否真的购买，以改变bodyData.buy来渲染页面
 								Request.request({
 									url: Api.ranfaWork.findById,
-									data:{
-										id:id
+									data: {
+										id: id
 									},
 									success: (res) => {
-										if(res.data.data.buy){
+										if (res.data.data.buy) {
 											this.toPlay(id);
 										}
 										this.$forceUpdate();
 									}
 								});
-								
+
 								console.log('支付成功', res1);
 								// 业务逻辑。。。
 							},
@@ -336,7 +391,7 @@
 								console.log('支付失败', err1);
 							}
 						});
-			
+
 					}
 				});
 			},
@@ -347,7 +402,7 @@
 						entity: {}
 					},
 					success: (res) => {
-						
+
 						this.ranfaTechniques = res.data.data;
 						// console.log(JSON.stringify(res));
 						this.$forceUpdate();
@@ -361,7 +416,7 @@
 						entity: {}
 					},
 					success: (res) => {
-			
+
 						this.ranfaBrands = res.data.data;
 						// console.log(JSON.stringify(res));
 						this.$forceUpdate();
@@ -380,33 +435,64 @@
 			openCheck2() {
 				this.checkShow2 = true;
 			},
-			toPlay(id){
-				uni.setStorageSync("ranfaWorkIdOfPlay",id)
+			toPlay(id) {
+				uni.setStorageSync("ranfaWorkIdOfPlay", id)
 				uni.navigateTo({
-					url:"/pages/play/play",
+					url: "/pages/play/play",
 				})
 			},
 			findCommon() {
-				console.log(this.paramData.pageNumber);
-				if(this.paramData.pageNumber<1){
-					this.paramData.pageNumber=1;
+				if (this.paramData.pageNumber < 1) {
+					this.paramData.pageNumber = 1;
 					return false;
 				}
-				
+
 				Request.requestSync({
 					url: Api.ranfaWork.findByUploadSelf,
 					data: this.paramData,
 					success: (res) => {
 						this.bodyData = res.data.data;
-						if(this.paramData.pageNumber>this.bodyData.totalPages-1){
-							this.paramData.pageNumber=this.bodyData.totalPages-1;
-							return false;
+						if (this.paramData.pageNumber > this.bodyData.totalPages - 1) {
+							this.paramData.pageNumber = this.bodyData.totalPages - 1;
+							// return false;
 						}
+						this.$forceUpdate();
+
 					}
 				});
 
 			}
-		}
+		},
+		watch: {
+			subCurr: {
+				immediate: true,
+				handler(newVal) {
+					this.bodyData.content=[];
+					if (this.subCurr == 0) {
+						this.paramData.data.and.eq[0].auditStatus = "1";
+						this.findCommon();
+						return false;
+					}
+					if (this.subCurr == 1) {
+						this.paramData.data.and.eq[0].auditStatus = "0";
+						this.findCommon();
+						return false;
+
+					}
+					if (this.subCurr == 2) {
+						this.paramData.data.and.eq[0].auditStatus = "2";
+						this.findCommon();
+						return false;
+
+					}
+					if (this.subCurr == 3) {
+						this.paramData.data.and.eq[0].auditStatus = null;
+						this.findCommon();
+						return false;
+					}
+				}
+			}
+		},
 	}
 </script>
 
@@ -428,6 +514,7 @@
 			width: 100%;
 		}
 	}
+
 	.brand {
 		padding: 20rpx;
 		text-align: center;
@@ -437,11 +524,12 @@
 	.brand:active {
 		color: rgba(118, 118, 118, .5);
 	}
+
 	.box {
 		position: relative;
 		box-shadow: 0 5rpx 5rpx rgba(118, 118, 118, .1);
 		width: 730rpx;
-		height: 227rpx;
+		height: 270rpx;
 		padding: 20rpx;
 
 		.left {
@@ -450,7 +538,7 @@
 
 			image {
 				width: 177rpx;
-				height: 227rpx;
+				height: 270rpx;
 			}
 
 			.left_img {
@@ -485,7 +573,7 @@
 
 			.bottom {
 				position: absolute;
-				top: 220rpx;
+				top: 250rpx;
 
 				.left2 {
 					font-size: 24rpx;
@@ -513,6 +601,7 @@
 			}
 		}
 	}
+
 	.edit_text1 {
 		position: absolute;
 		color: #4EC1FF;
@@ -521,7 +610,7 @@
 		font-size: 20rpx;
 		position: absolute;
 	}
-	
+
 	.edit_text1:active {
 		opacity: .2;
 	}

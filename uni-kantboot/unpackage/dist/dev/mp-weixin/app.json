@@ -5,6 +5,7 @@
     "pages/index/index",
     "pages/home/home",
     "pages/play/play",
+    "pages/play2/play2",
     "pages/guanyuwomen/guanyuwomen",
     "pages/tixian/tixian",
     "pages/upload_work/upload_work",
@@ -14,7 +15,9 @@
     "pages/indexToShare/indexToShare",
     "pages/proposal/proposal",
     "pages/shangchuanshuoming/shangchuanshuoming",
-    "pages/my_work/my_work"
+    "pages/my_work/my_work",
+    "pages/ranfaWordRemove/ranfaWordRemove",
+    "pages/edit_work/edit_work"
   ],
   "subPackages": [],
   "window": {

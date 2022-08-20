@@ -141,8 +141,30 @@ var url = {
 		remove: "project-ranfa/ranfa_technique/remove",
 		findCommonPage:"project-ranfa/ranfa_technique/find_common_page",
 		findCommonList:"project-ranfa/ranfa_technique/find_common_list"
+	},
+
+	ranfaWork:{
+		save: "project-ranfa/ranfa_work/save",
+		change: "project-ranfa/ranfa_work/change",
+		findAll: "project-ranfa/ranfa_work/find_all",
+		toExamine:"project-ranfa/ranfa_work/to_examine",
+		removeByUploadSelf:"project-ranfa/ranfa_work/remove_by_upload_self",
+		remove: "project-ranfa/ranfa_work/remove",
+		findCommonPage:"project-ranfa/ranfa_work/find_common_page",
+		findCommonList:"project-ranfa/ranfa_work/find_common_list",
+		findCommonPageByBuySuccess:"project-ranfa/ranfa_work/find_common_page_by_user_self_buy",
+		findCommonPageByUserSelfCollection:"project-ranfa/ranfa_work/find_common_page_by_user_self_collection",
+		techniqueByChange:'project-ranfa/ranfa_work/technique_by_change',
+		techniqueToChange:'project-ranfa/ranfa_work/technique_to_change',
+		submit:'project-ranfa/ranfa_work/submit',
+		submitEdit:'project-ranfa/ranfa_work/submit_edit',
+		findByUploadSelf:'project-ranfa/ranfa_work/find_by_upload_self',
+		removeBySelf:"project-ranfa/ranfa_work/remove_by_self",
+		findById:"project-ranfa/ranfa_work/find_by_id",
+		findCommonGoodsPage:"project-ranfa/ranfa_work/find_common_goods_page",
+		brandToChange:"project-ranfa/ranfa_work/brand_to_change",
+		brandByChange:"project-ranfa/ranfa_work/brand_by_change",
 	}
-	
 	
 	
 }

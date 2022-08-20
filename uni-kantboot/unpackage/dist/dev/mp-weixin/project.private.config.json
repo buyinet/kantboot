@@ -113,6 +113,20 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/ranfaWordRemove/ranfaWordRemove",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/edit_work/edit_work",
+          "query": "ranfaWorkId=143",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

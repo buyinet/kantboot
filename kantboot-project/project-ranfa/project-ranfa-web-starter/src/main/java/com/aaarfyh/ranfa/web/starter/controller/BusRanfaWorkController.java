@@ -15,6 +15,7 @@ import com.kantboot.pay.util.common.util.PayAfterResult;
 import com.kantboot.pay.util.common.util.PayResult;
 import com.kantboot.system.user.module.entity.SysUser;
 import com.kantboot.system.user.module.service.ISysUserService;
+import com.kantboot.util.common.exception.BaseException;
 import com.kantboot.util.common.util.RestResult;
 import com.kantboot.util.core.entity.CommonEntityPageParam;
 import lombok.SneakyThrows;
@@ -35,13 +36,43 @@ public class BusRanfaWorkController extends BaseGoodsController<BusRanfaWork, Lo
     @Resource
     IBusRanfaWorkService service;
 
+    @Resource
+    ISysUserService userService;
     private Interner<String> intern= Interners.<String>newStrongInterner();
+
+    @RequestMapping("/to_examine")
+    public RestResult<?> toExamine(@RequestBody BusRanfaWork entity){
+        service.toExamine(entity);
+        return RestResult.success("审核成功","审核成功");
+    }
 
     @RequestMapping("/submit")
     public RestResult<?> submit(@RequestBody BusRanfaWork entity) {
-
         service.submit(entity);
         return RestResult.success("提交成功","提交成功");
+    }
+
+    @RequestMapping("/submit_edit")
+    public RestResult<?> submitEdit(@RequestBody BusRanfaWork entity) {
+        service.submitEdit(entity);
+        return RestResult.success("提交成功","提交成功");
+    }
+
+    /**
+     * 删除本身属于自己的作品
+     * @return
+     */
+    @RequestMapping("/remove_by_upload_self")
+    public RestResult<?> removeByUploadSelf(
+            @RequestParam("id") Long id
+    ){
+        BusRanfaWork busRanfaWork = repository.findById(id).get();
+        if(busRanfaWork.getUserIdByUpload().equals(userService.getUserInfo().getId())){
+            repository.deleteById(id);
+            return RestResult.success("删除成功","删除成功");
+        }
+
+        throw new BaseException(300,"非本人，不可删除");
     }
 
     @Override

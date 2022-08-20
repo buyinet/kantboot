@@ -59,7 +59,15 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
     HttpServletRequest request;
 
     Interner<String> pool = Interners.newWeakInterner();
-
+    @Override
+    public void toExamine(BusRanfaWork entity) {
+        BusRanfaWork busRanfaWork = repository.findById(entity.getId()).get();
+        busRanfaWork
+                .setAuditStatus(entity.getAuditStatus())
+                .setProcess(entity.getProcess())
+                .setReasonsForFailureInAudit(entity.getReasonsForFailureInAudit());
+        repository.save(busRanfaWork);
+    }
     @Override
     public void submit(BusRanfaWork entity) {
         entity.setId(null);
@@ -76,6 +84,30 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
         entity.setAuditStatus(0);
         entity.setUserIdByUpload(userService.getUserInfo().getId());
         BusRanfaWork save = super.save(entity);
+
+        for (BusRanfaWorkVideo ranfaWorkVideo : ranfaWorkVideos) {
+            ranfaWorkVideo.setId(null);
+            ranfaWorkVideo.setRanfaWorkId(save.getId());
+            ranfaWorkVideoRepository.save(ranfaWorkVideo);
+        }
+    }
+
+    @Override
+    public void submitEdit(BusRanfaWork entity) {
+        List<BusRanfaWorkVideo> ranfaWorkVideos =
+                JSON.parseArray(
+                        JSON.toJSONString(entity.getRanfaWorkVideos()),BusRanfaWorkVideo.class);
+        entity.setGmtCreate(new Date());
+        entity.setRanfaWorkVideos(null);
+        entity.setUserIdByUpload(userService.getUserInfo().getId());
+        BusRanfaWork save = super.save(entity);
+
+        List<BusRanfaWorkVideo> byRanfaWorkId = ranfaWorkVideoRepository.findByRanfaWorkId(entity.getId());
+
+        for (BusRanfaWorkVideo busRanfaWorkVideo : byRanfaWorkId) {
+            ranfaWorkVideoRepository.deleteById(busRanfaWorkVideo.getId());
+        }
+//        ranfaWorkVideoRepository.findByFileIdOfVideo();
 
         for (BusRanfaWorkVideo ranfaWorkVideo : ranfaWorkVideos) {
             ranfaWorkVideo.setId(null);
@@ -237,6 +269,7 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
 
         return null;
     }
+
     
 
     /**
