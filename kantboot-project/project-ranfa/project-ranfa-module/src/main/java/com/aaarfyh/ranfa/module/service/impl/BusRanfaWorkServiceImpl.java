@@ -63,11 +63,20 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
     public void toExamine(BusRanfaWork entity) {
         BusRanfaWork busRanfaWork = repository.findById(entity.getId()).get();
         busRanfaWork
+                .setRanfaTechniques(entity.getRanfaTechniques())
                 .setAuditStatus(entity.getAuditStatus())
                 .setProcess(entity.getProcess())
                 .setReasonsForFailureInAudit(entity.getReasonsForFailureInAudit());
-        repository.save(busRanfaWork);
+        BusRanfaWork save = repository.save(busRanfaWork);
     }
+
+    @Override
+    public void toAuditStatus3(Long id) {
+        BusRanfaWork busRanfaWork = repository.findById(id).get();
+        busRanfaWork.setAuditStatus(3);
+        BusRanfaWork save = repository.save(busRanfaWork);
+    }
+
     @Override
     public void submit(BusRanfaWork entity) {
         entity.setId(null);
@@ -99,6 +108,7 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
                         JSON.toJSONString(entity.getRanfaWorkVideos()),BusRanfaWorkVideo.class);
         entity.setGmtCreate(new Date());
         entity.setRanfaWorkVideos(null);
+        entity.setAuditStatus(0);
         entity.setUserIdByUpload(userService.getUserInfo().getId());
         BusRanfaWork save = super.save(entity);
 
@@ -294,7 +304,6 @@ public class BusRanfaWorkServiceImpl extends BaseGoodsServiceImpl<BusRanfaWork, 
             busRanfaWorks.add(new BusRanfaWork().setUserIdByUpload(userId));
             pageParam.getData().getAnd().getEq().addAll(busRanfaWorks);
         }
-        System.out.println(JSON.toJSONString(pageParam));
 
         return super.findCommonByPage(pageParam);
     }

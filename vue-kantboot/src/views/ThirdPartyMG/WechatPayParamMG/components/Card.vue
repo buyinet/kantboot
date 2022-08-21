@@ -35,6 +35,7 @@
       <el-table-column prop="mchId" label="Mch Id"/>
       <el-table-column prop="mchKey" label="Mch Key"/>
       <el-table-column prop="content" label="描述"/>
+      <el-table-column prop="fileUrlByApiclientCertP12" label="提现证书（文件url）"/>
       <el-table-column prop="gmtCreate" label="创建时间"/>
 
       <el-table-column fixed="right" label="操作" width="240">

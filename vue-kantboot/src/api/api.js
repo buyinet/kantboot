@@ -70,11 +70,12 @@ var url = {
 	},
 
 	tpWechatAppletPayParam:{
-		save: "kantboot-third-party/wechat_applet_pay_param/save",
-		findAll: "kantboot-third-party/wechat_applet_pay_param/find_all",
-		remove: "kantboot-third-party/wechat_applet_pay_param/remove",
-		findCommonPage:"kantboot-third-party/wechat_applet_pay_param/find_common_page",
-		findCommonList:"kantboot-third-party/wechat_applet_pay_param/find_common_list"
+		save: "kantboot-third-party/wechat_pay_param/save",
+		findAll: "kantboot-third-party/wechat_pay_param/find_all",
+		remove: "kantboot-third-party/wechat_pay_param/remove",
+		findCommonPage:"kantboot-third-party/wechat_pay_param/find_common_page",
+		findCommonList:"kantboot-third-party/wechat_pay_param/find_common_list",
+		balanceCashOutToWechat:"kantboot-third-party/wechat_pay_param/balance_cash_out_to_wechat"
 	},
 
 	payNotify:{
@@ -164,6 +165,8 @@ var url = {
 		findCommonGoodsPage:"project-ranfa/ranfa_work/find_common_goods_page",
 		brandToChange:"project-ranfa/ranfa_work/brand_to_change",
 		brandByChange:"project-ranfa/ranfa_work/brand_by_change",
+
+		toAuditStatus3:"project-ranfa/ranfa_work/to_audit_status3"
 	}
 	
 	

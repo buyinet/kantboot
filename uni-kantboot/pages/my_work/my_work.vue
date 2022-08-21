@@ -8,7 +8,9 @@
 		z-index: 100;
 		box-sizing: border-box;
 		padding: 10rpx 30rpx 10rpx 30rpx">
-			<u-subsection fontSize="25" @change="subCurrChange" :list="['审核已通过','未审核','审核不通过','全部']" :current="subCurr">
+			<u-subsection fontSize="25" @change="subCurrChange" :list="['审核已通过','未审核','审核不通过',
+			'官方屏蔽',
+			'全部']" :current="subCurr">
 			</u-subsection>
 		</view>
 		<view style="height: 80rpx;"></view>
@@ -105,6 +107,13 @@
 							</text>
 							<text v-if="item.auditStatus==2">
 								审核不通过
+								<text style="
+								color:rgba(255,0,0,.4)">
+									({{item.reasonsForFailureInAudit}})
+								</text>
+							</text>
+							<text v-if="item.auditStatus==3">
+								该作品被投诉，官方审核后屏蔽
 							</text>
 
 							</view>
@@ -133,6 +142,7 @@
 									未分类
 								</view>
 							</view>
+
 
 						</view>
 
@@ -176,7 +186,7 @@
 								查看
 							</view>
 							<view 
-							 v-if="item.auditStatus!=1"
+							 v-if="item.auditStatus!=1&&item.auditStatus!=3"
 							 @click="toPage('/pages/edit_work/edit_work?ranfaWorkId='+item.id)"
 							style="
 							position: absolute;
@@ -188,6 +198,7 @@
 							</view>
 						</view>
 					</view>
+					
 				</view>
 			</view>
 		</view>
@@ -262,7 +273,7 @@
 	export default {
 		data() {
 			return {
-				subCurr: 1,
+				subCurr: 2,
 				ranfaBrandBySelected: {
 					id: null
 				},
@@ -340,6 +351,11 @@
 				
 				}
 				if(this.subCurr==3){
+					this.paramData.data.and.eq[0].auditStatus=3;
+					this.findCommon();
+					return false;
+				}
+				if(this.subCurr==4){
 					this.paramData.data.and.eq[0].auditStatus=null;
 					this.findCommon();
 					return false;
@@ -485,7 +501,12 @@
 						return false;
 
 					}
-					if (this.subCurr == 3) {
+					if(this.subCurr==3){
+						this.paramData.data.and.eq[0].auditStatus=3;
+						this.findCommon();
+						return false;
+					}
+					if (this.subCurr == 4) {
 						this.paramData.data.and.eq[0].auditStatus = null;
 						this.findCommon();
 						return false;

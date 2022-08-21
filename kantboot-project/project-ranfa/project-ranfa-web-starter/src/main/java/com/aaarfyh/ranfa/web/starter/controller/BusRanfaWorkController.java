@@ -46,6 +46,12 @@ public class BusRanfaWorkController extends BaseGoodsController<BusRanfaWork, Lo
         return RestResult.success("审核成功","审核成功");
     }
 
+    @RequestMapping("/to_audit_status3")
+    public RestResult<?> toAuditStatus3(@RequestParam("id") Long id){
+        System.out.println(id+"================");
+        service.toAuditStatus3(id);
+        return RestResult.success("屏蔽成功","屏蔽成功");
+    }
     @RequestMapping("/submit")
     public RestResult<?> submit(@RequestBody BusRanfaWork entity) {
         service.submit(entity);

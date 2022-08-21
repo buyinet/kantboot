@@ -49,6 +49,7 @@ public class FindCommonUtil<T> {
         transaction.begin();
         List<T> andEq = commonEntity.getAnd().getEq();
         String andEqJSONString = JSON.toJSONString(andEq);
+
         List<HashMap> andEqMaps = JSON.parseArray(andEqJSONString, HashMap.class);
 
 
@@ -60,6 +61,7 @@ public class FindCommonUtil<T> {
         List<T> andVague = commonEntity.getAnd().getVague();
         String andVagueJSONString = JSON.toJSONString(andVague);
         List<HashMap> andVagueMaps = JSON.parseArray(andVagueJSONString, HashMap.class);
+
 
 
         List<T> andGt = commonEntity.getAnd().getGt();

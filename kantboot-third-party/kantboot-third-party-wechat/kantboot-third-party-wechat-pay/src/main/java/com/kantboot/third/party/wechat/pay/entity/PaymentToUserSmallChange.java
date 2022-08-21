@@ -1,8 +1,8 @@
 package com.kantboot.third.party.wechat.pay.entity;
 
 import com.github.wxpay.sdk.WXPayUtil;
-import com.kantboot.util.common.util.WebSentUtil;
 import com.kantboot.third.party.wechat.pay.config.XStreamBean;
+import com.kantboot.util.common.util.WebSentUtil;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
@@ -58,7 +58,7 @@ public class PaymentToUserSmallChange {
     private String reUserName;
 
     @XStreamAlias("amount")
-    private Integer amount;
+    private Long amount;
 
     @XStreamAlias("desc")
     private String desc;
@@ -143,6 +143,21 @@ public class PaymentToUserSmallChange {
                 PaymentToUserSmallChange.URL,
                 this.certFilePath
                 );
+        xStream.alias("xml",PaymentToUserSmallChangeResult.class);
+        PaymentToUserSmallChangeResult o = (PaymentToUserSmallChangeResult) xStream.fromXML(s1);
+        return o;
+    }
+
+    @SneakyThrows
+    public PaymentToUserSmallChangeResult createPaymentToUserSmallChangeResult(String mchid,java.net.URL certFileUrl){
+        XStream xStream=new XStreamBean().xStream();
+        String xmlStr = xStream.toXML(this);
+        String s1 = WebSentUtil.httpClientSSL(
+                xmlStr,
+                mchid,
+                PaymentToUserSmallChange.URL,
+                certFileUrl
+        );
         xStream.alias("xml",PaymentToUserSmallChangeResult.class);
         PaymentToUserSmallChangeResult o = (PaymentToUserSmallChangeResult) xStream.fromXML(s1);
         return o;

@@ -356,6 +356,45 @@ public class WebSentUtil {
             }
         }
     }
+
+
+    /**
+     * 携带证书的httpPOST请求
+     * @param postDataXML
+     * @param certPassword
+     * @param requestUrl
+     * @param certFileUrl
+     * @return
+     * @throws Exception
+     */
+    public static String httpClientSSL(String postDataXML, String certPassword, String requestUrl, URL certFileUrl) throws Exception{
+        CloseableHttpClient httpClient = null;
+        CloseableHttpResponse httpResponse = null;
+        try{
+            KeyStore keyStore = getCertificate(certPassword,certFileUrl);
+            SSLContext sslContext = SSLContexts.custom().loadKeyMaterial(keyStore, certPassword.toCharArray()).build();
+            SSLConnectionSocketFactory sslf = new SSLConnectionSocketFactory(sslContext);
+            httpClient = HttpClients.custom().setSSLSocketFactory(sslf).build();
+            HttpPost httpPost = new HttpPost(requestUrl);//退款接口
+            httpPost.addHeader("Content-Type", "text/xml");
+            StringEntity reqEntity = new StringEntity(postDataXML,"UTF-8");
+            httpPost.setEntity(reqEntity);
+            String result = null;
+            httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            result = EntityUtils.toString(httpEntity, "UTF8");
+            EntityUtils.consume(httpEntity);
+            return result;
+        }finally {//关流
+            if(httpClient!=null){
+                httpClient.close();
+            }
+            if(httpResponse!=null){
+                httpResponse.close();
+            }
+        }
+    }
+
     /**
      *  获取证书文件
      * @certPassword 证书密码
@@ -366,6 +405,35 @@ public class WebSentUtil {
         try (FileInputStream inputStream = new FileInputStream(new File(fileUrl))) {
             KeyStore keyStore = KeyStore.getInstance("PKCS12");
             keyStore.load(inputStream, certPassword.toCharArray());
+            return keyStore;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+
+
+
+    private static KeyStore getCertificate(String certPassword,URL fileUrl) {
+        InputStream inputStream1=null;
+        try {
+            //url解码
+            URL url = fileUrl;
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            //设置超时间为3秒
+            conn.setConnectTimeout(3 * 1000);
+            //防止屏蔽程序抓取而返回403错误
+            conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
+            //得到输入流
+            inputStream1 = conn.getInputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //try-with-resources 关流
+        try {
+            KeyStore keyStore = KeyStore.getInstance("PKCS12");
+            System.out.println("inputStream1="+inputStream1);
+            keyStore.load(inputStream1, certPassword.toCharArray());
             return keyStore;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);

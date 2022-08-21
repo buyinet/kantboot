@@ -1,6 +1,8 @@
 package com.kantboot.third.party.module.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kantboot.system.user.module.entity.SysSetting;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -60,6 +62,11 @@ public class TpWechatPayParam {
     @Column(name="content")
     private String content;
 
+    /**
+     * 微信证书id
+     */
+    @Column(name="file_id_by_apiclient_cert_p12")
+    private Long fileIdByApiclientCertP12;
 
     /**
      * 创建时间
@@ -76,9 +83,24 @@ public class TpWechatPayParam {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name="gmt_modified",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date gmtModified;
+    @JsonIgnore
+    @Column(name = "setting_id", columnDefinition = "1")
+    private Long settingId;
 
+    @JsonIgnore
+    @OneToOne(targetEntity = SysSetting.class)
+    @JoinColumn(name = "setting_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private SysSetting setting;
 
+    @org.springframework.data.annotation.Transient
+    private String fileUrlByApiclientCertP12;
 
+    public String getFileUrlByApiclientCertP12(){
+        if(getSetting()!=null){
+            return  getSetting().getFileVisitUrl()+getFileIdByApiclientCertP12();
+        }
+        return null;
+    }
 }
 
 

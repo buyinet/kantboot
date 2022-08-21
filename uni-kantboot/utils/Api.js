@@ -30,7 +30,8 @@ var url = {
 	
 	cesAuthUserByWechat: {
 		// 微信小程序登录
-		loginByApplet: path + "kantboot-third-party/user_of_wechat/login"
+		loginByApplet: path + "kantboot-third-party/user_of_wechat/login",
+		balanceCashOutToWechat: path + "kantboot-third-party/user_of_wechat/balance_cash_out_to_wechat"
 	},
 	
 	authPayGoods: {

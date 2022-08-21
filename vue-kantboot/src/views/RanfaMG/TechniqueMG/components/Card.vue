@@ -2,7 +2,7 @@
   <el-card>
     <template #header>
       <div class="card-header">
-        <span>手法管理</span>
+        <span>分类管理</span>
         <el-button
             v-if="changeTo.showCard!='CardByAdd'"
             @click="toShowCardByAdd()"

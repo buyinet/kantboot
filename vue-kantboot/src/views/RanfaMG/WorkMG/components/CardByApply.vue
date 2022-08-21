@@ -2,7 +2,7 @@
     <el-card>
         <template #header>
             <div class="card-header">
-                <span>审核</span>
+                <span>审核 - {{paramData.iden}}</span>
             </div>
         </template>
 
@@ -58,13 +58,30 @@
                 </el-form-item>
                 
                 <div style="height: 20px"></div>
+
+                <el-form-item 
+                v-if="paramData.auditStatus==1"
+                label="添加分类:">
+                <div>
+                    <el-checkbox-group v-model="paramData.ranfaTechniques">
+                        <el-checkbox
+                        v-for="(item,index) in techniques"
+                        :label="item" >
+                        {{item.name}}</el-checkbox>
+                    </el-checkbox-group>
+                </div>
+
+                </el-form-item>
+                
+                <div style="height: 20px"></div>
                 <el-form-item>
                     <div style="display: inline-block;margin-left: 50%;transform: translateX(-50%)">
                         <el-button type="primary" @click="toSave()">确定</el-button>
                         <el-button @click="cancel">取消</el-button>
                     </div>
                 </el-form-item>
-            </el-form>
+
+</el-form>
         </el-scrollbar>
 
     </el-card>
@@ -83,18 +100,35 @@ export default {
     },
     data() {
         return {
+            
             paramData: {
                 "name": "",
                 "auditStatus": 2,
-                "reasonsForFailureInAudit":null
-            }
+                "reasonsForFailureInAudit":null,
+                ranfaTechniques:[],
+            },
+            techniques:[]
 
         }
     },
     mounted() {
-
+        this.getTechniques();
     },
     methods: {
+        getTechniques(){
+            this.$request.post({
+                url: this.$api.ranfaTechnique.findCommonList,
+                data: {
+                    entity:{}
+                },
+                stateSuccess: (res) => {
+                    this.techniques=res.data
+                },
+                stateFailed: (res) => {
+
+                }
+            });
+        },
         cancel() {
             this.changeTo.rightSpan = 0;
             this.changeTo.showCard = null;
@@ -110,6 +144,7 @@ export default {
             // if (this.paramData.folder && (this.paramData.pagePath == null || this.paramData.pagePath == "")) {
             //     this.paramData.pagePath = "DefaultFolder.vue";
             // }
+            this.paramData.fileUrlsOfVideo=null;
             this.$request.post({
                 url: this.$api.ranfaWork.toExamine,
                 data: this.paramData,
@@ -145,6 +180,16 @@ export default {
 </script>
 
 <style scoped>
+.type-tel{
+    font-size:10px;
+    color:red;
+}
+.type-tel:hover{
+    opacity: .6;
+}
+.type-tel:after{
+    opacity: .3;
+}
 .card-header {
     display: flex;
     justify-content: space-between;

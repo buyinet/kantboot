@@ -55,4 +55,6 @@ public interface IBusRanfaWorkService extends IBaseGoodsService<BusRanfaWork,Lon
     PayResult payBefore(GoodsPayParam param);
 
     void toExamine(BusRanfaWork entity);
+
+    void toAuditStatus3(Long id);
 }
