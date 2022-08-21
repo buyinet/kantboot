@@ -4,6 +4,8 @@ import com.kantboot.system.user.module.entity.SysUser;
 import com.kantboot.system.user.module.repository.SysUserRepository;
 import com.kantboot.system.user.module.service.ISysUserService;
 import com.kantboot.third.party.module.entity.TpUserOfWechat;
+import com.kantboot.third.party.module.entity.TpWechatAppletParam;
+import com.kantboot.third.party.module.entity.TpWechatPayParam;
 import com.kantboot.third.party.module.service.ITpWechatAppletParamService;
 import com.kantboot.third.party.wechat.applet.service.InfoService;
 import com.kantboot.third.party.wechat.pay.entity.PaymentToUserSmallChange;
@@ -64,20 +66,26 @@ public class UserOfWechatController extends BaseController {
     public void cashOutToWechat(Long moeny, Long userId) {
 
         TpUserOfWechat userInfo = service.getUserInfo();
+        TpWechatAppletParam defaultUse = tpWechatAppletParamService.getDefaultUse();
 //        CesKantbootUser cesKantbootUser = cesKantbootUserMapper.selectById(userId);
-
+        TpWechatPayParam wechatPayParam = defaultUse.getWechatPayParam();
 //        CesKantbootWechatUser byUserId = cesKantbootWechatUserService.findByUserId(userId);
         PaymentToUserSmallChange paymentToUserSmallChange
                 = new PaymentToUserSmallChange()
                 .setAmount(moeny)
+                .setMchAppid(defaultUse.getAppId())
+                .setIsCheckName(false)
+                .setMchid( wechatPayParam.getMchId())
                 .setOpenid(userInfo.getOpenid())
                 .setDesc("匠师币-提现")
                 .setIsCheckName(false);
-        String fileUrlByApiclientCertP12 = tpWechatAppletParamService.getDefaultUse().getWechatPayParam().getFileUrlByApiclientCertP12();
-        System.out.println("fileUrlByApiclientCertP12 = " + fileUrlByApiclientCertP12);
+
+        String fileUrlByApiclientCertP12 = wechatPayParam.getFileUrlByApiclientCertP12();
         PaymentToUserSmallChangeResult paymentToUserSmallChangeResult =
-                paymentToUserSmallChange.createPaymentToUserSmallChangeResult(
-                        tpWechatAppletParamService.getDefaultUse().getWechatPayParam().getMchId()
+                paymentToUserSmallChange
+                        .createSign(wechatPayParam.getMchKey())
+                        .createPaymentToUserSmallChangeResult(
+                        wechatPayParam.getMchId()
                         ,new URL(
                         fileUrlByApiclientCertP12
                 ));
@@ -88,7 +96,10 @@ public class UserOfWechatController extends BaseController {
 //        System.out.println(paymentToUserSmallChangeResult);
 
         if(paymentToUserSmallChangeResult.isSuccess()){
-            userService.addBalance(moeny);
+            if(moeny<0){
+                throw new BaseException(3333,"错误");
+            }
+            userService.addBalance(-moeny);
             return;
         }
 

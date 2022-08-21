@@ -96,8 +96,9 @@ public class TpWechatPayParam {
     private String fileUrlByApiclientCertP12;
 
     public String getFileUrlByApiclientCertP12(){
+//        System.out.println("getFileIdByApiclientCertP12()11 = " + getSetting().getFileVisitUrl()+this.getFileIdByApiclientCertP12());
         if(getSetting()!=null){
-            return  getSetting().getFileVisitUrl()+getFileIdByApiclientCertP12();
+            return  getSetting().getFileVisitUrl()+this.getFileIdByApiclientCertP12();
         }
         return null;
     }

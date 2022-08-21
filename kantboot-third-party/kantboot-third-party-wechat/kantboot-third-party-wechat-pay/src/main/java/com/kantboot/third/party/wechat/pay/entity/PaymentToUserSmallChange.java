@@ -29,7 +29,7 @@ public class PaymentToUserSmallChange {
     /**
      * 证书路径
      */
-    private String certFilePath;
+                                    private String certFilePath;
 
     @XStreamAlias("mch_appid")
     private String mchAppid;
@@ -152,12 +152,14 @@ public class PaymentToUserSmallChange {
     public PaymentToUserSmallChangeResult createPaymentToUserSmallChangeResult(String mchid,java.net.URL certFileUrl){
         XStream xStream=new XStreamBean().xStream();
         String xmlStr = xStream.toXML(this);
+        System.out.println("mchid = " + mchid);
         String s1 = WebSentUtil.httpClientSSL(
                 xmlStr,
                 mchid,
                 PaymentToUserSmallChange.URL,
                 certFileUrl
         );
+        System.out.println("s1"+s1);
         xStream.alias("xml",PaymentToUserSmallChangeResult.class);
         PaymentToUserSmallChangeResult o = (PaymentToUserSmallChangeResult) xStream.fromXML(s1);
         return o;
